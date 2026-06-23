@@ -1,0 +1,125 @@
+---
+import { SITE_TITLE } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+
+interface Props {
+	locale?: 'en' | 'zh-tw';
+	switchHref?: string;
+}
+
+const { locale = 'en', switchHref = locale === 'en' ? '/zh-tw/' : '/' } = Astro.props;
+const isZhTw = locale === 'zh-tw';
+const homeHref = isZhTw ? '/zh-tw/' : '/';
+const blogHref = isZhTw ? '/zh-tw/blog' : '/blog';
+const blogLabel = isZhTw ? '文章' : 'Blog';
+const currentHref = Astro.url.pathname;
+const englishHref = isZhTw ? switchHref : currentHref;
+const zhTwHref = isZhTw ? currentHref : switchHref;
+---
+
+<header>
+	<nav>
+		<h2><a href={homeHref}>{SITE_TITLE}</a></h2>
+		<div class="nav-actions">
+			<div class="internal-links">
+				<HeaderLink href={blogHref}>{blogLabel}</HeaderLink>
+				<HeaderLink href="https://github.com/HaoweiChan" target="_blank" rel="noreferrer"
+					>GitHub</HeaderLink
+				>
+				<HeaderLink href="https://tinboker.com" target="_blank" rel="noreferrer">TinBoker</HeaderLink>
+			</div>
+			<div class="language-switch" aria-label="Language switcher">
+				<a class:list={{ active: !isZhTw }} href={englishHref}>EN</a>
+				<a class:list={{ active: isZhTw }} href={zhTwHref}>繁中</a>
+			</div>
+		</div>
+	</nav>
+</header>
+<style>
+	header {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		margin: 0;
+		padding: 0 1em;
+		background: rgba(255, 255, 255, 0.86);
+		border-bottom: 1px solid rgba(var(--gray-light), 80%);
+		backdrop-filter: blur(18px);
+	}
+	h2 {
+		margin: 0;
+		font-size: 1em;
+	}
+
+	h2 a,
+	h2 a.active {
+		text-decoration: none;
+	}
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		max-width: 960px;
+		margin: 0 auto;
+	}
+	nav a {
+		padding: 1em 0.5em;
+		color: var(--black);
+		border-bottom: 2px solid transparent;
+		text-decoration: none;
+	}
+	nav a.active {
+		text-decoration: none;
+		border-bottom-color: var(--accent);
+	}
+	.internal-links {
+		display: flex;
+		gap: 0.25rem;
+	}
+	.nav-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+	}
+	.language-switch {
+		display: inline-flex;
+		padding: 0.15rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.72);
+		font-size: 0.78rem;
+	}
+	.language-switch a {
+		padding: 0.18rem 0.5rem;
+		border: 0;
+		border-radius: 999px;
+		color: rgb(var(--gray));
+		line-height: 1.4;
+	}
+	.language-switch a.active {
+		background: rgb(var(--black));
+		color: #fff;
+	}
+	@media (max-width: 720px) {
+		header {
+			padding: 0 0.75em;
+		}
+		nav {
+			align-items: flex-start;
+			flex-direction: column;
+			padding: 0.65rem 0;
+		}
+		nav a {
+			padding: 0.35em 0.5em 0.35em 0;
+		}
+		.nav-actions {
+			align-items: flex-start;
+			flex-direction: column;
+			gap: 0.45rem;
+		}
+		.language-switch a {
+			padding: 0.12rem 0.45rem;
+		}
+	}
+</style>

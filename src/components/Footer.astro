@@ -1,0 +1,38 @@
+---
+const today = new Date();
+
+interface Props {
+	locale?: 'en' | 'zh-tw';
+}
+
+const { locale = 'en' } = Astro.props;
+const isZhTw = locale === 'zh-tw';
+---
+
+<footer>
+	<span>&copy; {today.getFullYear()} Haowei Chan</span>
+	<a href={isZhTw ? '/zh-tw/blog' : '/blog'}>{isZhTw ? '文章' : 'Blog'}</a>
+	<a href="https://github.com/HaoweiChan" target="_blank" rel="noreferrer">GitHub</a>
+	<a href="https://tinboker.com" target="_blank" rel="noreferrer">TinBoker</a>
+</footer>
+<style>
+	footer {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+		padding: 3em 1em 5em;
+		border-top: 1px solid rgb(var(--gray-light));
+		background: #fff;
+		color: rgb(var(--gray));
+		text-align: center;
+		font-size: 0.85rem;
+	}
+	footer a {
+		text-decoration: none;
+		color: rgb(var(--gray));
+	}
+	footer a:hover {
+		color: rgb(var(--gray-dark));
+	}
+</style>

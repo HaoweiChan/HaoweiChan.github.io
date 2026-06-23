@@ -1,0 +1,271 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const SITE_DESCRIPTION_ZH =
+	'Haowei Chan 的個人作品集與部落格，收錄專案、寫作與網頁實驗。';
+
+const posts = (await getCollection('blog'))
+	.filter((post) => post.data.lang === 'zh-tw')
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+
+const featuredProjects = [
+	{
+		title: 'TinBoker',
+		description: '連到 tinboker.com，整理相關作品、實驗與後續更新。',
+		href: 'https://tinboker.com',
+	},
+	{
+		title: 'GitHub Projects',
+		description: 'HaoweiChan 的公開程式碼、原型與開源專案。',
+		href: 'https://github.com/HaoweiChan',
+	},
+	{
+		title: '技術筆記',
+		description: '關於工程決策、網頁工具與進行中專案的短篇紀錄。',
+		href: '/zh-tw/blog',
+	},
+];
+---
+
+<!doctype html>
+<html lang="zh-tw">
+	<head>
+		<BaseHead title={`${SITE_TITLE} | 繁體中文`} description={SITE_DESCRIPTION_ZH} />
+	</head>
+	<body>
+		<Header locale="zh-tw" switchHref="/" />
+		<main class="home">
+			<section class="intro" aria-labelledby="intro-title">
+				<p class="eyebrow">作品集與筆記</p>
+				<h1 id="intro-title">Haowei Chan</h1>
+				<p class="lede">
+					我打造實用的網頁產品，記錄學到的東西，並把專案、技術筆記與小型實驗公開整理在這裡。
+				</p>
+				<div class="actions" aria-label="主要連結">
+					<a class="button" href="/zh-tw/blog">閱讀文章</a>
+					<a class="button secondary" href="https://github.com/HaoweiChan" target="_blank" rel="noreferrer"
+						>查看 GitHub</a
+					>
+				</div>
+			</section>
+
+			<section class="section" aria-labelledby="projects-title">
+				<div class="section-heading">
+					<p class="eyebrow">精選</p>
+					<h2 id="projects-title">專案</h2>
+				</div>
+				<div class="project-grid">
+					{
+						featuredProjects.map((project) => (
+							<a class="project-card" href={project.href}>
+								<span>{project.title}</span>
+								<p>{project.description}</p>
+							</a>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="section" aria-labelledby="writing-title">
+				<div class="section-heading">
+					<p class="eyebrow">最新</p>
+					<h2 id="writing-title">文章</h2>
+				</div>
+				<div class="post-list">
+					{
+						posts.map((post) => (
+							<a class="post-row" href={`/zh-tw/blog/${post.data.translationOf ?? post.id}/`}>
+								<span>
+									<strong>{post.data.title}</strong>
+									<small>{post.data.description}</small>
+								</span>
+								<FormattedDate date={post.data.pubDate} locale="zh-TW" />
+							</a>
+						))
+					}
+				</div>
+			</section>
+		</main>
+		<Footer locale="zh-tw" />
+	</body>
+</html>
+
+<style>
+	.home {
+		width: 960px;
+	}
+
+	.intro {
+		padding: 5rem 0 4rem;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+
+	.eyebrow {
+		margin: 0 0 0.85rem;
+		color: var(--accent-dark);
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.lede {
+		max-width: 680px;
+		color: rgb(var(--gray-dark));
+		font-size: 1.35rem;
+		line-height: 1.55;
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 2rem;
+	}
+
+	.button {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0 1rem;
+		border: 1px solid rgb(var(--black));
+		border-radius: 999px;
+		background: rgb(var(--black));
+		color: #fff;
+		font-size: 0.9rem;
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.button:hover {
+		color: #fff;
+		transform: translateY(-1px);
+	}
+
+	.button.secondary {
+		background: transparent;
+		color: rgb(var(--black));
+	}
+
+	.button.secondary:hover {
+		color: rgb(var(--black));
+	}
+
+	.section {
+		padding: 3.5rem 0;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+
+	.section-heading {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.section-heading h2 {
+		margin: 0;
+		font-size: 1.75rem;
+	}
+
+	.project-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.project-card,
+	.post-row {
+		border: 1px solid rgb(var(--gray-light));
+		background: rgba(255, 255, 255, 0.72);
+		text-decoration: none;
+		transition:
+			border-color 160ms ease,
+			transform 160ms ease;
+	}
+
+	.project-card {
+		display: flex;
+		flex-direction: column;
+		min-height: 170px;
+		padding: 1.25rem;
+		border-radius: 8px;
+		color: rgb(var(--gray-dark));
+	}
+
+	.project-card span {
+		color: rgb(var(--black));
+		font-size: 1.15rem;
+		font-weight: 700;
+	}
+
+	.project-card p {
+		margin: auto 0 0;
+		font-size: 0.95rem;
+		line-height: 1.55;
+	}
+
+	.post-list {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.post-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 1.15rem;
+		border-radius: 8px;
+		color: rgb(var(--gray-dark));
+	}
+
+	.post-row span {
+		display: grid;
+		gap: 0.2rem;
+	}
+
+	.post-row strong {
+		color: rgb(var(--black));
+	}
+
+	.post-row small,
+	.post-row time {
+		color: rgb(var(--gray));
+		font-size: 0.85rem;
+		line-height: 1.4;
+	}
+
+	.project-card:hover,
+	.post-row:hover {
+		border-color: rgba(var(--gray), 55%);
+		color: rgb(var(--gray-dark));
+		transform: translateY(-2px);
+	}
+
+	@media (max-width: 720px) {
+		.intro {
+			padding: 3rem 0 2.5rem;
+		}
+
+		.lede {
+			font-size: 1.1rem;
+		}
+
+		.project-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.post-row {
+			align-items: flex-start;
+			flex-direction: column;
+		}
+	}
+</style>

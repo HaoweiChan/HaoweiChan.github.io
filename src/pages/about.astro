@@ -1,0 +1,27 @@
+---
+import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout
+	title="About Haowei Chan"
+	description="A short profile for Haowei Chan."
+	pubDate={new Date('June 23 2026')}
+	heroImage={AboutHeroImage}
+>
+	<p>
+		Haowei Chan is building a small public home for projects, notes, and experiments. This site is
+		designed to stay quiet, fast, and easy to maintain while leaving room for deeper writing over
+		time.
+	</p>
+
+	<p>
+		The blog is powered by Markdown and MDX through Astro content collections, so publishing can stay
+		as simple as adding a file to <code>src/content/blog</code>.
+	</p>
+
+	<p>
+		Find the current public work on <a href="https://github.com/HaoweiChan">GitHub</a> and
+		<a href="https://tinboker.com">TinBoker</a>.
+	</p>
+</Layout>
