@@ -80,7 +80,7 @@ const featuredProjects = [
 				<div class="post-list">
 					{
 						posts.map((post) => (
-							<a class="post-row" href={`/zh-tw/blog/${post.data.translationOf ?? post.id}/`}>
+							<a class="post-row" href={`/zh-tw/blog/${post.data.translationOf ?? post.id.replace(/^zh-tw\//, '')}/`}>
 								<span>
 									<strong>{post.data.title}</strong>
 									<small>{post.data.description}</small>

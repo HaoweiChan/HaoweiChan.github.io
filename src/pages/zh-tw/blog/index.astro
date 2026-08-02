@@ -110,7 +110,7 @@ const posts = (await getCollection('blog'))
 					{
 						posts.map((post) => (
 							<li>
-								<a href={`/zh-tw/blog/${post.data.translationOf ?? post.id}/`}>
+								<a href={`/zh-tw/blog/${post.data.translationOf ?? post.id.replace(/^zh-tw\//, '')}/`}>
 									{post.data.heroImage && (
 										<Image width={720} height={360} src={post.data.heroImage} alt="" />
 									)}

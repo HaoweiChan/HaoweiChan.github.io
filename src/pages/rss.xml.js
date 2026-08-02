@@ -10,7 +10,10 @@ export async function GET(context) {
 		site: context.site,
 		items: posts.map((post) => ({
 			...post.data,
-			link: `/blog/${post.id}/`,
+			link:
+				post.data.lang === 'zh-tw'
+					? `/zh-tw/blog/${post.data.translationOf ?? post.id.replace(/^zh-tw\//, '')}/`
+					: `/blog/${post.id}/`,
 		})),
 	});
 }

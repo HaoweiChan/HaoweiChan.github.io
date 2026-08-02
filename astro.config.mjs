@@ -3,11 +3,13 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import mermaid from 'astro-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://haoweichan.github.io',
-	integrations: [mdx(), sitemap()],
+	// mermaid() must precede mdx() so ```mermaid blocks are transformed before MDX compiles.
+	integrations: [mermaid(), mdx(), sitemap()],
 	fonts: [
 		{
 			provider: fontProviders.local(),
