@@ -2,7 +2,7 @@
 title: 'Hello, World'
 description: 'A short note to open this portfolio, and what the writing here will be about.'
 pubDate: 'Jun 23 2026'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+heroImage: '../../assets/blog/covers/hello-world.png'
 ---
 
 This site is a small home for projects, writing, and experiments by Haowei Chan.

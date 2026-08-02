@@ -3,6 +3,7 @@ title: '如何設計一條可靠的 Agentic Ingestion Pipeline'
 description: '從單一 Prompt 到 LangGraph 多 Agent 協作：一條財經 Podcast 摘要 Pipeline 的演進、踩坑與容錯設計。'
 lang: 'zh-tw'
 pubDate: 'Aug 2 2026'
+heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.png'
 ---
 
 最近我花了一段時間，將專案中負責處理**財經 Podcast** 語音與逐字稿的 AI 數據 Pipeline，從最初的單一 Ingestion 腳本逐步演進為基於多 Agent 協作的生產級版本。

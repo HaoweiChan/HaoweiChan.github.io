@@ -2,6 +2,7 @@
 title: 'My Personal Assistant Is Not a Chatbot'
 description: 'Building a resident assistant on Hermes Agent: six traits that stop it being a chatbot, what is genuinely clever about the Hermes agent mechanism, and the day it became trustworthy.'
 pubDate: 'Aug 3 2026'
+heroImage: '../../assets/blog/covers/resident-personal-assistant.png'
 ---
 
 To be clear up front: this is a personal setup I actually use. It is not a product and it is not becoming one. What I want to record here is what changed in the design once I stopped treating it as "a bot that answers questions" and started treating it as "something resident in the background with a schedule of its own".

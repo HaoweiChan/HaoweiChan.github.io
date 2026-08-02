@@ -4,7 +4,7 @@ description: '開啟這個作品集與部落格的一則短筆記，以及這裡
 lang: 'zh-tw'
 translationOf: 'hello-world'
 pubDate: 'Jun 23 2026'
-heroImage: '../../../assets/blog-placeholder-1.jpg'
+heroImage: '../../../assets/blog/covers/hello-world.png'
 ---
 
 這個網站是 Haowei Chan 用來整理專案、寫作與實驗的小型公開基地。

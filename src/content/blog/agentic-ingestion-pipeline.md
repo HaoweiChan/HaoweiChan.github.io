@@ -2,6 +2,7 @@
 title: 'Designing a Reliable Agentic Ingestion Pipeline'
 description: 'From a single prompt to a LangGraph multi-agent workflow: how a financial podcast summarization pipeline evolved, and the production lessons along the way.'
 pubDate: 'Aug 2 2026'
+heroImage: '../../assets/blog/covers/agentic-ingestion-pipeline.png'
 ---
 
 I recently spent a while rebuilding the AI data pipeline that processes **financial podcast** audio and transcripts, taking it from a single ingestion script to a production-grade multi-agent workflow.
