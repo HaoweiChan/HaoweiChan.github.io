@@ -1,6 +1,6 @@
 ---
 title: 'My Personal Assistant Is Not a Chatbot'
-description: 'Building something that lives in the background and speaks first: six traits that stop it being a chatbot, and the day it became trustworthy.'
+description: 'Building a resident assistant on Hermes Agent: six traits that stop it being a chatbot, what is genuinely clever about the Hermes agent mechanism, and the day it became trustworthy.'
 pubDate: 'Aug 3 2026'
 ---
 
@@ -14,7 +14,7 @@ That sounds like it amounts to "plus a scheduler", but building it out, the diff
 
 ## What it actually is
 
-Physically, it is boring: a small always-on machine at home running two things — a gateway connected to Discord, and a scheduler. Next to them sits an Obsidian vault — a pile of Markdown files in a git repo — which is its long-term memory.
+Physically, it is boring: a small always-on machine at home running **Hermes Agent** (Nous Research's open-source agent runtime), with its messaging gateway connected to Discord and its built-in scheduler. Next to them sits an Obsidian vault — a pile of Markdown files in a git repo — which is its long-term memory.
 
 What I receive on a normal day is roughly: summaries around the market sessions, a record of a few account balances, the day's log, and alerts when the system itself breaks. The specifics do not matter. What matters is that I did not ask for any of it in the moment.
 
@@ -60,7 +60,7 @@ I later added a classification on top: channels are either **interactive** (I ta
 
 ## 4. Capabilities are folders, with two entry points
 
-Every capability the assistant has is physically a directory: one spec file describing what it does and when to use it, plus a few scripts.
+Every capability the assistant has is physically a directory: a `SKILL.md` describing what it does and when to use it, plus a few scripts. That is the Hermes skill format, and it is my only extension point.
 
 The important part is that **the same script has two callers**: the scheduler can invoke it at 8:30am on its own, and I can invoke it directly from a chat message. Both run the same code. There is no "scheduled version" drifting apart from an "interactive version".
 
@@ -101,6 +101,28 @@ The result is that the assistant's behavior becomes a **tracked artifact**. I ca
 
 ---
 
+## The Hermes agent mechanism: why I did not write my own
+
+The six traits above are my design decisions. But half the work I never had to do, because Hermes already handles the hard part — and handles it better than what I would have written.
+
+**1. Skills come from three places, one of which is the agent itself.** Bundled skills, skills I install from a hub, and skills the agent grows from its own experience. The third is the important one: I do not have to decide up front what it should know how to do.
+
+**2. A curator maintains those skills in the background.** It is a background task that fires when the assistant is idle and the last review is old enough — no separate cron needed — and reviews the agent-created skills: marking stale ones, consolidating overlaps, archiving what is no longer used. Three hard rules I particularly like: it only touches agent-created skills (mine and installed ones are never modified), it never deletes and only archives (recoverable), and pinned skills are entirely exempt. A system that extends itself and has no layer like this eventually drowns in its own output.
+
+**3. After every turn, it forks itself for a background review.** Once the main conversation has replied, a background thread takes the same conversation snapshot, runs a forked agent, and asks one question: is there anything here that should be remembered, or should become a skill?
+
+The implementation details are the point. The fork **inherits the parent's live runtime** — same provider, model, credentials, cached system prompt — so it hits the same prefix cache. Its **tools are whitelisted down to memory and skill management**, everything else denied at runtime. And it **never touches the main conversation's prompt cache**. "The assistant learns" is not an abstract promise here; it is a concrete mechanism with a boundary, a permission scope, and a cost ceiling.
+
+**4. Background work runs on a different model.** The curator and other auxiliary tasks use a separate auxiliary client, isolated from the main conversation. A cheap model does the housekeeping; the good model stays for the thinking.
+
+**5. Subagents carry their own budget.** When work can be parallelized it spawns subagents, and each gets an independent iteration cap (90 for the parent by default, 50 per subagent). A runaway subtask burns its own allowance instead of eating the main line's — which is exactly what bit me back when I was writing scheduled agents myself.
+
+**6. Tools are composable sets that can be switched per context.** Tools are not one always-on list; they group and toggle per platform and per job. The research channel gets search; the job that posts a report gets no tools at all.
+
+Together, that is why I did not build my own: **the hard part of a resident agent is not making it capable, it is keeping it capable over months without going off the rails** — memory bloats, skills rot, background tasks quietly burn money, subtasks loop forever. Hermes has an explicit mechanism for all four rather than leaving them to the user.
+
+---
+
 ## The spine running through all of it: keep the model off the critical path
 
 The six traits above are its shape. This is why it became trustworthy.
@@ -125,19 +147,27 @@ flowchart TD
 
 Things that need judgment (research, synthesis, conversation) go through the model. Things that do not (same time, same format, same data, every day) go through a script. The model does what it is actually good at, rather than being responsible for being punctual.
 
+### In Hermes, that choice is a field
+
+This is the part I consider most important about actually using Hermes: **every scheduled job carries its own execution strategy**. Within the same scheduler, each job independently specifies whether it enters agent mode at all, which model and provider it uses, which toolsets are enabled, which skills are attached, and whether the previous job's output comes in as context.
+
+So "does this need judgment" is not a philosophical question. It is a field.
+
+I currently have 41 scheduled jobs, and **39 of them never enter agent mode** — plain scripts that touch no model at all. The remaining two genuinely need judgment (a weekly review and a daily log), and only those get a model and tools. That ratio is the argument of this post.
+
 One adjacent lesson worth recording: the default model in my config was retired by the provider one day, and from then on every call burned three retries before falling through to the backup. Nothing looked broken, because the fallback genuinely caught it — until I opened the error log and found several hundred occurrences of the same 404. **Fallbacks make failures silent, so the fallback itself needs monitoring.**
 
 ---
 
-## What the framework gave me, and what I had to design
+## What Hermes gave me, and what I had to design
 
 This is the most portable part of the whole thing.
 
-**What the framework gave me:** the messaging gateway, the scheduler, the loader for capability folders, an optional agent mode. Off the shelf, configure and go. The easy half.
+**What Hermes gave me:** the messaging gateway (it supports twenty-odd platforms; I use one), the scheduler, skill loading and self-extension, the curator, the background-review fork, composable toolsets, the auxiliary model, and budget isolation for subagents. Off the shelf, configure and go — and as the section above argues, those are precisely the pieces that are hardest to get right yourself.
 
 **What I had to design:** the plain-text memory layer and its field contract, the notification discipline (when to shut up), the split of responsibilities across channels, the behavioral contract and case book, and the pipeline that turns an idea into tracked engineering work.
 
-Put differently, the runtime was barely the problem. The hard parts are the ones nobody decides for you — when it is allowed to interrupt me, where what it remembers lives, and what it consults when it makes a call. None of those are solved by attaching a model.
+Put differently, the runtime was barely the problem. The hard parts are the ones nobody decides for you — when it is allowed to interrupt me, where what it remembers lives, and what it consults when it makes a call. None of those are solved by attaching a model, or by switching framework.
 
 ---
 
