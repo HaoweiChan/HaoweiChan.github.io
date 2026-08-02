@@ -32,7 +32,7 @@ pubDate: 'Aug 2 2026'
 
 為了解決單一模型調用的局限性，我選擇使用 LangChain 與 **LangGraph** 來重新建構整個工作流。
 
-![線性 Pipeline 與可恢復資料工廠對比圖](../../../assets/blog/linear-vs-recoverable-pipeline-zh.png)
+![線性 Pipeline 與可恢復資料工廠對比圖](../../../assets/blog/linear-vs-recoverable-pipeline.png)
 
 LangGraph 的「狀態圖（StateGraph）」概念非常適合這種複雜的 DAG（有向無環圖）流程。我們能定義一個共享的狀態對象（State），讓每個節點（Node）只負責處理狀態中的一部分資料，並在完成後更新狀態，最後傳遞給下一個節點。這樣做的好處是，我們能將「閱讀、過濾、章節合併、報告撰寫、個股分析、品質校驗」等工作完全解耦。
 
@@ -160,7 +160,7 @@ flowchart TD
 
 我利用 Python asyncio 的信號標（Semaphore）機制，為這三個 Agent 階段設定了獨立的併發信號標。這是我在監控後台對各個 Agent 階段併發限制進行觀測的視覺化面板示意圖：
 
-![Ingestion Pipeline 各階段併發預算分配與限制瓶頸](../../../assets/blog/concurrency-budget-dashboard-zh.png)
+![Ingestion Pipeline 各階段併發預算分配與限制瓶頸](../../../assets/blog/concurrency-budget-dashboard.png)
 
 ---
 
