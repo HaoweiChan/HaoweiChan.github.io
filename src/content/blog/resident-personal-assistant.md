@@ -14,7 +14,7 @@ That sounds like it amounts to "plus a scheduler", but building it out, the diff
 
 ## What it actually is
 
-Physically, it is boring: a small always-on machine at home running two things — a gateway connected to a chat app, and a scheduler. Next to them sits a plain-text notebook (Markdown files in a git repo), which is its long-term memory.
+Physically, it is boring: a small always-on machine at home running two things — a gateway connected to Discord, and a scheduler. Next to them sits an Obsidian vault — a pile of Markdown files in a git repo — which is its long-term memory.
 
 What I receive on a normal day is roughly: summaries around the market sessions, a record of a few account balances, the day's log, and alerts when the system itself breaks. The specifics do not matter. What matters is that I did not ask for any of it in the moment.
 
@@ -34,13 +34,13 @@ The flip side is that the assistant needs "say nothing" as a first-class option,
 
 ---
 
-## 2. It lives in a chat app I already use: no new surface
+## 2. It lives in Discord: no new surface
 
-I built no app, no dashboard, no web UI. It speaks inside the chat tool I already have open every day.
+I built no app, no dashboard, no web UI. It speaks inside the Discord I already have open every day.
 
 That is the real reason it survived past week two.
 
-Any interface that requires me to go and open it eventually becomes an interface I do not open. The chat app is already open, messages already push to my phone, history is free, and multi-device sync is not my problem. I effectively got a notification system, an inbox, and an archive for nothing.
+Any interface that requires me to go and open it eventually becomes an interface I do not open. Discord is already open, messages already push to my phone, history is free, and multi-device sync is not my problem. I effectively got a notification system, an inbox, and an archive for nothing.
 
 The cost is accepting the medium's constraints — message length, limited formatting, no interactive components. But those constraints pushed every message down to "one glance tells me whether to look closer", which for something that speaks a dozen times a day is an improvement, not a limitation.
 
@@ -48,9 +48,9 @@ The cost is accepting the medium's constraints — message length, limited forma
 
 ## 3. Channels are roles: routing, memory scope, and persona are one decision
 
-I use the chat app's channels as the routing table for the entire system.
+I use Discord channels as the routing table for the entire system.
 
-One channel, one role, one prompt, one destination folder. Market questions, research, engineering, report feeds, system alerts — each has its own channel, its own persona and data access, and its output lands in its own folder in the notebook.
+One channel, one role, one prompt, one destination folder. Market questions, research, engineering, report feeds, system alerts — each has its own channel, its own persona and data access, and its output lands in its own folder in the vault.
 
 This solves three things at once: I never have to explain the current context (the channel is the context), the assistant never has to guess where a conversation should be filed (the channel decides), and when I want to change one role's behavior I edit one isolated prompt without touching the others.
 
@@ -68,7 +68,7 @@ The important part is that **the same script has two callers**: the scheduler ca
 flowchart LR
     Sched[Scheduler] --> Skill[Capability folder<br/>spec + scripts]
     Me[I speak in a channel] --> Agent[Assistant] --> Skill
-    Skill --> Vault[(Plain-text notebook)]
+    Skill --> Vault[(Obsidian vault)]
     Skill --> Chan[Channel message]
 ```
 
@@ -78,7 +78,7 @@ It sounds obvious, but it removes a whole class of problems. Capabilities living
 
 ## 5. Memory is plain text
 
-Everything it learns, produces, and records ends up as Markdown files in a git repo. I can open them in an ordinary notes app, grep them, and edit them by hand.
+Everything it learns, produces, and records ends up as Markdown files in a git repo. I open them in Obsidian, grep them, and edit them by hand.
 
 The assistant and I read and write the same store — which matters far more than which database it uses. A summary it writes today, I can edit tomorrow; a note I write by hand, it can read back as context later. No import, no export, no format conversion in between.
 
@@ -120,7 +120,7 @@ flowchart TD
     C -- No --> Silent[Exit silently]
     C -- Yes --> Post[Post to the channel]
     A --> Post
-    Post --> V[(Write to the notebook)]
+    Post --> V[(Write to the vault)]
 ```
 
 Things that need judgment (research, synthesis, conversation) go through the model. Things that do not (same time, same format, same data, every day) go through a script. The model does what it is actually good at, rather than being responsible for being punctual.
