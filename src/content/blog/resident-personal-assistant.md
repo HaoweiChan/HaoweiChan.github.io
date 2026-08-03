@@ -189,3 +189,15 @@ The value here is not the automation. It is that **ideas now have a defined way 
 If I had to compress the whole thing into one line: **the value of a personal assistant is not how well it talks, but that it is punctual, quiet, and that you trust the numbers it hands you.**
 
 Talking is what the model provides, and that part is cheap now. Punctual, quiet, and trustworthy are not from the model — they come from scheduling, contracts, validation, and a great deal of judgment about when not to speak. Which is why, in this setup, the least important piece turns out to be the model itself.
+
+---
+
+## References
+
+<div class="ref-cards">
+<a class="ref-card" href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer"><img src="/refs/hermes-docs.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Hermes Agent documentation</strong><span>The runtime this assistant runs on, and the source for every mechanism described above.</span></span></a>
+<a class="ref-card" href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noreferrer"><img src="/refs/hermes-github.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Hermes Agent on GitHub</strong><span>MIT-licensed source. The details I cite — iteration budgets, the tool whitelist on the background fork — are all readable there.</span></span></a>
+<a class="ref-card" href="https://agentskills.io" target="_blank" rel="noreferrer"><img src="/refs/agentskills.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Agent Skills open standard</strong><span>The SKILL.md format behind “capabilities are folders”; Hermes skills are compatible with it.</span></span></a>
+<a class="ref-card" href="https://obsidian.md" target="_blank" rel="noreferrer"><img src="/refs/obsidian.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Obsidian</strong><span>How I read and edit the plain-text memory the assistant writes into.</span></span></a>
+<a class="ref-card" href="https://discord.com/developers/docs/intro" target="_blank" rel="noreferrer"><img src="/refs/discord-developers.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Discord Developer Platform</strong><span>The bot and webhook capabilities that make “channels are roles” practical, and their limits.</span></span></a>
+</div>

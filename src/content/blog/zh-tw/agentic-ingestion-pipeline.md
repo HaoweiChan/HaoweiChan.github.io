@@ -175,7 +175,9 @@ flowchart TD
 
 ## Reference
 
-- **[LangGraph Documentation](https://langchain-ai.github.io/langgraph/)**：深入理解如何使用 StateGraph、Nodes 和 Edges 建構具備循環與條件分支的多 Agent 系統。
-- **[LangChain OpenAI Integration Guide](https://python.langchain.com/docs/integrations/chat/openai/)**：了解如何配置 ChatOpenAI 以及自訂 API 請求參數（如關閉 reasoning 或啟用 json_mode）。
-- **[OpenRouter API Documentation](https://openrouter.ai/docs)**：理解 OpenRouter 提供的模型路由、429 Rate Limits 處理，以及如何透過 headers 自訂 App metadata。
-- **[Python asyncio Documentation](https://docs.python.org/3/library/asyncio.html)**：深入學習 asyncio.Semaphore 與 Event Loop，以實現高效的異步任務編排。
+<div class="ref-cards">
+<a class="ref-card" href="https://langchain-ai.github.io/langgraph/" target="_blank" rel="noreferrer"><img src="/refs/langgraph.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>LangGraph 官方文件</strong><span>整條 Pipeline 的基礎：StateGraph、節點、邊、共享狀態與條件分支。</span></span></a>
+<a class="ref-card" href="https://python.langchain.com/docs/integrations/chat/openai/" target="_blank" rel="noreferrer"><img src="/refs/langchain-openai.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>LangChain ChatOpenAI 整合文件</strong><span>自訂請求參數的出處，包含那個解掉 JSON 截斷問題的 reasoning 開關。</span></span></a>
+<a class="ref-card" href="https://openrouter.ai/docs" target="_blank" rel="noreferrer"><img src="/refs/openrouter.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>OpenRouter API 文件</strong><span>模型路由與 429 限速行為 —— 模型對比實驗與併發預算都建立在這上面。</span></span></a>
+<a class="ref-card" href="https://docs.python.org/3/library/asyncio.html" target="_blank" rel="noreferrer"><img src="/refs/python-asyncio.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Python asyncio 文件</strong><span>Semaphore 與 event loop，用來給每個 Agent 階段獨立的併發預算。</span></span></a>
+</div>

@@ -191,3 +191,15 @@ flowchart TD
 如果要我把這整套東西壓成一句話：**個人助理的價值不在它多會講話，在於它每天準時、安靜，而且你敢相信它給你的數字。**
 
 會講話是模型給的，那部分現在很便宜。準時、安靜、可信不是模型給的 —— 那些是排程、契約、驗證、還有大量關於「什麼時候不要說話」的判斷堆出來的。這也是為什麼在我這套配置裡，最不重要的那一塊，反而是模型本身。
+
+---
+
+## Reference
+
+<div class="ref-cards">
+<a class="ref-card" href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer"><img src="/refs/hermes-docs.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Hermes Agent 官方文件</strong><span>這套助理跑的 runtime，上面所有 agent 機制的出處。</span></span></a>
+<a class="ref-card" href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noreferrer"><img src="/refs/hermes-github.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Hermes Agent 原始碼（GitHub）</strong><span>MIT 授權。文中提到的 iteration 預算、背景分身的工具白名單這些細節，都可以直接在原始碼裡對照。</span></span></a>
+<a class="ref-card" href="https://agentskills.io" target="_blank" rel="noreferrer"><img src="/refs/agentskills.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Agent Skills 開放標準</strong><span>「能力是檔案」背後的 SKILL.md 格式，Hermes 的 skill 與它相容。</span></span></a>
+<a class="ref-card" href="https://obsidian.md" target="_blank" rel="noreferrer"><img src="/refs/obsidian.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Obsidian</strong><span>我用來讀寫那層純文字記憶的工具。</span></span></a>
+<a class="ref-card" href="https://discord.com/developers/docs/intro" target="_blank" rel="noreferrer"><img src="/refs/discord-developers.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Discord 開發者文件</strong><span>讓「頻道即角色」成立的 bot 與 webhook 能力，以及它們的限制。</span></span></a>
+</div>

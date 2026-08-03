@@ -183,7 +183,9 @@ Splitting the work across LangGraph nodes (filtering, clustering, chapter consol
 
 ## References
 
-- **[LangGraph Documentation](https://langchain-ai.github.io/langgraph/)** — building multi-agent systems with StateGraph, nodes, edges, loops, and conditional branches.
-- **[LangChain OpenAI Integration Guide](https://python.langchain.com/docs/integrations/chat/openai/)** — configuring ChatOpenAI and custom request parameters such as disabling reasoning or enabling JSON mode.
-- **[OpenRouter API Documentation](https://openrouter.ai/docs)** — model routing, handling 429 rate limits, and custom app metadata headers.
-- **[Python asyncio Documentation](https://docs.python.org/3/library/asyncio.html)** — asyncio.Semaphore and the event loop, for efficient async orchestration.
+<div class="ref-cards">
+<a class="ref-card" href="https://langchain-ai.github.io/langgraph/" target="_blank" rel="noreferrer"><img src="/refs/langgraph.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>LangGraph Documentation</strong><span>The StateGraph model this whole pipeline is built on — nodes, edges, shared state, conditional branches.</span></span></a>
+<a class="ref-card" href="https://python.langchain.com/docs/integrations/chat/openai/" target="_blank" rel="noreferrer"><img src="/refs/langchain-openai.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>LangChain ChatOpenAI integration</strong><span>Where the custom request parameters live, including the reasoning switch that fixed the truncated JSON.</span></span></a>
+<a class="ref-card" href="https://openrouter.ai/docs" target="_blank" rel="noreferrer"><img src="/refs/openrouter.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>OpenRouter API Documentation</strong><span>Model routing and 429 rate-limit behaviour — the basis for the model comparison and the concurrency budgets.</span></span></a>
+<a class="ref-card" href="https://docs.python.org/3/library/asyncio.html" target="_blank" rel="noreferrer"><img src="/refs/python-asyncio.jpg" alt="" loading="lazy" /><span class="ref-body"><strong>Python asyncio</strong><span>Semaphores and the event loop, used to give each agent stage its own concurrency budget.</span></span></a>
+</div>
