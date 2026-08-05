@@ -3,7 +3,7 @@ title: '我的個人助理不是 chatbot'
 description: '用 Hermes Agent 蓋一個常駐、會自己開口的個人助理：六個讓它不像聊天機器人的特性、Hermes 的 agent 機制聰明在哪，以及它變得可信的那一天。'
 lang: 'zh-tw'
 translationOf: 'resident-personal-assistant'
-pubDate: 'Aug 3 2026'
+pubDate: 'Mar 3 2026'
 heroImage: '../../../assets/blog/covers/resident-personal-assistant.png'
 ---
 
