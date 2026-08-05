@@ -2,6 +2,7 @@
 title: '如何設計一條可靠的 Agentic Ingestion Pipeline (下)：Step-by-step Checkpoints、推理解算溢出與防寫閘實戰'
 description: '生產環境實戰：Step-by-step Checkpoints 重播機制、推理模型 Token 截斷防禦、寫入前強校驗防寫閘與併發預算控制。'
 lang: 'zh-tw'
+translationOf: 'agentic-ingestion-pipeline-part2'
 pubDate: 'Jan 22 2026'
 heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.png'
 ---

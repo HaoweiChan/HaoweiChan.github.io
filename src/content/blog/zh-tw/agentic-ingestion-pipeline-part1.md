@@ -2,6 +2,7 @@
 title: '如何設計一條可靠的 Agentic Ingestion Pipeline (上)：從單一 Prompt 瓶頸到 LangGraph 多 Agent 協作圖譜'
 description: '從單一 Prompt 瓶頸到 LangGraph 多 Agent 協作：非結構化財經 Podcast 語音與逐字稿 Pipeline 的解耦與拓撲設計。'
 lang: 'zh-tw'
+translationOf: 'agentic-ingestion-pipeline-part1'
 pubDate: 'Jan 15 2026'
 heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.png'
 ---

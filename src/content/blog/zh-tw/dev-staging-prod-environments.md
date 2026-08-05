@@ -1,8 +1,9 @@
 ---
 title: 'Dev / Staging / Production：小團隊也需要的環境分層策略'
 description: '環境分層不是大型公司的儀式，而是一個降低發布風險的設計模式：如何透過 Branch-to-env 映射、Preview Deploys、Secrets 隔離與生產環境 Release Guardrails 提升發布可靠性。'
-pubDate: 'Feb 10 2026'
 lang: 'zh-tw'
+translationOf: 'dev-staging-prod-environments'
+pubDate: 'Feb 10 2026'
 heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.png'
 ---
 
