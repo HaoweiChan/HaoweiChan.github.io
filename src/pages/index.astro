@@ -8,25 +8,70 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const posts = (await getCollection('blog'))
 	.filter((post) => post.data.lang === 'en')
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const featuredProjects = [
 	{
-		title: 'TinBoker',
-		description: 'A focused product link for the work and experiments behind tinboker.com.',
-		href: 'https://tinboker.com',
+		id: 'tinboker',
+		title: 'TinBoker — AI Audio & Podcast Knowledge Platform',
+		tagline: 'An AI-native content platform combining unstructured speech processing, LangGraph multi-agent DAGs, and tiered caching.',
+		tags: ['React 19', 'TypeScript', 'Vite', 'FastAPI', 'Python 3.12', 'LangGraph', 'Redis', 'Docker', 'Caddy'],
+		highlights: [
+			'Multi-Agent Topology: Filters ad noise, dynamically consolidates chapters by length, and extracts key insights.',
+			'Step-by-step Checkpoints: Stores Raw / Checkpoint / Serving data layers for rerun_from failure recovery.',
+			'Tiered Caching: FastAPI + Redis cache-aside with Single-Flight locks to prevent cache stampedes.'
+		],
+		links: [
+			{ label: 'Visit Website', href: 'https://tinboker.com', external: true },
+			{ label: 'GitHub Repo', href: 'https://github.com/HaoweiChan/tinboker', external: true },
+			{ label: 'Architecture Post (Part 1)', href: '/blog/agentic-ingestion-pipeline-part1/' },
+			{ label: 'Production Post (Part 2)', href: '/blog/agentic-ingestion-pipeline-part2/' }
+		]
 	},
 	{
-		title: 'GitHub Projects',
-		description: 'Open-source code, prototypes, and public repositories by HaoweiChan.',
-		href: 'https://github.com/HaoweiChan',
+		id: 'hermes',
+		title: 'Hermes Agent — Resident Personal AI Assistant System',
+		tagline: 'Dual-entry resident assistant with Discord gateway, cron scheduler, plain-text vault memory, and automated portfolio tracking.',
+		tags: ['Python 3.11', 'Discord Gateway', 'Cron Scheduler', 'Obsidian Vault', 'Git Sweeper', 'Shioaji API', 'Schwab API'],
+		highlights: [
+			'Channels as Roles: Configures Discord channels as Kuroshio desk (#trading), report feeds (#reports), and research (#research).',
+			'Automated Portfolio Engine: Daily encrypted PDF statement parsing, Schwab/Shioaji API integration, T+2 settlement calculations, and auto-charting.',
+			'Single Git Sweeper: Decouples file writing from Git operations with scheduled automated commits & rebases.'
+		],
+		links: [
+			{ label: 'Assistant Architecture Post', href: '/blog/resident-personal-assistant/' },
+			{ label: 'Portfolio Automation Post', href: '/blog/broker-reports-and-portfolio-automation/' }
+		]
 	},
 	{
-		title: 'Technical Notes',
-		description: 'Short-form writing on engineering decisions, web tooling, and projects in progress.',
-		href: '/blog',
+		id: 'quant-engine',
+		title: 'Quant Engine & AlphaTrader — Cross-Market Quantitative Trading',
+		tagline: 'Modular quantitative trading engine and backtesting system supporting Taiwan futures (TXF) and Binance Crypto.',
+		tags: ['Python', 'Dash', 'vn.py', 'Shioaji API', 'Binance API', 'PostgreSQL', 'Collar Strategy'],
+		highlights: [
+			'Cross-Market Abstraction: Unified interface for Shioaji and Binance historical data & real-time streaming.',
+			'Collar Option Rotation: Options strategy engine for weekly covered calls and protective puts on TXF.',
+			'Dash Interactive Dashboard: Real-time MTM PnL charts, implied volatility (IV) bands, and cash yield indicators.'
+		],
+		links: [
+			{ label: 'GitHub Repo', href: 'https://github.com/HaoweiChan/quant-engine', external: true },
+			{ label: 'TX-Collar-Trader', href: 'https://github.com/HaoweiChan/TX-Collar-Trader', external: true }
+		]
 	},
+	{
+		id: 'trading-agents',
+		title: 'TradingAgents — Multi-Agent Equity Research & Consensus Debate',
+		tagline: 'Multi-agent consensus pipeline evaluating Technicals, Chips, Fundamentals, and Sentiment with bull/bear debates.',
+		tags: ['Python', 'Multi-Agent Debate', 'LangChain', 'JSON State Engine', 'Discord Integration'],
+		highlights: [
+			'Four Analyst Nodes: Independent evaluation of technical patterns, institutional share flows, financial metrics, and sentiment.',
+			'Bull/Bear Consensus Debate: Fires structured debates judged by a dedicated node for final allocation calls.',
+			'Discord Integration: Quick command lookup against local JSON logs with auto-pipeline triggers.'
+		],
+		links: [
+			{ label: 'GitHub Repo', href: 'https://github.com/HaoweiChan/TradingAgents', external: true }
+		]
+	}
 ];
 ---
 
@@ -42,55 +87,134 @@ const featuredProjects = [
 				<p class="eyebrow">Portfolio and notes</p>
 				<h1 id="intro-title">Haowei Chan</h1>
 				<p class="lede">
-					I build useful web products, document what I learn, and keep a public trail of projects,
-					technical notes, and small experiments.
+					I build web products and AI systems, document engineering decisions, and keep a public trail of projects,
+					technical notes, and experiments.
 				</p>
 				<div class="actions" aria-label="Primary links">
-					<a class="button" href="/blog">Read the blog</a>
+					<a class="button" href="/blog">Read all articles</a>
 					<a class="button secondary" href="https://github.com/HaoweiChan" target="_blank" rel="noreferrer"
 						>View GitHub</a
 					>
 				</div>
 			</section>
 
+			<!-- Expandable Projects Section -->
 			<section class="section" aria-labelledby="projects-title">
 				<div class="section-heading">
-					<p class="eyebrow">Featured</p>
-					<h2 id="projects-title">Projects</h2>
+					<div>
+						<p class="eyebrow">Featured</p>
+						<h2 id="projects-title">Projects</h2>
+					</div>
+					<button type="button" class="toggle-all-btn" id="toggle-projects-btn" onclick="toggleAllDetails('projects')">
+						✨ Expand / Collapse All
+					</button>
 				</div>
-				<div class="project-grid">
+
+				<div class="expandable-grid" id="projects-container">
 					{
 						featuredProjects.map((project) => (
-							<a class="project-card" href={project.href}>
-								<span>{project.title}</span>
-								<p>{project.description}</p>
-							</a>
+							<details class="expand-card project-card" id={`proj-${project.id}`}>
+								<summary class="expand-summary">
+									<div class="summary-header">
+										<h3 class="card-title">{project.title}</h3>
+										<span class="expand-badge">▼ Click to Expand</span>
+									</div>
+									<p class="card-tagline">{project.tagline}</p>
+									<div class="tag-row">
+										{project.tags.map((tag) => (
+											<span class="tech-tag">{tag}</span>
+										))}
+									</div>
+								</summary>
+								<div class="expand-content">
+									<div class="content-block">
+										<h4>💡 Architecture & Key Features</h4>
+										<ul>
+											{project.highlights.map((item) => (
+												<li>{item}</li>
+											))}
+										</ul>
+									</div>
+									<div class="card-actions">
+										{project.links.map((link) => (
+											<a
+												class="action-btn"
+												href={link.href}
+												target={link.external ? '_blank' : '_self'}
+												rel={link.external ? 'noreferrer' : ''}
+											>
+												{link.label} {link.external ? '↗' : '→'}
+											</a>
+										))}
+									</div>
+								</div>
+							</details>
 						))
 					}
 				</div>
 			</section>
 
+			<!-- Expandable Writing Section -->
 			<section class="section" aria-labelledby="writing-title">
 				<div class="section-heading">
-					<p class="eyebrow">Latest</p>
-					<h2 id="writing-title">Writing</h2>
+					<div>
+						<p class="eyebrow">Latest</p>
+						<h2 id="writing-title">Writing</h2>
+					</div>
+					<button type="button" class="toggle-all-btn" id="toggle-posts-btn" onclick="toggleAllDetails('posts')">
+						✨ Expand All Abstracts
+					</button>
 				</div>
-				<div class="post-list">
+
+				<div class="expandable-list" id="posts-container">
 					{
-						posts.map((post) => (
-							<a class="post-row" href={`/blog/${post.id}/`}>
-								<span>
-									<strong>{post.data.title}</strong>
-									<small>{post.data.description}</small>
-								</span>
-								<FormattedDate date={post.data.pubDate} />
-							</a>
-						))
+						posts.map((post) => {
+							const postHref = `/blog/${post.id}/`;
+							return (
+								<details class="expand-card post-card" id={`post-${post.id.replace(/\//g, '-')}`}>
+									<summary class="expand-summary">
+										<div class="post-summary-row">
+											<div class="post-title-group">
+												<h3 class="post-title">{post.data.title}</h3>
+												<p class="post-desc">{post.data.description}</p>
+											</div>
+											<div class="post-meta">
+												<FormattedDate date={post.data.pubDate} />
+												<span class="expand-badge">▼ Expand Abstract</span>
+											</div>
+										</div>
+									</summary>
+									<div class="expand-content post-expand-body">
+										<div class="abstract-box">
+											<h4>📖 Article Preview & Executive Summary</h4>
+											<p>{post.data.description}</p>
+										</div>
+										<div class="post-action-row">
+											<a class="read-full-btn" href={postHref}>
+												Read Full Article →
+											</a>
+										</div>
+									</div>
+								</details>
+							);
+						})
 					}
 				</div>
 			</section>
 		</main>
 		<Footer />
+
+		<script is:inline>
+			function toggleAllDetails(type) {
+				const container = document.getElementById(type === 'projects' ? 'projects-container' : 'posts-container');
+				if (!container) return;
+				const detailsList = container.querySelectorAll('details');
+				const allOpen = Array.from(detailsList).every((d) => d.open);
+				detailsList.forEach((d) => {
+					d.open = !allOpen;
+				});
+			}
+		</script>
 	</body>
 </html>
 
@@ -131,7 +255,7 @@ const featuredProjects = [
 		display: inline-flex;
 		align-items: center;
 		min-height: 44px;
-		padding: 0 1rem;
+		padding: 0 1.25rem;
 		border: 1px solid rgb(var(--black));
 		border-radius: 999px;
 		background: rgb(var(--black));
@@ -139,11 +263,12 @@ const featuredProjects = [
 		font-size: 0.9rem;
 		font-weight: 700;
 		text-decoration: none;
+		transition: transform 160ms ease, background 160ms ease;
 	}
 
 	.button:hover {
 		color: #fff;
-		transform: translateY(-1px);
+		transform: translateY(-2px);
 	}
 
 	.button.secondary {
@@ -153,6 +278,7 @@ const featuredProjects = [
 
 	.button.secondary:hover {
 		color: rgb(var(--black));
+		background: rgba(0, 0, 0, 0.04);
 	}
 
 	.section {
@@ -162,10 +288,10 @@ const featuredProjects = [
 
 	.section-heading {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		margin-bottom: 1.25rem;
+		margin-bottom: 1.5rem;
 	}
 
 	.section-heading h2 {
@@ -173,79 +299,230 @@ const featuredProjects = [
 		font-size: 1.75rem;
 	}
 
-	.project-grid {
+	.toggle-all-btn {
+		cursor: pointer;
+		padding: 0.4rem 0.85rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.9);
+		color: var(--accent-dark);
+		font-size: 0.82rem;
+		font-weight: 700;
+		transition: all 160ms ease;
+	}
+
+	.toggle-all-btn:hover {
+		border-color: var(--accent);
+		background: var(--accent);
+		color: #fff;
+	}
+
+	.expandable-grid {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.25rem;
+	}
+
+	.expandable-list {
+		display: grid;
 		gap: 1rem;
 	}
 
-	.project-card,
-	.post-row {
+	.expand-card {
 		border: 1px solid rgb(var(--gray-light));
-		background: rgba(255, 255, 255, 0.72);
-		text-decoration: none;
-		transition:
-			border-color 160ms ease,
-			transform 160ms ease;
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.85);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+		overflow: hidden;
+		transition: border-color 200ms ease, box-shadow 200ms ease;
 	}
 
-	.project-card {
-		display: flex;
-		flex-direction: column;
-		min-height: 170px;
-		padding: 1.25rem;
-		border-radius: 8px;
-		color: rgb(var(--gray-dark));
+	.expand-card[open] {
+		border-color: rgba(var(--accent-rgb, 35, 90, 240), 0.4);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 	}
 
-	.project-card span {
-		color: rgb(var(--black));
-		font-size: 1.15rem;
-		font-weight: 700;
+	.expand-summary {
+		cursor: pointer;
+		padding: 1.25rem 1.5rem;
+		list-style: none;
+		user-select: none;
 	}
 
-	.project-card p {
-		margin: auto 0 0;
-		font-size: 0.95rem;
-		line-height: 1.55;
+	.expand-summary::-webkit-details-marker {
+		display: none;
 	}
 
-	.post-list {
-		display: grid;
-		gap: 0.75rem;
-	}
-
-	.post-row {
+	.summary-header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		padding: 1rem 1.15rem;
-		border-radius: 8px;
-		color: rgb(var(--gray-dark));
 	}
 
-	.post-row span {
-		display: grid;
-		gap: 0.2rem;
-	}
-
-	.post-row strong {
+	.card-title {
+		margin: 0;
 		color: rgb(var(--black));
+		font-size: 1.2rem;
+		font-weight: 700;
 	}
 
-	.post-row small,
-	.post-row time {
-		color: rgb(var(--gray));
-		font-size: 0.85rem;
-		line-height: 1.4;
+	.expand-badge {
+		flex-shrink: 0;
+		color: var(--accent-dark);
+		font-size: 0.8rem;
+		font-weight: 700;
+		transition: transform 200ms ease;
 	}
 
-	.project-card:hover,
-	.post-row:hover {
-		border-color: rgba(var(--gray), 55%);
+	.expand-card[open] .expand-badge {
+		transform: rotate(180deg);
+	}
+
+	.card-tagline {
+		margin: 0.5rem 0 0.85rem;
 		color: rgb(var(--gray-dark));
-		transform: translateY(-2px);
+		font-size: 0.98rem;
+		line-height: 1.5;
+	}
+
+	.tag-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+
+	.tech-tag {
+		padding: 0.15rem 0.55rem;
+		border-radius: 4px;
+		background: rgb(var(--gray-light));
+		color: rgb(var(--gray-dark));
+		font-size: 0.75rem;
+		font-weight: 600;
+	}
+
+	.expand-content {
+		padding: 0 1.5rem 1.5rem;
+		border-top: 1px dashed rgb(var(--gray-light));
+		margin-top: 0.5rem;
+		padding-top: 1.25rem;
+	}
+
+	.content-block h4 {
+		margin: 0 0 0.75rem;
+		color: rgb(var(--black));
+		font-size: 0.95rem;
+	}
+
+	.content-block ul {
+		margin: 0;
+		padding-left: 1.2rem;
+		color: rgb(var(--gray-dark));
+		font-size: 0.92rem;
+		line-height: 1.6;
+	}
+
+	.content-block li {
+		margin-bottom: 0.4rem;
+	}
+
+	.card-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		margin-top: 1.25rem;
+	}
+
+	.action-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.4rem 0.85rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 6px;
+		background: #fff;
+		color: rgb(var(--black));
+		font-size: 0.85rem;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 160ms ease;
+	}
+
+	.action-btn:hover {
+		border-color: var(--accent);
+		color: var(--accent-dark);
+		background: rgba(var(--accent-rgb), 0.05);
+	}
+
+	.post-summary-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+	}
+
+	.post-title-group {
+		display: grid;
+		gap: 0.3rem;
+	}
+
+	.post-title {
+		margin: 0;
+		color: rgb(var(--black));
+		font-size: 1.15rem;
+	}
+
+	.post-desc {
+		margin: 0;
+		color: rgb(var(--gray-dark));
+		font-size: 0.9rem;
+	}
+
+	.post-meta {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.4rem;
+		flex-shrink: 0;
+	}
+
+	.abstract-box {
+		padding: 1rem;
+		border-radius: 8px;
+		background: rgba(var(--gray-light), 0.4);
+	}
+
+	.abstract-box h4 {
+		margin: 0 0 0.4rem;
+		font-size: 0.9rem;
+	}
+
+	.abstract-box p {
+		margin: 0;
+		color: rgb(var(--gray-dark));
+		font-size: 0.92rem;
+		line-height: 1.55;
+	}
+
+	.post-action-row {
+		margin-top: 1rem;
+		text-align: right;
+	}
+
+	.read-full-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.5rem 1rem;
+		border-radius: 6px;
+		background: rgb(var(--black));
+		color: #fff;
+		font-size: 0.88rem;
+		font-weight: 700;
+		text-decoration: none;
+		transition: transform 160ms ease;
+	}
+
+	.read-full-btn:hover {
+		color: #fff;
+		transform: translateX(3px);
 	}
 
 	@media (max-width: 720px) {
@@ -257,13 +534,17 @@ const featuredProjects = [
 			font-size: 1.1rem;
 		}
 
-		.project-grid {
-			grid-template-columns: 1fr;
+		.post-summary-row {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.75rem;
 		}
 
-		.post-row {
+		.post-meta {
 			align-items: flex-start;
-			flex-direction: column;
+			flex-direction: row;
+			width: 100%;
+			justify-content: space-between;
 		}
 	}
 </style>

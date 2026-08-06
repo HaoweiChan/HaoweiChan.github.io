@@ -11,25 +11,70 @@ const SITE_DESCRIPTION_ZH =
 
 const posts = (await getCollection('blog'))
 	.filter((post) => post.data.lang === 'zh-tw')
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const featuredProjects = [
 	{
-		title: 'TinBoker',
-		description: '連到 tinboker.com，整理相關作品、實驗與後續更新。',
-		href: 'https://tinboker.com',
+		id: 'tinboker',
+		title: 'TinBoker — AI 語音與 Podcast 知識庫平台',
+		tagline: '結合非結構化語音轉寫、LangGraph 多 Agent 狀態圖與多層快取的 AI 原生內容處理系統。',
+		tags: ['React 19', 'TypeScript', 'Vite', 'FastAPI', 'Python 3.12', 'LangGraph', 'Redis', 'Docker', 'Caddy'],
+		highlights: [
+			'多 Agent 拓撲分工：過濾廣告贊助、依長度動態合併章節、提煉 3-8 條關鍵洞察。',
+			'Step-by-step Checkpoints：儲存 Raw / Checkpoint / Serving 三層狀態，支援失敗重播 (rerun_from)。',
+			'高效能快取：FastAPI + Redis 記憶體快取，搭配 Single-Flight 鎖防範快取擊穿。'
+		],
+		links: [
+			{ label: '造訪網站', href: 'https://tinboker.com', external: true },
+			{ label: 'GitHub 專案', href: 'https://github.com/HaoweiChan/tinboker', external: true },
+			{ label: '技術文章 (上)', href: '/zh-tw/blog/agentic-ingestion-pipeline-part1/' },
+			{ label: '技術文章 (下)', href: '/zh-tw/blog/agentic-ingestion-pipeline-part2/' }
+		]
 	},
 	{
-		title: 'GitHub Projects',
-		description: 'HaoweiChan 的公開程式碼、原型與開源專案。',
-		href: 'https://github.com/HaoweiChan',
+		id: 'hermes',
+		title: 'Hermes Agent — 常駐型個人 AI 助理系統',
+		tagline: '雙入口（Discord 聊天視窗 + 排程器）、純文字 Vault 記憶與自動化資產追蹤的個人駐守助理。',
+		tags: ['Python 3.11', 'Discord Gateway', 'Cron Scheduler', 'Obsidian Vault', 'Git Sweeper', 'Shioaji API', 'Schwab API'],
+		highlights: [
+			'頻道即角色 (Channel-as-Persona)：將 Discord 頻道劃分為黑潮交易檯 (#trading)、研報庫 (#reports)、產業分析 (#research)。',
+			'自動化資產追蹤：每日定時解密元大電子對帳單 PDF、呼叫 Schwab/Shioaji API，計算 T+2 未交割款並自動繪製資產曲線。',
+			'單一 Git Sweeper：寫檔與 Git 操作分離，定時自動 commit/push，杜絕多端寫入衝突。'
+		],
+		links: [
+			{ label: '助理架構文章', href: '/zh-tw/blog/resident-personal-assistant/' },
+			{ label: '資產追蹤文章', href: '/zh-tw/blog/broker-reports-and-portfolio-automation/' }
+		]
 	},
 	{
-		title: '技術筆記',
-		description: '關於工程決策、網頁工具與進行中專案的短篇紀錄。',
-		href: '/zh-tw/blog',
+		id: 'quant-engine',
+		title: 'Quant Engine & AlphaTrader — 跨市場量化交易引擎',
+		tagline: '支援台股期貨 (TXF) 與加密貨幣的回測、最佳化與 Dash 視覺化儀表板系統。',
+		tags: ['Python', 'Dash', 'vn.py', 'Shioaji API', 'Binance API', 'PostgreSQL', 'Collar Strategy'],
+		highlights: [
+			'多市場模組化：統一介面抽象化台股 Shioaji 與幣安 Binance API 歷史資料與實時行情。',
+			'策略包含 TXF 週選擇權掩護性買權 (Covered Call) 與下檔保護 (Protective Put) 的 Collar 輪動機制。',
+			'Dash 互動式儀表板：即時繪製 MTM 損益、隱含波動率 (IV) 帶狀圖與現金殖利率。'
+		],
+		links: [
+			{ label: 'GitHub 專案', href: 'https://github.com/HaoweiChan/quant-engine', external: true },
+			{ label: 'TX-Collar-Trader', href: 'https://github.com/HaoweiChan/TX-Collar-Trader', external: true }
+		]
 	},
+	{
+		id: 'trading-agents',
+		title: 'TradingAgents — 多 Agent 股票研究與共識辯論',
+		tagline: '整合技術面、籌碼面、基本面與情緒面多 Agent 評價，進行多空辯論並產出投組建議。',
+		tags: ['Python', 'Multi-Agent Debate', 'LangChain', 'JSON State Engine', 'Discord Integration'],
+		highlights: [
+			'四大分析師節點：分別進行技術線型、三大法人籌碼、財報獲利與社群情緒獨立評估。',
+			'多空共識辯論：發起 Bull/Bear 辯論並經由 Judge 裁判節點輸出最終加減碼決策。',
+			'Discord 整合：提供單一指令快速查詢結構化 JSON 歷史日誌並自動補算報告。'
+		],
+		links: [
+			{ label: 'GitHub 專案', href: 'https://github.com/HaoweiChan/TradingAgents', external: true }
+		]
+	}
 ];
 ---
 
@@ -45,54 +90,133 @@ const featuredProjects = [
 				<p class="eyebrow">作品集與筆記</p>
 				<h1 id="intro-title">Haowei Chan</h1>
 				<p class="lede">
-					我打造實用的網頁產品，記錄學到的東西，並把專案、技術筆記與小型實驗公開整理在這裡。
+					我打造實用的網頁產品與 AI 系統，記錄學到的東西，並把專案、技術筆記與小型實驗公開整理在這裡。
 				</p>
 				<div class="actions" aria-label="主要連結">
-					<a class="button" href="/zh-tw/blog">閱讀文章</a>
+					<a class="button" href="/zh-tw/blog">閱讀所有文章</a>
 					<a class="button secondary" href="https://github.com/HaoweiChan" target="_blank" rel="noreferrer"
 						>查看 GitHub</a
 					>
 				</div>
 			</section>
 
+			<!-- 專案區塊（含展開/折疊功能） -->
 			<section class="section" aria-labelledby="projects-title">
 				<div class="section-heading">
-					<p class="eyebrow">精選</p>
-					<h2 id="projects-title">專案</h2>
+					<div>
+						<p class="eyebrow">精選作品</p>
+						<h2 id="projects-title">專案列表 (Projects)</h2>
+					</div>
+					<button type="button" class="toggle-all-btn" id="toggle-projects-btn" onclick="toggleAllDetails('projects')">
+						✨ 全部展開 / 折疊
+					</button>
 				</div>
-				<div class="project-grid">
+
+				<div class="expandable-grid" id="projects-container">
 					{
 						featuredProjects.map((project) => (
-							<a class="project-card" href={project.href}>
-								<span>{project.title}</span>
-								<p>{project.description}</p>
-							</a>
+							<details class="expand-card project-card" id={`proj-${project.id}`}>
+								<summary class="expand-summary">
+									<div class="summary-header">
+										<h3 class="card-title">{project.title}</h3>
+										<span class="expand-badge">▼ 點擊展開詳情</span>
+									</div>
+									<p class="card-tagline">{project.tagline}</p>
+									<div class="tag-row">
+										{project.tags.map((tag) => (
+											<span class="tech-tag">{tag}</span>
+										))}
+									</div>
+								</summary>
+								<div class="expand-content">
+									<div class="content-block">
+										<h4>💡 核心亮點與架構細節</h4>
+										<ul>
+											{project.highlights.map((item) => (
+												<li>{item}</li>
+											))}
+										</ul>
+									</div>
+									<div class="card-actions">
+										{project.links.map((link) => (
+											<a
+												class="action-btn"
+												href={link.href}
+												target={link.external ? '_blank' : '_self'}
+												rel={link.external ? 'noreferrer' : ''}
+											>
+												{link.label} {link.external ? '↗' : '→'}
+											</a>
+										))}
+									</div>
+								</div>
+							</details>
 						))
 					}
 				</div>
 			</section>
 
+			<!-- 文章區塊（含展開/折疊摘要功能） -->
 			<section class="section" aria-labelledby="writing-title">
 				<div class="section-heading">
-					<p class="eyebrow">最新</p>
-					<h2 id="writing-title">文章</h2>
+					<div>
+						<p class="eyebrow">最新發布</p>
+						<h2 id="writing-title">技術文章 (Writing)</h2>
+					</div>
+					<button type="button" class="toggle-all-btn" id="toggle-posts-btn" onclick="toggleAllDetails('posts')">
+						✨ 全部展開摘要
+					</button>
 				</div>
-				<div class="post-list">
+
+				<div class="expandable-list" id="posts-container">
 					{
-						posts.map((post) => (
-							<a class="post-row" href={`/zh-tw/blog/${post.data.translationOf ?? post.id.replace(/^zh-tw\//, '')}/`}>
-								<span>
-									<strong>{post.data.title}</strong>
-									<small>{post.data.description}</small>
-								</span>
-								<FormattedDate date={post.data.pubDate} locale="zh-TW" />
-							</a>
-						))
+						posts.map((post) => {
+							const postHref = `/zh-tw/blog/${post.data.translationOf ?? post.id.replace(/^zh-tw\//, '')}/`;
+							return (
+								<details class="expand-card post-card" id={`post-${post.id.replace(/\//g, '-')}`}>
+									<summary class="expand-summary">
+										<div class="post-summary-row">
+											<div class="post-title-group">
+												<h3 class="post-title">{post.data.title}</h3>
+												<p class="post-desc">{post.data.description}</p>
+											</div>
+											<div class="post-meta">
+												<FormattedDate date={post.data.pubDate} locale="zh-TW" />
+												<span class="expand-badge">▼ 展開摘要</span>
+											</div>
+										</div>
+									</summary>
+									<div class="expand-content post-expand-body">
+										<div class="abstract-box">
+											<h4>📖 文章導讀與重點預覽</h4>
+											<p>{post.data.description}</p>
+										</div>
+										<div class="post-action-row">
+											<a class="read-full-btn" href={postHref}>
+												閱讀全文 (Read Full Article) →
+											</a>
+										</div>
+									</div>
+								</details>
+							);
+						})
 					}
 				</div>
 			</section>
 		</main>
 		<Footer locale="zh-tw" />
+
+		<script is:inline>
+			function toggleAllDetails(type) {
+				const container = document.getElementById(type === 'projects' ? 'projects-container' : 'posts-container');
+				if (!container) return;
+				const detailsList = container.querySelectorAll('details');
+				const allOpen = Array.from(detailsList).every((d) => d.open);
+				detailsList.forEach((d) => {
+					d.open = !allOpen;
+				});
+			}
+		</script>
 	</body>
 </html>
 
@@ -133,7 +257,7 @@ const featuredProjects = [
 		display: inline-flex;
 		align-items: center;
 		min-height: 44px;
-		padding: 0 1rem;
+		padding: 0 1.25rem;
 		border: 1px solid rgb(var(--black));
 		border-radius: 999px;
 		background: rgb(var(--black));
@@ -141,11 +265,12 @@ const featuredProjects = [
 		font-size: 0.9rem;
 		font-weight: 700;
 		text-decoration: none;
+		transition: transform 160ms ease, background 160ms ease;
 	}
 
 	.button:hover {
 		color: #fff;
-		transform: translateY(-1px);
+		transform: translateY(-2px);
 	}
 
 	.button.secondary {
@@ -155,6 +280,7 @@ const featuredProjects = [
 
 	.button.secondary:hover {
 		color: rgb(var(--black));
+		background: rgba(0, 0, 0, 0.04);
 	}
 
 	.section {
@@ -164,10 +290,10 @@ const featuredProjects = [
 
 	.section-heading {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		margin-bottom: 1.25rem;
+		margin-bottom: 1.5rem;
 	}
 
 	.section-heading h2 {
@@ -175,79 +301,232 @@ const featuredProjects = [
 		font-size: 1.75rem;
 	}
 
-	.project-grid {
+	.toggle-all-btn {
+		cursor: pointer;
+		padding: 0.4rem 0.85rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.9);
+		color: var(--accent-dark);
+		font-size: 0.82rem;
+		font-weight: 700;
+		transition: all 160ms ease;
+	}
+
+	.toggle-all-btn:hover {
+		border-color: var(--accent);
+		background: var(--accent);
+		color: #fff;
+	}
+
+	/* 可展開卡片通用的內部樣式 */
+	.expandable-grid {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.25rem;
+	}
+
+	.expandable-list {
+		display: grid;
 		gap: 1rem;
 	}
 
-	.project-card,
-	.post-row {
+	.expand-card {
 		border: 1px solid rgb(var(--gray-light));
-		background: rgba(255, 255, 255, 0.72);
-		text-decoration: none;
-		transition:
-			border-color 160ms ease,
-			transform 160ms ease;
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.85);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+		overflow: hidden;
+		transition: border-color 200ms ease, box-shadow 200ms ease;
 	}
 
-	.project-card {
-		display: flex;
-		flex-direction: column;
-		min-height: 170px;
-		padding: 1.25rem;
-		border-radius: 8px;
-		color: rgb(var(--gray-dark));
+	.expand-card[open] {
+		border-color: rgba(var(--accent-rgb, 35, 90, 240), 0.4);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 	}
 
-	.project-card span {
-		color: rgb(var(--black));
-		font-size: 1.15rem;
-		font-weight: 700;
+	.expand-summary {
+		cursor: pointer;
+		padding: 1.25rem 1.5rem;
+		list-style: none;
+		user-select: none;
 	}
 
-	.project-card p {
-		margin: auto 0 0;
-		font-size: 0.95rem;
-		line-height: 1.55;
+	.expand-summary::-webkit-details-marker {
+		display: none;
 	}
 
-	.post-list {
-		display: grid;
-		gap: 0.75rem;
-	}
-
-	.post-row {
+	.summary-header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		padding: 1rem 1.15rem;
-		border-radius: 8px;
-		color: rgb(var(--gray-dark));
 	}
 
-	.post-row span {
-		display: grid;
-		gap: 0.2rem;
-	}
-
-	.post-row strong {
+	.card-title {
+		margin: 0;
 		color: rgb(var(--black));
+		font-size: 1.2rem;
+		font-weight: 700;
 	}
 
-	.post-row small,
-	.post-row time {
-		color: rgb(var(--gray));
-		font-size: 0.85rem;
-		line-height: 1.4;
+	.expand-badge {
+		flex-shrink: 0;
+		color: var(--accent-dark);
+		font-size: 0.8rem;
+		font-weight: 700;
+		transition: transform 200ms ease;
 	}
 
-	.project-card:hover,
-	.post-row:hover {
-		border-color: rgba(var(--gray), 55%);
+	.expand-card[open] .expand-badge {
+		transform: rotate(180deg);
+	}
+
+	.card-tagline {
+		margin: 0.5rem 0 0.85rem;
 		color: rgb(var(--gray-dark));
-		transform: translateY(-2px);
+		font-size: 0.98rem;
+		line-height: 1.5;
+	}
+
+	.tag-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+
+	.tech-tag {
+		padding: 0.15rem 0.55rem;
+		border-radius: 4px;
+		background: rgb(var(--gray-light));
+		color: rgb(var(--gray-dark));
+		font-size: 0.75rem;
+		font-weight: 600;
+	}
+
+	.expand-content {
+		padding: 0 1.5rem 1.5rem;
+		border-top: 1px dashed rgb(var(--gray-light));
+		margin-top: 0.5rem;
+		padding-top: 1.25rem;
+	}
+
+	.content-block h4 {
+		margin: 0 0 0.75rem;
+		color: rgb(var(--black));
+		font-size: 0.95rem;
+	}
+
+	.content-block ul {
+		margin: 0;
+		padding-left: 1.2rem;
+		color: rgb(var(--gray-dark));
+		font-size: 0.92rem;
+		line-height: 1.6;
+	}
+
+	.content-block li {
+		margin-bottom: 0.4rem;
+	}
+
+	.card-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		margin-top: 1.25rem;
+	}
+
+	.action-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.4rem 0.85rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 6px;
+		background: #fff;
+		color: rgb(var(--black));
+		font-size: 0.85rem;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 160ms ease;
+	}
+
+	.action-btn:hover {
+		border-color: var(--accent);
+		color: var(--accent-dark);
+		background: rgba(var(--accent-rgb), 0.05);
+	}
+
+	/* 文章卡片特有樣式 */
+	.post-summary-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+	}
+
+	.post-title-group {
+		display: grid;
+		gap: 0.3rem;
+	}
+
+	.post-title {
+		margin: 0;
+		color: rgb(var(--black));
+		font-size: 1.15rem;
+	}
+
+	.post-desc {
+		margin: 0;
+		color: rgb(var(--gray-dark));
+		font-size: 0.9rem;
+	}
+
+	.post-meta {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.4rem;
+		flex-shrink: 0;
+	}
+
+	.abstract-box {
+		padding: 1rem;
+		border-radius: 8px;
+		background: rgba(var(--gray-light), 0.4);
+	}
+
+	.abstract-box h4 {
+		margin: 0 0 0.4rem;
+		font-size: 0.9rem;
+	}
+
+	.abstract-box p {
+		margin: 0;
+		color: rgb(var(--gray-dark));
+		font-size: 0.92rem;
+		line-height: 1.55;
+	}
+
+	.post-action-row {
+		margin-top: 1rem;
+		text-align: right;
+	}
+
+	.read-full-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.5rem 1rem;
+		border-radius: 6px;
+		background: rgb(var(--black));
+		color: #fff;
+		font-size: 0.88rem;
+		font-weight: 700;
+		text-decoration: none;
+		transition: transform 160ms ease;
+	}
+
+	.read-full-btn:hover {
+		color: #fff;
+		transform: translateX(3px);
 	}
 
 	@media (max-width: 720px) {
@@ -259,13 +538,17 @@ const featuredProjects = [
 			font-size: 1.1rem;
 		}
 
-		.project-grid {
-			grid-template-columns: 1fr;
+		.post-summary-row {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.75rem;
 		}
 
-		.post-row {
+		.post-meta {
 			align-items: flex-start;
-			flex-direction: column;
+			flex-direction: row;
+			width: 100%;
+			justify-content: space-between;
 		}
 	}
 </style>

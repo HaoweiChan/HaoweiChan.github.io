@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../../components/BaseHead.astro';
 import Footer from '../../../components/Footer.astro';
@@ -19,112 +18,227 @@ const posts = (await getCollection('blog'))
 			title={`文章 | ${SITE_TITLE}`}
 			description="Haowei Chan 的專案筆記、網頁工具紀錄與技術文章。"
 		/>
-		<style>
-			main {
-				width: 960px;
-			}
-			.blog-heading {
-				margin-bottom: 2.5rem;
-				padding-bottom: 1.5rem;
-				border-bottom: 1px solid rgb(var(--gray-light));
-			}
-			.blog-heading p {
-				max-width: 620px;
-				color: rgb(var(--gray));
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
 	</head>
 	<body>
 		<Header locale="zh-tw" switchHref="/blog/" />
-		<main>
+		<main class="blog-main">
 			<div class="blog-heading">
-				<h1>文章</h1>
-				<p>關於專案、網頁工具，以及值得留下來的實作細節。</p>
+				<div>
+					<h1>文章列表 (Writing)</h1>
+					<p>關於專案、網頁工具、AI 系統，以及值得留下來的實作細節。</p>
+				</div>
+				<button type="button" class="toggle-all-btn" onclick="toggleAllPosts()">
+					✨ 全部展開 / 折疊摘要
+				</button>
 			</div>
-			<section>
-				<ul>
+
+			<section class="post-section">
+				<div class="expandable-list" id="posts-container">
 					{
-						posts.map((post) => (
-							<li>
-								<a href={`/zh-tw/blog/${post.data.translationOf ?? post.id.replace(/^zh-tw\//, '')}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} locale="zh-TW" />
-									</p>
-								</a>
-							</li>
-						))
+						posts.map((post) => {
+							const postHref = `/zh-tw/blog/${post.data.translationOf ?? post.id.replace(/^zh-tw\//, '')}/`;
+							return (
+								<details class="expand-card post-card">
+									<summary class="expand-summary">
+										<div class="post-summary-row">
+											<div class="post-title-group">
+												<h3 class="post-title">{post.data.title}</h3>
+												<p class="post-desc">{post.data.description}</p>
+											</div>
+											<div class="post-meta">
+												<FormattedDate date={post.data.pubDate} locale="zh-TW" />
+												<span class="expand-badge">▼ 展開摘要</span>
+											</div>
+										</div>
+									</summary>
+									<div class="expand-content post-expand-body">
+										<div class="abstract-box">
+											<h4>📖 文章導讀與重點觀點</h4>
+											<p>{post.data.description}</p>
+										</div>
+										<div class="post-action-row">
+											<a class="read-full-btn" href={postHref}>
+												閱讀全文 (Read Full Article) →
+											</a>
+										</div>
+									</div>
+								</details>
+							);
+						})
 					}
-				</ul>
+				</div>
 			</section>
 		</main>
 		<Footer locale="zh-tw" />
+
+		<script is:inline>
+			function toggleAllPosts() {
+				const container = document.getElementById('posts-container');
+				if (!container) return;
+				const detailsList = container.querySelectorAll('details');
+				const allOpen = Array.from(detailsList).every((d) => d.open);
+				detailsList.forEach((d) => {
+					d.open = !allOpen;
+				});
+			}
+		</script>
 	</body>
 </html>
+
+<style>
+	main.blog-main {
+		width: 960px;
+	}
+	.blog-heading {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 2rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+	.blog-heading h1 {
+		margin: 0 0 0.4rem;
+	}
+	.blog-heading p {
+		margin: 0;
+		max-width: 620px;
+		color: rgb(var(--gray-dark));
+	}
+	.toggle-all-btn {
+		cursor: pointer;
+		padding: 0.4rem 0.85rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.9);
+		color: var(--accent-dark);
+		font-size: 0.82rem;
+		font-weight: 700;
+		transition: all 160ms ease;
+	}
+	.toggle-all-btn:hover {
+		border-color: var(--accent);
+		background: var(--accent);
+		color: #fff;
+	}
+	.expandable-list {
+		display: grid;
+		gap: 1rem;
+	}
+	.expand-card {
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.85);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+		overflow: hidden;
+		transition: border-color 200ms ease, box-shadow 200ms ease;
+	}
+	.expand-card[open] {
+		border-color: rgba(var(--accent-rgb, 35, 90, 240), 0.4);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+	}
+	.expand-summary {
+		cursor: pointer;
+		padding: 1.25rem 1.5rem;
+		list-style: none;
+		user-select: none;
+	}
+	.expand-summary::-webkit-details-marker {
+		display: none;
+	}
+	.post-summary-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+	}
+	.post-title-group {
+		display: grid;
+		gap: 0.3rem;
+	}
+	.post-title {
+		margin: 0;
+		color: rgb(var(--black));
+		font-size: 1.2rem;
+	}
+	.post-desc {
+		margin: 0;
+		color: rgb(var(--gray-dark));
+		font-size: 0.92rem;
+	}
+	.post-meta {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.4rem;
+		flex-shrink: 0;
+	}
+	.expand-badge {
+		color: var(--accent-dark);
+		font-size: 0.8rem;
+		font-weight: 700;
+		transition: transform 200ms ease;
+	}
+	.expand-card[open] .expand-badge {
+		transform: rotate(180deg);
+	}
+	.expand-content {
+		padding: 0 1.5rem 1.5rem;
+		border-top: 1px dashed rgb(var(--gray-light));
+		margin-top: 0.5rem;
+		padding-top: 1.25rem;
+	}
+	.abstract-box {
+		padding: 1rem;
+		border-radius: 8px;
+		background: rgba(var(--gray-light), 0.4);
+	}
+	.abstract-box h4 {
+		margin: 0 0 0.4rem;
+		font-size: 0.9rem;
+	}
+	.abstract-box p {
+		margin: 0;
+		color: rgb(var(--gray-dark));
+		font-size: 0.95rem;
+		line-height: 1.55;
+	}
+	.post-action-row {
+		margin-top: 1rem;
+		text-align: right;
+	}
+	.read-full-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.5rem 1rem;
+		border-radius: 6px;
+		background: rgb(var(--black));
+		color: #fff;
+		font-size: 0.88rem;
+		font-weight: 700;
+		text-decoration: none;
+		transition: transform 160ms ease;
+	}
+	.read-full-btn:hover {
+		color: #fff;
+		transform: translateX(3px);
+	}
+	@media (max-width: 720px) {
+		.blog-heading {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.post-summary-row {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.75rem;
+		}
+		.post-meta {
+			align-items: flex-start;
+			flex-direction: row;
+			width: 100%;
+			justify-content: space-between;
+		}
+	}
+</style>
