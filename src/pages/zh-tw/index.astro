@@ -100,7 +100,7 @@ const featuredProjects = [
 				</div>
 			</section>
 
-			<!-- 專案區塊（含展開/折疊功能） -->
+			<!-- 專案區塊（無 emoji，正確切換標籤文字） -->
 			<section class="section" aria-labelledby="projects-title">
 				<div class="section-heading">
 					<div>
@@ -108,7 +108,7 @@ const featuredProjects = [
 						<h2 id="projects-title">專案列表 (Projects)</h2>
 					</div>
 					<button type="button" class="toggle-all-btn" id="toggle-projects-btn" onclick="toggleAllDetails('projects')">
-						✨ 全部展開 / 折疊
+						全部展開 / 折疊
 					</button>
 				</div>
 
@@ -119,7 +119,10 @@ const featuredProjects = [
 								<summary class="expand-summary">
 									<div class="summary-header">
 										<h3 class="card-title">{project.title}</h3>
-										<span class="expand-badge">▼ 點擊展開詳情</span>
+										<span class="expand-badge">
+											<span class="badge-closed">[ 展開詳情 ]</span>
+											<span class="badge-open">[ 收起詳情 ]</span>
+										</span>
 									</div>
 									<p class="card-tagline">{project.tagline}</p>
 									<div class="tag-row">
@@ -130,7 +133,7 @@ const featuredProjects = [
 								</summary>
 								<div class="expand-content">
 									<div class="content-block">
-										<h4>💡 核心亮點與架構細節</h4>
+										<h4>核心亮點與架構細節</h4>
 										<ul>
 											{project.highlights.map((item) => (
 												<li>{item}</li>
@@ -145,7 +148,7 @@ const featuredProjects = [
 												target={link.external ? '_blank' : '_self'}
 												rel={link.external ? 'noreferrer' : ''}
 											>
-												{link.label} {link.external ? '↗' : '→'}
+												{link.label}
 											</a>
 										))}
 									</div>
@@ -156,7 +159,7 @@ const featuredProjects = [
 				</div>
 			</section>
 
-			<!-- 文章區塊（含展開/折疊摘要功能） -->
+			<!-- 文章區塊（無 emoji，正確切換標籤文字） -->
 			<section class="section" aria-labelledby="writing-title">
 				<div class="section-heading">
 					<div>
@@ -164,7 +167,7 @@ const featuredProjects = [
 						<h2 id="writing-title">技術文章 (Writing)</h2>
 					</div>
 					<button type="button" class="toggle-all-btn" id="toggle-posts-btn" onclick="toggleAllDetails('posts')">
-						✨ 全部展開摘要
+						全部展開 / 折疊摘要
 					</button>
 				</div>
 
@@ -182,18 +185,21 @@ const featuredProjects = [
 											</div>
 											<div class="post-meta">
 												<FormattedDate date={post.data.pubDate} locale="zh-TW" />
-												<span class="expand-badge">▼ 展開摘要</span>
+												<span class="expand-badge">
+													<span class="badge-closed">[ 展開摘要 ]</span>
+													<span class="badge-open">[ 收起摘要 ]</span>
+												</span>
 											</div>
 										</div>
 									</summary>
 									<div class="expand-content post-expand-body">
 										<div class="abstract-box">
-											<h4>📖 文章導讀與重點預覽</h4>
+											<h4>文章導讀與重點預覽</h4>
 											<p>{post.data.description}</p>
 										</div>
 										<div class="post-action-row">
 											<a class="read-full-btn" href={postHref}>
-												閱讀全文 (Read Full Article) →
+												閱讀全文 (Read Full Article)
 											</a>
 										</div>
 									</div>
@@ -319,7 +325,6 @@ const featuredProjects = [
 		color: #fff;
 	}
 
-	/* 可展開卡片通用的內部樣式 */
 	.expandable-grid {
 		display: grid;
 		gap: 1.25rem;
@@ -372,13 +377,24 @@ const featuredProjects = [
 	.expand-badge {
 		flex-shrink: 0;
 		color: var(--accent-dark);
-		font-size: 0.8rem;
+		font-size: 0.82rem;
 		font-weight: 700;
-		transition: transform 200ms ease;
 	}
 
-	.expand-card[open] .expand-badge {
-		transform: rotate(180deg);
+	.badge-open {
+		display: none;
+	}
+
+	.badge-closed {
+		display: inline;
+	}
+
+	.expand-card[open] .badge-open {
+		display: inline;
+	}
+
+	.expand-card[open] .badge-closed {
+		display: none;
 	}
 
 	.card-tagline {
@@ -455,7 +471,6 @@ const featuredProjects = [
 		background: rgba(var(--accent-rgb), 0.05);
 	}
 
-	/* 文章卡片特有樣式 */
 	.post-summary-row {
 		display: flex;
 		align-items: center;

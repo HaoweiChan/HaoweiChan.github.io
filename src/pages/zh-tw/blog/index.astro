@@ -28,7 +28,7 @@ const posts = (await getCollection('blog'))
 					<p>關於專案、網頁工具、AI 系統，以及值得留下來的實作細節。</p>
 				</div>
 				<button type="button" class="toggle-all-btn" onclick="toggleAllPosts()">
-					✨ 全部展開 / 折疊摘要
+					全部展開 / 折疊摘要
 				</button>
 			</div>
 
@@ -47,18 +47,21 @@ const posts = (await getCollection('blog'))
 											</div>
 											<div class="post-meta">
 												<FormattedDate date={post.data.pubDate} locale="zh-TW" />
-												<span class="expand-badge">▼ 展開摘要</span>
+												<span class="expand-badge">
+													<span class="badge-closed">[ 展開摘要 ]</span>
+													<span class="badge-open">[ 收起摘要 ]</span>
+												</span>
 											</div>
 										</div>
 									</summary>
 									<div class="expand-content post-expand-body">
 										<div class="abstract-box">
-											<h4>📖 文章導讀與重點觀點</h4>
+											<h4>文章導讀與重點觀點</h4>
 											<p>{post.data.description}</p>
 										</div>
 										<div class="post-action-row">
 											<a class="read-full-btn" href={postHref}>
-												閱讀全文 (Read Full Article) →
+												閱讀全文 (Read Full Article)
 											</a>
 										</div>
 									</div>
@@ -176,12 +179,20 @@ const posts = (await getCollection('blog'))
 	}
 	.expand-badge {
 		color: var(--accent-dark);
-		font-size: 0.8rem;
+		font-size: 0.82rem;
 		font-weight: 700;
-		transition: transform 200ms ease;
 	}
-	.expand-card[open] .expand-badge {
-		transform: rotate(180deg);
+	.badge-open {
+		display: none;
+	}
+	.badge-closed {
+		display: inline;
+	}
+	.expand-card[open] .badge-open {
+		display: inline;
+	}
+	.expand-card[open] .badge-closed {
+		display: none;
 	}
 	.expand-content {
 		padding: 0 1.5rem 1.5rem;

@@ -1,6 +1,6 @@
 # Haowei Chan
 
-🌐 **Live Website**: [https://haoweichan.github.io](https://haoweichan.github.io) (繁體中文版: [https://haoweichan.github.io/zh-tw/](https://haoweichan.github.io/zh-tw/))
+**Live Website**: [https://haoweichan.github.io](https://haoweichan.github.io) (繁體中文版: [https://haoweichan.github.io/zh-tw/](https://haoweichan.github.io/zh-tw/))
 
 Personal portfolio and blog for Haowei Chan, built with Astro's official blog template.
 

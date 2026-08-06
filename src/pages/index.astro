@@ -106,7 +106,7 @@ const featuredProjects = [
 						<h2 id="projects-title">Projects</h2>
 					</div>
 					<button type="button" class="toggle-all-btn" id="toggle-projects-btn" onclick="toggleAllDetails('projects')">
-						✨ Expand / Collapse All
+						Expand / Collapse All
 					</button>
 				</div>
 
@@ -117,7 +117,10 @@ const featuredProjects = [
 								<summary class="expand-summary">
 									<div class="summary-header">
 										<h3 class="card-title">{project.title}</h3>
-										<span class="expand-badge">▼ Click to Expand</span>
+										<span class="expand-badge">
+											<span class="badge-closed">[ Expand Details ]</span>
+											<span class="badge-open">[ Collapse Details ]</span>
+										</span>
 									</div>
 									<p class="card-tagline">{project.tagline}</p>
 									<div class="tag-row">
@@ -128,7 +131,7 @@ const featuredProjects = [
 								</summary>
 								<div class="expand-content">
 									<div class="content-block">
-										<h4>💡 Architecture & Key Features</h4>
+										<h4>Architecture & Key Features</h4>
 										<ul>
 											{project.highlights.map((item) => (
 												<li>{item}</li>
@@ -143,7 +146,7 @@ const featuredProjects = [
 												target={link.external ? '_blank' : '_self'}
 												rel={link.external ? 'noreferrer' : ''}
 											>
-												{link.label} {link.external ? '↗' : '→'}
+												{link.label}
 											</a>
 										))}
 									</div>
@@ -162,7 +165,7 @@ const featuredProjects = [
 						<h2 id="writing-title">Writing</h2>
 					</div>
 					<button type="button" class="toggle-all-btn" id="toggle-posts-btn" onclick="toggleAllDetails('posts')">
-						✨ Expand All Abstracts
+						Expand / Collapse Abstracts
 					</button>
 				</div>
 
@@ -180,18 +183,21 @@ const featuredProjects = [
 											</div>
 											<div class="post-meta">
 												<FormattedDate date={post.data.pubDate} />
-												<span class="expand-badge">▼ Expand Abstract</span>
+												<span class="expand-badge">
+													<span class="badge-closed">[ Expand Abstract ]</span>
+													<span class="badge-open">[ Collapse Abstract ]</span>
+												</span>
 											</div>
 										</div>
 									</summary>
 									<div class="expand-content post-expand-body">
 										<div class="abstract-box">
-											<h4>📖 Article Preview & Executive Summary</h4>
+											<h4>Article Preview & Executive Summary</h4>
 											<p>{post.data.description}</p>
 										</div>
 										<div class="post-action-row">
 											<a class="read-full-btn" href={postHref}>
-												Read Full Article →
+												Read Full Article
 											</a>
 										</div>
 									</div>
@@ -369,13 +375,24 @@ const featuredProjects = [
 	.expand-badge {
 		flex-shrink: 0;
 		color: var(--accent-dark);
-		font-size: 0.8rem;
+		font-size: 0.82rem;
 		font-weight: 700;
-		transition: transform 200ms ease;
 	}
 
-	.expand-card[open] .expand-badge {
-		transform: rotate(180deg);
+	.badge-open {
+		display: none;
+	}
+
+	.badge-closed {
+		display: inline;
+	}
+
+	.expand-card[open] .badge-open {
+		display: inline;
+	}
+
+	.expand-card[open] .badge-closed {
+		display: none;
 	}
 
 	.card-tagline {
