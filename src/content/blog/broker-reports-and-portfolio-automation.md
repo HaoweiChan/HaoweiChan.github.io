@@ -5,8 +5,6 @@ pubDate: 'Mar 15 2026'
 heroImage: '../../assets/blog/covers/resident-personal-assistant.png'
 ---
 
-# Automating Portfolio Tracking and Broker Report Ingestion: From Encrypted PDFs to Daily Account Equity Pipelines
-
 ## Introduction
 
 In building a Resident Assistant System, the primary engineering value is not how fluently a large language model chats, but whether it provides stable, precise, and uncompromised personal data and market intelligence.

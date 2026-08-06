@@ -4,10 +4,8 @@ description: '全端產品架構系列：並非所有 API 都適用相同的 TTL
 lang: 'zh-tw'
 translationOf: 'fastapi-redis-tiered-cache-design'
 pubDate: 'Feb 20 2026'
-heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.png'
+heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.zh.png'
 ---
-
-# FastAPI + Redis：高讀取量 API 的快取分層設計
 
 ## 前言 (Introduction)
 

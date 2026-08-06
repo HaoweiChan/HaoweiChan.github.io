@@ -4,10 +4,8 @@ description: '環境分層不是大型公司的儀式，而是一個降低發布
 lang: 'zh-tw'
 translationOf: 'dev-staging-prod-environments'
 pubDate: 'Feb 10 2026'
-heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.png'
+heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.zh.png'
 ---
-
-# Dev / Staging / Production：小團隊也需要的環境分層策略
 
 ## 前言 (Introduction)
 

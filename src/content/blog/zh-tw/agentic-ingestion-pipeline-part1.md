@@ -4,7 +4,7 @@ description: '從單一 Prompt 瓶頸到 LangGraph 多 Agent 協作：非結構�
 lang: 'zh-tw'
 translationOf: 'agentic-ingestion-pipeline-part1'
 pubDate: 'Jan 15 2026'
-heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.png'
+heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.zh.png'
 ---
 
 最近我花了一段時間，將專案中負責處理非結構化**財經 Podcast** 語音串流與逐字稿的 AI 數據 Pipeline，從最初的單一 Ingestion 腳本逐步演進為基於多 Agent 協作的生產級版本。

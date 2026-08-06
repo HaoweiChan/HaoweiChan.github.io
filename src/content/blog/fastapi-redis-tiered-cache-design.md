@@ -5,8 +5,6 @@ pubDate: 'Feb 20 2026'
 heroImage: '../../assets/blog/covers/agentic-ingestion-pipeline.png'
 ---
 
-# FastAPI + Redis: Tiered Cache Design for Read-Heavy APIs
-
 ## Introduction
 
 When building high-concurrency, read-heavy full-stack web applications, one of the most common mistakes engineering teams make is adopting a one-size-fits-all approach to caching: either avoiding caching entirely, or applying a single fixed expiration time (e.g. TTL = 5 minutes) across every endpoint.

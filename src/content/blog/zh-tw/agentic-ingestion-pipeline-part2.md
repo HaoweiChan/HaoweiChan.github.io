@@ -4,7 +4,7 @@ description: '生產環境實戰：Step-by-step Checkpoints 重播機制、推�
 lang: 'zh-tw'
 translationOf: 'agentic-ingestion-pipeline-part2'
 pubDate: 'Jan 22 2026'
-heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.png'
+heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.zh.png'
 ---
 
 在上集中，我分享了如何透過 LangGraph 將複雜的非結構化**財經 Podcast 語音串流**處理流程解耦，建構出由多個 Agent 協作的拓撲圖譜。

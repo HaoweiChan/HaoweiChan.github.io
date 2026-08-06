@@ -4,10 +4,8 @@ description: '個人常駐助理系列：解密加密 PDF 對帳單解析、多�
 lang: 'zh-tw'
 translationOf: 'broker-reports-and-portfolio-automation'
 pubDate: 'Mar 15 2026'
-heroImage: '../../../assets/blog/covers/resident-personal-assistant.png'
+heroImage: '../../../assets/blog/covers/resident-personal-assistant.zh.png'
 ---
-
-# 從對帳單 PDF 到多帳戶權益數：我如何用 Python + Cron 打造自動化資產與研報追蹤系統
 
 ## 前言 (Introduction)
 

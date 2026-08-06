@@ -4,7 +4,7 @@ description: '用 Hermes Agent 蓋一個常駐、會自己開口的個人助理�
 lang: 'zh-tw'
 translationOf: 'resident-personal-assistant'
 pubDate: 'Mar 3 2026'
-heroImage: '../../../assets/blog/covers/resident-personal-assistant.png'
+heroImage: '../../../assets/blog/covers/resident-personal-assistant.zh.png'
 ---
 
 先說清楚：這是我自己在用的一套配置，不是產品，也沒打算變成產品。這篇想記錄的是，當我不再把它當成「一個會回答問題的機器人」，而是當成「一個常駐在背景、有自己時程的東西」之後，設計上到底有哪些地方變了。
