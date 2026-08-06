@@ -27,6 +27,20 @@ const COVERS = [
 		title: 'A Resident\nPersonal Assistant',
 		zh: { kicker: '工程筆記', title: '常駐型\n個人助理' },
 	},
+	{
+		file: 'cloud-exit',
+		motif: 'spike',
+		kicker: 'Engineering notes',
+		title: 'A Bill That Triggered\na Cloud Exit',
+		zh: { kicker: '工程筆記', title: '一張帳單\n引發的雲端退場' },
+	},
+	{
+		file: 'factor-research-controls',
+		motif: 'gates',
+		kicker: 'Engineering notes',
+		title: 'Internal Controls\nfor Factor Research',
+		zh: { kicker: '工程筆記', title: '因子研究的\n內控制度' },
+	},
 ];
 
 const motifs = {
@@ -49,6 +63,27 @@ const motifs = {
 			const on = [3, 9, 16, 22, 31].includes(i);
 			return `<rect x="${x}" y="${y}" width="44" height="44" rx="10" fill="#fff" opacity="${on ? 0.9 : 0.16}"/>`;
 		}).join(''),
+	// a monthly bill spiking, then dropping back to the floor
+	spike: () => {
+		const BASE = 590; // bar baseline
+		return [22, 26, 20, 24, 96, 90, 84, 30, 10, 6]
+			.map((h, i) => {
+				const height = h * 3.2;
+				return `<rect x="${1010 + i * 48}" y="${BASE - height}" width="34" height="${height}" rx="6" fill="#fff" opacity="${h > 80 ? 0.9 : 0.26}"/>`;
+			})
+			.join('');
+	},
+	// three gates, the last one still shut — pre-declared checkpoints
+	gates: () =>
+		[0, 1, 2]
+			.map((i) => {
+				const x = 1040 + i * 150;
+				const open = i < 2;
+				const frame = `<rect x="${x}" y="250" width="96" height="300" rx="14" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="3"/>`;
+				const leaf = `<rect x="${x + 14}" y="268" width="68" height="${open ? 44 : 264}" rx="8" fill="#fff" opacity="${open ? 0.85 : 0.3}"/>`;
+				return frame + leaf;
+			})
+			.join(''),
 	dots: () =>
 		Array.from({ length: 36 }, (_, i) => {
 			const x = 1020 + (i % 6) * 80;
