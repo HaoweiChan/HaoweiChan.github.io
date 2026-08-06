@@ -100,29 +100,20 @@ const featuredProjects = [
 				</div>
 			</section>
 
-			<!-- 專案區塊（無 emoji，正確切換標籤文字） -->
 			<section class="section" aria-labelledby="projects-title">
 				<div class="section-heading">
-					<div>
-						<p class="eyebrow">精選作品</p>
-						<h2 id="projects-title">專案列表 (Projects)</h2>
-					</div>
-					<button type="button" class="toggle-all-btn" id="toggle-projects-btn" onclick="toggleAllDetails('projects')">
-						全部展開 / 折疊
-					</button>
+					<p class="eyebrow">精選作品</p>
+					<h2 id="projects-title">專案</h2>
 				</div>
 
-				<div class="expandable-grid" id="projects-container">
+				<div class="expandable-grid">
 					{
 						featuredProjects.map((project) => (
 							<details class="expand-card project-card" id={`proj-${project.id}`}>
 								<summary class="expand-summary">
 									<div class="summary-header">
 										<h3 class="card-title">{project.title}</h3>
-										<span class="expand-badge">
-											<span class="badge-closed">[ 展開詳情 ]</span>
-											<span class="badge-open">[ 收起詳情 ]</span>
-										</span>
+										<span class="chevron" aria-hidden="true" />
 									</div>
 									<p class="card-tagline">{project.tagline}</p>
 									<div class="tag-row">
@@ -159,70 +150,33 @@ const featuredProjects = [
 				</div>
 			</section>
 
-			<!-- 文章區塊（無 emoji，正確切換標籤文字） -->
 			<section class="section" aria-labelledby="writing-title">
 				<div class="section-heading">
-					<div>
-						<p class="eyebrow">最新發布</p>
-						<h2 id="writing-title">技術文章 (Writing)</h2>
-					</div>
-					<button type="button" class="toggle-all-btn" id="toggle-posts-btn" onclick="toggleAllDetails('posts')">
-						全部展開 / 折疊摘要
-					</button>
+					<p class="eyebrow">最新發布</p>
+					<h2 id="writing-title">文章</h2>
 				</div>
 
-				<div class="expandable-list" id="posts-container">
+				<div class="post-list">
 					{
-						posts.map((post) => {
-							const postHref = `/zh-tw/blog/${post.data.translationOf ?? post.id.replace(/^zh-tw\//, '')}/`;
-							return (
-								<details class="expand-card post-card" id={`post-${post.id.replace(/\//g, '-')}`}>
-									<summary class="expand-summary">
-										<div class="post-summary-row">
-											<div class="post-title-group">
-												<h3 class="post-title">{post.data.title}</h3>
-												<p class="post-desc">{post.data.description}</p>
-											</div>
-											<div class="post-meta">
-												<FormattedDate date={post.data.pubDate} locale="zh-TW" />
-												<span class="expand-badge">
-													<span class="badge-closed">[ 展開摘要 ]</span>
-													<span class="badge-open">[ 收起摘要 ]</span>
-												</span>
-											</div>
-										</div>
-									</summary>
-									<div class="expand-content post-expand-body">
-										<div class="abstract-box">
-											<h4>文章導讀與重點預覽</h4>
-											<p>{post.data.description}</p>
-										</div>
-										<div class="post-action-row">
-											<a class="read-full-btn" href={postHref}>
-												閱讀全文 (Read Full Article)
-											</a>
-										</div>
-									</div>
-								</details>
-							);
-						})
+						posts.map((post) => (
+							<a
+								class="post-row"
+								href={`/zh-tw/blog/${post.data.translationOf ?? post.id.replace(/^zh-tw\//, '')}/`}
+							>
+								<div class="post-text">
+									<h3 class="post-title">{post.data.title}</h3>
+									<p class="post-desc">{post.data.description}</p>
+								</div>
+								<span class="post-date">
+									<FormattedDate date={post.data.pubDate} locale="zh-TW" />
+								</span>
+							</a>
+						))
 					}
 				</div>
 			</section>
 		</main>
 		<Footer locale="zh-tw" />
-
-		<script is:inline>
-			function toggleAllDetails(type) {
-				const container = document.getElementById(type === 'projects' ? 'projects-container' : 'posts-container');
-				if (!container) return;
-				const detailsList = container.querySelectorAll('details');
-				const allOpen = Array.from(detailsList).every((d) => d.open);
-				detailsList.forEach((d) => {
-					d.open = !allOpen;
-				});
-			}
-		</script>
 	</body>
 </html>
 
@@ -294,59 +248,56 @@ const featuredProjects = [
 		border-bottom: 1px solid rgb(var(--gray-light));
 	}
 
+	.section:last-of-type {
+		border-bottom: 0;
+	}
+
 	.section-heading {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		margin-bottom: 1.5rem;
+		margin-bottom: 1.75rem;
 	}
 
 	.section-heading h2 {
 		margin: 0;
-		font-size: 1.75rem;
-	}
-
-	.toggle-all-btn {
-		cursor: pointer;
-		padding: 0.4rem 0.85rem;
-		border: 1px solid rgb(var(--gray-light));
-		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.9);
-		color: var(--accent-dark);
-		font-size: 0.82rem;
-		font-weight: 700;
-		transition: all 160ms ease;
-	}
-
-	.toggle-all-btn:hover {
-		border-color: var(--accent);
-		background: var(--accent);
-		color: #fff;
+		font-size: 1.6rem;
+		letter-spacing: -0.01em;
 	}
 
 	.expandable-grid {
-		display: grid;
-		gap: 1.25rem;
-	}
-
-	.expandable-list {
 		display: grid;
 		gap: 1rem;
 	}
 
 	.expand-card {
 		border: 1px solid rgb(var(--gray-light));
-		border-radius: 12px;
-		background: rgba(255, 255, 255, 0.85);
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+		border-radius: 14px;
+		background: #fff;
 		overflow: hidden;
 		transition: border-color 200ms ease, box-shadow 200ms ease;
 	}
 
+	.expand-card:hover {
+		border-color: rgb(var(--gray));
+	}
+
 	.expand-card[open] {
-		border-color: rgba(var(--accent-rgb, 35, 90, 240), 0.4);
-		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+		border-color: var(--accent);
+		box-shadow: 0 6px 20px rgba(var(--black), 0.06);
+	}
+
+	.chevron {
+		flex-shrink: 0;
+		width: 9px;
+		height: 9px;
+		margin-top: 0.35rem;
+		border-right: 2px solid rgb(var(--gray));
+		border-bottom: 2px solid rgb(var(--gray));
+		transform: rotate(45deg);
+		transition: transform 200ms ease;
+	}
+
+	.expand-card[open] .chevron {
+		border-color: var(--accent);
+		transform: rotate(-135deg);
 	}
 
 	.expand-summary {
@@ -362,7 +313,7 @@ const featuredProjects = [
 
 	.summary-header {
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: space-between;
 		gap: 1rem;
 	}
@@ -370,31 +321,9 @@ const featuredProjects = [
 	.card-title {
 		margin: 0;
 		color: rgb(var(--black));
-		font-size: 1.2rem;
+		font-size: 1.15rem;
 		font-weight: 700;
-	}
-
-	.expand-badge {
-		flex-shrink: 0;
-		color: var(--accent-dark);
-		font-size: 0.82rem;
-		font-weight: 700;
-	}
-
-	.badge-open {
-		display: none;
-	}
-
-	.badge-closed {
-		display: inline;
-	}
-
-	.expand-card[open] .badge-open {
-		display: inline;
-	}
-
-	.expand-card[open] .badge-closed {
-		display: none;
+		line-height: 1.4;
 	}
 
 	.card-tagline {
@@ -411,12 +340,13 @@ const featuredProjects = [
 	}
 
 	.tech-tag {
-		padding: 0.15rem 0.55rem;
-		border-radius: 4px;
-		background: rgb(var(--gray-light));
-		color: rgb(var(--gray-dark));
-		font-size: 0.75rem;
+		padding: 0.15rem 0.6rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 999px;
+		color: rgb(var(--gray));
+		font-size: 0.72rem;
 		font-weight: 600;
+		letter-spacing: 0.01em;
 	}
 
 	.expand-content {
@@ -468,80 +398,54 @@ const featuredProjects = [
 	.action-btn:hover {
 		border-color: var(--accent);
 		color: var(--accent-dark);
-		background: rgba(var(--accent-rgb), 0.05);
+		background: rgba(var(--gray-light), 0.5);
 	}
 
-	.post-summary-row {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1.5rem;
-	}
-
-	.post-title-group {
+	.post-list {
 		display: grid;
-		gap: 0.3rem;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+
+	.post-row {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 2rem;
+		padding: 1.15rem 0.5rem;
+		border-bottom: 1px solid rgb(var(--gray-light));
+		color: inherit;
+		text-decoration: none;
+		transition: background 160ms ease, padding-left 160ms ease;
+	}
+
+	.post-row:hover {
+		background: rgba(var(--gray-light), 0.45);
+		padding-left: 0.9rem;
 	}
 
 	.post-title {
-		margin: 0;
+		margin: 0 0 0.25rem;
 		color: rgb(var(--black));
-		font-size: 1.15rem;
+		font-size: 1.08rem;
+		line-height: 1.45;
+	}
+
+	.post-row:hover .post-title {
+		color: var(--accent);
 	}
 
 	.post-desc {
 		margin: 0;
-		color: rgb(var(--gray-dark));
-		font-size: 0.9rem;
-	}
-
-	.post-meta {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		gap: 0.4rem;
-		flex-shrink: 0;
-	}
-
-	.abstract-box {
-		padding: 1rem;
-		border-radius: 8px;
-		background: rgba(var(--gray-light), 0.4);
-	}
-
-	.abstract-box h4 {
-		margin: 0 0 0.4rem;
-		font-size: 0.9rem;
-	}
-
-	.abstract-box p {
-		margin: 0;
-		color: rgb(var(--gray-dark));
-		font-size: 0.92rem;
+		color: rgb(var(--gray));
+		font-size: 0.88rem;
 		line-height: 1.55;
 	}
 
-	.post-action-row {
-		margin-top: 1rem;
-		text-align: right;
-	}
-
-	.read-full-btn {
-		display: inline-flex;
-		align-items: center;
-		padding: 0.5rem 1rem;
-		border-radius: 6px;
-		background: rgb(var(--black));
-		color: #fff;
-		font-size: 0.88rem;
-		font-weight: 700;
-		text-decoration: none;
-		transition: transform 160ms ease;
-	}
-
-	.read-full-btn:hover {
-		color: #fff;
-		transform: translateX(3px);
+	.post-date {
+		flex-shrink: 0;
+		color: rgb(var(--gray));
+		font-size: 0.82rem;
+		font-variant-numeric: tabular-nums;
 	}
 
 	@media (max-width: 720px) {
@@ -553,17 +457,9 @@ const featuredProjects = [
 			font-size: 1.1rem;
 		}
 
-		.post-summary-row {
+		.post-row {
 			flex-direction: column;
-			align-items: flex-start;
-			gap: 0.75rem;
-		}
-
-		.post-meta {
-			align-items: flex-start;
-			flex-direction: row;
-			width: 100%;
-			justify-content: space-between;
+			gap: 0.4rem;
 		}
 	}
 </style>
