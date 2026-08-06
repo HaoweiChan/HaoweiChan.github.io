@@ -11,7 +11,7 @@ const { locale = 'en', switchHref = locale === 'en' ? '/zh-tw/' : '/' } = Astro.
 const isZhTw = locale === 'zh-tw';
 const homeHref = isZhTw ? '/zh-tw/' : '/';
 const blogHref = isZhTw ? '/zh-tw/blog' : '/blog';
-const blogLabel = isZhTw ? '文章' : 'Blog';
+const blogLabel = 'Blog';
 const currentHref = Astro.url.pathname;
 const englishHref = isZhTw ? switchHref : currentHref;
 const zhTwHref = isZhTw ? currentHref : switchHref;
