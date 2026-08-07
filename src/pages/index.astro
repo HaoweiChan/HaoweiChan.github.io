@@ -62,17 +62,17 @@ const featuredProjects = [
 		]
 	},
 	{
-		id: 'quant-engine',
-		title: 'Quant Engine & AlphaTrader — Cross-Market Quantitative Trading',
-		tagline: 'Modular quantitative trading engine and backtesting system supporting Taiwan futures (TXF) and Binance Crypto.',
-		tags: ['Python', 'Dash', 'vn.py', 'Shioaji API', 'Binance API', 'PostgreSQL', 'Collar Strategy'],
-		private: 'Private repo',
+		id: 'taifexdesk',
+		title: 'TaifexDesk — TAIFEX Futures & Options Trading Infrastructure',
+		tagline:
+			'Backtesting, paper trading, and live execution on one engine for Taiwan index futures, single-stock futures, and TXO options — Python + FastAPI backend, React war-room dashboard, shioaji broker adapter.',
+		tags: ['Python', 'FastAPI', 'React', 'Shioaji', 'Backtesting', 'Paper Trading', 'Risk Engine'],
 		highlights: [
-			'Cross-Market Abstraction: Unified interface for Shioaji and Binance historical data & real-time streaming.',
-			'Collar Option Rotation: Options strategy engine for weekly covered calls and protective puts on TXF.',
-			'Dash Interactive Dashboard: Real-time MTM PnL charts, implied volatility (IV) bands, and cash yield indicators.'
+			'Signals separated from execution: a strategy is just an entry / add / stop policy triple, so the engine ships open-source while the strategies stay private.',
+			'Intra-bar stop checking: reconstructs a plausible price path from OHLC, so a bar whose low pierced the stop counts as stopped out — removing the systematic optimism of close-only backtests.',
+			'One cost model everywhere: backtest, paper, and live share the same commission and tax math, so results do not drift apart as the index moves.'
 		],
-		links: []
+		links: [{ label: 'GitHub Repo', href: 'https://github.com/HaoweiChan/TaifexDesk', external: true }]
 	}
 ];
 ---
