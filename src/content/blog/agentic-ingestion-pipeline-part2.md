@@ -125,22 +125,6 @@ Decoupling concurrency budgets prevents cheap network fetches from blocking mode
 
 ---
 
-## Visual Plan
-
-### Figure 1: Linear vs. Recoverable Data Factory
-* **Purpose**: Contrast a simple linear LLM pipeline with a recoverable multi-agent checkpoint factory.
-* **Placement**: Start of Section 1 (Checkpoints).
-* **Caption**: `Recoverable data factory: Raw, Checkpoint, and Serving tiers for failure recovery.`
-* **Inspiration**: Netflix Tech Blog style architecture diagrams with clean blue/gray tones and labeled snapshots.
-
-### Figure 2: Concurrency Budget Dashboard
-* **Purpose**: Visualize concurrency throttling across pipeline stages.
-* **Placement**: Section 4 (Concurrency Budget).
-* **Caption**: `Stage concurrency limits prevent API 429 Rate Limits.`
-* **Inspiration**: Stripe Technical Blog rate limiter dashboard style.
-
----
-
 ## Conclusion
 
 Building a production-grade financial podcast ingestion pipeline is not about how powerful a single LLM is, but **how well you engineer an unpredictable model call inside a predictable, recoverable software system**.

@@ -168,28 +168,6 @@ Dev 環境可以吵雜、可以快速迭代、甚至可以允許短暫壞掉。�
 
 ---
 
-## 圖表與配圖建議 (Visual Plan)
-
-### 1. 分支至環境推進圖 (Branch-to-Environment Promotion Path)
-* **用途**：讓讀者快速理解程式碼如何一步步推進至 Production。
-* **位置**：置於架構設計段落之首。
-* **圖表說明**：`好的環境分層不是多幾個網址，而是讓每次 Promotion 都有明確驗證。`
-* **靈感來源**：參考 **Vercel** 或 **GitHub Docs** 在介紹 Git 部署工作流時的捷運路線圖風格（Transit-map style），使用乾淨優雅的色調。
-
-### 2. 三個環境回答三種問題 (Three Environments Comparison)
-* **用途**：將 Dev、Staging、Production 的不同責任視覺化。
-* **位置**：置於方法論段落開頭。
-* **圖表說明**：`Dev 找整合問題，Staging 找 Release 問題，Production 只承接已驗證版本。`
-* **靈感來源**：參考 **Stripe Technical Blog** 的三欄式架構圖表，清晰展示目的、資料、Secret 與快取之差異。
-
-### 3. 發布準備度清單 (Release Readiness Checklist)
-* **用途**：展示真實工程經驗中的發布 Checkpoint。
-* **位置**：置於生產環境踩坑段落。
-* **圖表說明**：`部署前要問的不是「能不能上」，而是「哪些證據顯示它可以上」。`
-* **靈感來源**：參考 **AWS Architecture Blog** 的部署管道驗證圖標示。
-
----
-
 ## 總結 (Conclusion)
 
 Dev / Staging / Production 分層不是大型企業的專屬儀式，而是一個降低發布風險的工程設計模式。它將問題進行有效分流：

@@ -256,34 +256,6 @@ flowchart LR
 
 ---
 
-## 圖表與配圖建議 (Visual Plan)
-
-### 1. 單向管線總覽 (One-Way Pipeline)
-* **用途**：一眼看懂「假設 → 前篩 → 封存 → 閘門 → 影子簿」是單向的，失敗只有一個出口（歸檔）。
-* **位置**：置於架構設計章節開頭，取代文字敘述。
-* **圖表說明**：`整套流程唯一的設計目標，是讓「回頭改規格」這件事變得昂貴而且留下痕跡。`
-* **靈感來源**：參考 [Excalidraw Libraries](https://libraries.excalidraw.com/) 的 flow／pipeline 元件，或 [Netflix Tech Blog](https://netflixtechblog.com/tag/experimentation) 的實驗平台流程圖風格。
-
-### 2. 中性化階梯瀑布圖 (Neutralization Waterfall)
-* **用途**：把「原始價差 → 剝除規模 → 剝除產業 → 剝除 beta」畫成瀑布，讓 style 與 alpha 的差別變成視覺上的。
-* **位置**：緊接在階梯的流程圖之後，作為量化版本。
-* **圖表說明**：`同一個因子，三根柱子掉完之後剩下的才是選股。掉在第一根，那是規模溢酬。`
-* **靈感來源**：參考 [MSCI Factor Models](https://www.msci.com/our-solutions/analytics/factor-models) 說明文件中的報酬歸因瀑布圖。
-
-### 3. 相關性 vs 存活散佈圖 (Correlation vs Survival)
-* **用途**：用三到五個點直接證明「相關係數預測不了存活」，這是整篇最強的一個反直覺結論。
-* **位置**：置於第五節表格旁邊。
-* **圖表說明**：`如果這張圖上的點有規律，我就不需要跑階梯了。它們沒有規律，這就是為什麼要跑。`
-* **靈感來源**：學術論文常見的 scatter + 45 度參考線畫法，風格可參考 [Our World in Data](https://ourworldindata.org/) 的簡潔散佈圖。
-
-### 4. 對數軸權益曲線 (Log-Scale Equity Curve)
-* **用途**：直接示範同一條曲線在線性軸與對數軸下的視覺差異，說明為什麼報告一律用對數軸。
-* **位置**：置於持倉報告章節，並排 before／after。
-* **圖表說明**：`同一條曲線。左邊那張讓我以為前三年沒事發生。`
-* **靈感來源**：參考 [FRED](https://fred.stlouisfed.org/) 圖表工具產出的長週期對數軸圖。
-
----
-
 ## 總結 (Conclusion)
 
 這套流程如果要給一個名字，我會叫它 **predeclare → gate → shadow**：先把規格封存讓自由度歸零，再用互相獨立、問不同問題的閘門逐層淘汰，最後只讓時間本身來當最終裁判。

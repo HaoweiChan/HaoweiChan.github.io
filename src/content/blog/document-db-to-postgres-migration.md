@@ -97,32 +97,6 @@ None of the fourteen were caught by the test suite, because all of them lived in
 
 ---
 
-## Visual Plan
-
-### 1. Six-Phase Roadmap
-* **Purpose**: One diagram for the phase split and the "you can stop at any phase" property.
-* **Placement**: In the six-phase section of the methodology.
-* **Caption**: `Phase one takes 95% of the value; the remaining five are about exiting, not saving.`
-* **Inspiration**: The migration checkpoint diagrams on the **AWS Architecture Blog**.
-
-### 2. Same-Interface Swap
-* **Purpose**: Show the swap surface — nineteen call sites untouched, two lines changed at assembly.
-* **Placement**: In the same-interface swap section.
-* **Caption**: `Collapse the review from nineteen sites to one translation layer.`
-* **Inspiration**: The diagrams in **Uber Engineering**'s strangler-fig migration write-ups.
-
-### 3. Cutover State Machine
-* **Purpose**: Mark where the irreversible point sits and what rollback means in each state.
-* **Placement**: In the write-stop section.
-* **Caption**: `Before write-stop, rollback is a flag. After it, the word does not exist.`
-
-### 4. Adversarial Review Findings
-* **Purpose**: Categorize the fourteen must-fixes (semantic divergence / concurrency / timing races / typing) and explain why tests missed them.
-* **Placement**: After the adversarial review section.
-* **Caption**: `All of them hid in the seam between two systems — weakest ground for unit tests, strongest for adversarial reasoning.`
-
----
-
 ## Conclusion
 
 The migration compresses into three reusable patterns:

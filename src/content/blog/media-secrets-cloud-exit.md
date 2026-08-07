@@ -96,31 +96,6 @@ After that, the data exists in two physical locations (VPS as the live copy, hom
 
 ---
 
-## Visual Plan
-
-### 1. Media Serving Before / After
-* **Purpose**: Contrast signed URLs plus cross-continent object storage against reverse proxy plus local disk.
-* **Placement**: After the architecture section.
-* **Caption**: `Same URL field; an ocean behind it becomes a loopback.`
-* **Inspiration**: The origin/edge topology diagrams on the **Cloudflare Blog**.
-
-### 2. Deletion Checklist
-* **Purpose**: Export, off-site backup, file-count reconciliation, delete, confirm empty — as a saveable image.
-* **Placement**: In the deletion discipline section.
-* **Caption**: `Deletion is the only deploy with no rollback button.`
-
-### 3. Secret Resolution Order
-* **Purpose**: The three-tier resolution — environment variable, env file, cloud fallback — and "fallback hits reach zero" as the completion criterion.
-* **Placement**: In the secrets section.
-* **Caption**: `The cutover is done the day fallback hits reach zero, not the day the values are copied.`
-
-### 4. Series Map
-* **Purpose**: The full path from "this bill looks wrong" to "zero cloud footprint": SKU breakdown, cost model, stop the bleeding, move reads, move writes, move files, move secrets, delete.
-* **Placement**: Before the conclusion.
-* **Caption**: `The trilogy on one page.`
-
----
-
 ## Conclusion
 
 Three posts in, the whole incident compresses into one decision procedure:

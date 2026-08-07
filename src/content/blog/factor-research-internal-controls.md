@@ -255,34 +255,6 @@ All of these are real, ordered by how much they hurt.
 
 ---
 
-## Visual Plan
-
-### 1. One-Way Pipeline
-* **Purpose**: Make it obvious at a glance that hypothesis, prescreen, seal, gates, shadow book is one-directional, with a single exit for failure (the archive).
-* **Placement**: At the top of the architecture section, replacing prose.
-* **Caption**: `The single design goal of this process is to make going back and changing the spec expensive and traceable.`
-* **Inspiration**: Flow/pipeline components from [Excalidraw Libraries](https://libraries.excalidraw.com/), or the experimentation-platform diagrams on the [Netflix Tech Blog](https://netflixtechblog.com/tag/experimentation).
-
-### 2. Neutralization Waterfall
-* **Purpose**: Draw raw spread, strip size, strip industry, strip beta as a waterfall so the style/alpha distinction becomes visual.
-* **Placement**: Immediately after the ladder diagram, as its quantitative counterpart.
-* **Caption**: `Same factor. What survives three bars is selection. What dies on the first bar is a size premium.`
-* **Inspiration**: The return-attribution waterfalls in the [MSCI Factor Models](https://www.msci.com/our-solutions/analytics/factor-models) documentation.
-
-### 3. Correlation versus Survival
-* **Purpose**: Use three to five points to demonstrate directly that correlation does not predict survival — the strongest counterintuitive claim in the post.
-* **Placement**: Beside the table in section 5.
-* **Caption**: `If these points had a pattern, I would not need the ladder. They do not, which is exactly why I run it.`
-* **Inspiration**: The scatter-plus-45-degree-reference-line convention from academic papers, with the clean styling of [Our World in Data](https://ourworldindata.org/).
-
-### 4. Log-Scale Equity Curve
-* **Purpose**: Show the same curve on linear and log axes side by side, and explain why reports always use log.
-* **Placement**: In the holdings report section, before/after.
-* **Caption**: `The same curve. The left one made me think nothing happened in the first three years.`
-* **Inspiration**: Long-horizon log-scale charts produced by the [FRED](https://fred.stlouisfed.org/) charting tool.
-
----
-
 ## Conclusion
 
 If the process needs a name, I would call it **predeclare → gate → shadow**: seal the spec so degrees of freedom go to zero, eliminate through independent gates that each ask a different question, and let time itself be the final judge.

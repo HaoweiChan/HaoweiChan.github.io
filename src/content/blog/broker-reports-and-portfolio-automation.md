@@ -129,19 +129,6 @@ Brokers occasionally modify statement PDF layouts. To prevent parser errors from
 
 ---
 
-## Visual Plan
-
-### Figure 1: Two-Track Data Pipeline Topology
-* **Purpose**: Illustrate separate tracks for equity calculations and research report ingestion.
-* **Placement**: Section 1 (Architecture).
-* **Caption**: `Dual-track data pipeline: Left track processes encrypted PDFs and APIs; right track handles report crawlers and indexing.`
-
-### Figure 2: T+2 Settlement Adjustment Curve
-* **Purpose**: Compare unadjusted artificial NAV drops against adjusted smooth settlement curves.
-* **Placement**: Section 2 (Methodology).
-
----
-
 ## Conclusion
 
 A trustworthy resident assistant rests upon **high-reliability, low-maintenance data engineering**.

@@ -125,19 +125,6 @@ Track observability headers (`X-Cache: HIT` / `X-Cache: MISS`) and log hit ratio
 
 ---
 
-## Visual Plan
-
-### Figure 1: Tiered Cache Defense Line
-* **Purpose**: Show request filtering across Browser, Edge CDN, Redis, and DB.
-* **Placement**: Section 1 (Architecture).
-* **Caption**: `Request filtering pyramid: Edge CDNs intercept repetitive queries; Redis serves dynamic reads.`
-
-### Figure 2: Single-Flight Mutex Locking
-* **Purpose**: Visualize how Single-Flight locks protect databases during Thundering Herd events.
-* **Placement**: Section 2 (Methodology).
-
----
-
 ## Conclusion
 
 Cache engineering goes far beyond calling `redis.set`. It is a system for **data freshness management, boundary isolation, and failure defense**.

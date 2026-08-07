@@ -127,19 +127,6 @@ Redis 是記憶體資料庫。如果沒有設定 `maxmemory` 以及正確的驅�
 
 ---
 
-## 圖表與配圖建議 (Visual Plan)
-
-### 1. 多層快取防禦線拓撲圖 (Tiered Caching Topology)
-* **用途**：展示 Browser, Edge CDN, Redis 與 Database 間的請求攔截關係。
-* **位置**：置於架構設計開頭。
-* **圖表說明**：`請求過濾金字塔：Edge CDN 擋掉大量重複請求，Redis 承接絕大多數動態查詢。`
-
-### 2. 快取擊穿 (Cache Stampede) 與互斥鎖運作圖
-* **用途**：視覺化展示 Thundering Herd 發生時，Single-Flight Lock 如何保護資料庫。
-* **位置**：置於方法論快取擊穿章節。
-
----
-
 ## 總結 (Conclusion)
 
 快取設計不是簡單地「呼叫 `redis.set`」，而是一套關於**資料新鮮度、邊界隔離與失敗防禦**的工程系統。

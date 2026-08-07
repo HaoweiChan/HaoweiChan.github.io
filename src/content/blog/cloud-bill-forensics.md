@@ -103,33 +103,6 @@ Plugging in numbers produced two conclusions. First, **cutting the payload per r
 
 ---
 
-## Visual Plan
-
-### 1. Failure Mode Map
-* **Purpose**: One diagram for the whole loop — timer, cache bypass, full scan, intercontinental egress — plus the x3 environment multiplier.
-* **Placement**: After layer 4 of the methodology.
-* **Caption**: `Two well-meaning cache warming loops, multiplied by three environments and one Atlantic Ocean.`
-* **Inspiration**: The request-flow annotation style used in **Netflix Tech Blog** caching articles, drawn with an Excalidraw hand-sketched feel.
-
-### 2. Investigation Funnel
-* **Purpose**: Show the convergence across five layers (invoice total, SKU, time series, read/write ratio, call-site inventory).
-* **Placement**: At the top of the methodology section.
-* **Caption**: `Every layer halves the suspect list.`
-* **Inspiration**: The funnel and staircase charts common on the **Stripe Engineering Blog**.
-
-### 3. Before / After Read Volume
-* **Purpose**: A 6-hour-granularity read time series with the hotfix and the read migration marked.
-* **Placement**: Next to the quantified verification paragraph.
-* **Caption**: `Six million to a hundred and ten thousand: two deploys, one order of magnitude each.`
-* **Inspiration**: **Grafana** dashboard screenshots, redrawn after de-identification.
-
-### 4. Cost Composition
-* **Purpose**: Break the intuition that read count is what costs money, and highlight payload x distance.
-* **Placement**: After layer 1 of the methodology.
-* **Caption**: `The body of the bill is not how often bytes are read, but how far they travel.`
-
----
-
 ## Conclusion
 
 Three portable lessons from this incident:

@@ -162,22 +162,6 @@ Deployment is placing code onto servers; a release includes health checks, error
 
 ---
 
-## Visual Plan
-
-### Figure 1: Branch-to-Environment Promotion Path
-* **Purpose**: Show how code advances safely into Production.
-* **Placement**: Section 1 (Architecture).
-* **Caption**: `Environment layering is about proving readiness at every promotion step.`
-* **Inspiration**: Vercel / GitHub transit-map style workflows.
-
-### Figure 2: Three Environments Comparison
-* **Purpose**: Visualize roles of Dev, Staging, and Production.
-* **Placement**: Section 2 (Methodology).
-* **Caption**: `Dev finds integration issues, Staging finds release issues, Production accepts verified code.`
-* **Inspiration**: Stripe Technical Blog three-column architecture breakdown.
-
----
-
 ## Conclusion
 
 Dev / Staging / Production layering is not corporate overhead, but a practical risk-reduction pattern. It channels problems effectively:
