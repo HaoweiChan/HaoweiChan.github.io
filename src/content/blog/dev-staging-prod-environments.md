@@ -24,13 +24,13 @@ For a stack with React 19 + TypeScript + Vite frontend, FastAPI backend, Docker 
 A concise and practical promotion path looks like this:
 
 ```mermaid
-flowchart LR
-  F["Feature Branch"] --> P["Pull Request Preview"]
+flowchart TD
+  F["feature branch"] --> P["PR Preview"]
   P --> D["develop"]
-  D --> DEV["Dev Environment"]
+  D --> DEV["Dev"]
   DEV --> M["main"]
-  M --> STG["Staging Environment"]
-  STG --> T["Version Tag"]
+  M --> STG["Staging"]
+  STG --> T["version tag"]
   T --> PROD["Production"]
 ```
 
@@ -65,18 +65,9 @@ Environment separation is not about duplicating three sets of expensive infrastr
 
 ### 1. Bind Branch Strategy to Environment Strategy
 
-If branches and environments have no formal mapping, deployment degrades into verbal agreements and manual steps. A reliable approach keeps the promotion path explicit:
+If branches and environments have no formal mapping, deployment degrades into verbal agreements and manual steps. A reliable approach keeps the promotion path explicit — the chain in the diagram above: each step is either a branch or the environment it feeds, one to one, with no exceptions and no "let's just push this one manually".
 
-```mermaid
-flowchart LR
-  Code["Feature Branch"] --> Preview["PR Preview"]
-  Preview --> Dev["Dev Integration"]
-  Dev --> Staging["Staging Production-like"]
-  Staging --> Tag["Version Tag"]
-  Tag --> Production["Production"]
-```
-
-Everyone understands: features go to preview, integration goes to dev, release candidates go to staging, and version tags promote to production.
+Everyone understands: features go to preview, integration goes to dev, release candidates go to staging, and version tags promote to production. **A mapping held together by verbal agreement does not survive the third crunch week.**
 
 ### 2. Isolate Secret Boundaries Per Environment
 

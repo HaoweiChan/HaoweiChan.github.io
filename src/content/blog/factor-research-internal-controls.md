@@ -123,7 +123,7 @@ Both are real money, but **their risk character, their capacity, and what makes 
 My approach is to regress the signal cross-sectionally against a set of controls each day, rebuild the portfolio from the residual, and see how much spread survives:
 
 ```mermaid
-flowchart LR
+flowchart TD
     R[Raw spread<br/>100%] --> C1[C1: strip size]
     C1 --> C2[C2: also strip industry]
     C2 --> C3[C3: also strip beta]

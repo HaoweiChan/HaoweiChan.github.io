@@ -44,41 +44,41 @@ LangGraph 的「狀態圖（StateGraph）」概念非常適合這種複雜的 DA
 
 ```mermaid
 flowchart TD
-    Start([開始]) --> extract_events[掃描與標記 Agent: extract_events]
+    Start([開始]) --> extract_events[掃描與標記 Agent]
     
     %% 第一階段分流
-    extract_events --> cluster_sentences[段落主題分群: cluster_sentences]
-    extract_events --> build_events_markdown[事件大綱轉換: build_events_markdown]
+    extract_events --> cluster_sentences[段落主題分群]
+    extract_events --> build_events_markdown[事件大綱轉換]
     
     build_events_markdown --> End1([結束])
     
     %% 第二階段分流 (從分群開始)
-    cluster_sentences --> consolidate_chapters[章節合併對齊: consolidate_chapters]
-    cluster_sentences --> write_marp_slides[簡報大綱撰寫: write_marp_slides]
-    cluster_sentences --> extract_tickers[標的情緒分析 Agent: extract_tickers]
-    cluster_sentences --> derive_sector_exposures[產業曝險計算: derive_sector_exposures]
+    cluster_sentences --> consolidate_chapters[章節合併對齊]
+    cluster_sentences --> write_marp_slides[簡報大綱撰寫]
+    cluster_sentences --> extract_tickers[標的情緒分析 Agent]
+    cluster_sentences --> derive_sector_exposures[產業曝險計算]
     
     derive_sector_exposures --> End2([結束])
     
     %% 撰寫分支
-    consolidate_chapters --> write_article[報告撰寫 Agent: write_article]
-    write_article --> transform_to_markdown[Markdown 轉換: transform_to_markdown]
-    transform_to_markdown --> derive_tags_tickers[標籤與標的對齊: derive_tags_tickers]
-    derive_tags_tickers --> extract_key_insights[總編 Agent: extract_key_insights]
+    consolidate_chapters --> write_article[報告撰寫 Agent]
+    write_article --> transform_to_markdown[Markdown 轉換]
+    transform_to_markdown --> derive_tags_tickers[標籤與標的對齊]
+    derive_tags_tickers --> extract_key_insights[總編 Agent]
     
     %% 簡報分支
-    write_marp_slides --> convert_marp[簡報格式轉換: convert_marp]
+    write_marp_slides --> convert_marp[簡報格式轉換]
     
     %% 標的分支
-    extract_tickers --> convert_marp_ticker[標的簡報轉換: convert_marp_ticker]
+    extract_tickers --> convert_marp_ticker[標的簡報轉換]
     convert_marp_ticker --> End3([結束])
     
     %% 匯合生成社群素材 (Fan-in)
-    extract_key_insights --> build_social_cards[彙整社群圖卡: build_social_cards]
+    extract_key_insights --> build_social_cards[彙整社群圖卡]
     convert_marp --> build_social_cards
     extract_tickers --> build_social_cards
     
-    build_social_cards --> write_social_copy[社群貼文撰寫: write_social_copy]
+    build_social_cards --> write_social_copy[社群貼文撰寫]
     write_social_copy --> End4([結束])
 ```
 

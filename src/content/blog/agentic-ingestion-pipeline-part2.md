@@ -27,7 +27,7 @@ If the pipeline failed at the very last stage due to a rendering error, re-runni
 To build a truly resilient system, I structured the data layer into three distinct tiers:
 
 ```mermaid
-flowchart LR
+flowchart TD
     subgraph Raw ["Raw Data Layer"]
         MP3["Raw Audio MP3"]
         RSS["RSS Metadata"]

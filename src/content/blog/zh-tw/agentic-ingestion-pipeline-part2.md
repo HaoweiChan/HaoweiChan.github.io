@@ -29,7 +29,7 @@ heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.zh.png'
 為了打造真正具備容錯能力的可恢復系統，我將資料架構明確劃分為三個層級：
 
 ```mermaid
-flowchart LR
+flowchart TD
     subgraph Raw ["原始資料層 (Raw Data)"]
         MP3["原始音訊檔 MP3"]
         RSS["RSS Metadata"]

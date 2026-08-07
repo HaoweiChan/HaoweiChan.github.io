@@ -28,13 +28,13 @@ Dev / Staging / Production 的價值，不是讓流程看起來更企業化，�
 一個簡潔但實用的環境推進策略（Promotion Path）可以長這樣：
 
 ```mermaid
-flowchart LR
-  F["Feature Branch"] --> P["Pull Request Preview"]
+flowchart TD
+  F["feature 分支"] --> P["PR Preview"]
   P --> D["develop"]
-  D --> DEV["Dev Environment"]
+  D --> DEV["Dev 環境"]
   DEV --> M["main"]
-  M --> STG["Staging Environment"]
-  STG --> T["Version Tag"]
+  M --> STG["Staging 環境"]
+  STG --> T["version tag"]
   T --> PROD["Production"]
 ```
 
@@ -69,18 +69,9 @@ flowchart TD
 
 ### 1. 把分支策略與環境策略緊密綁定
 
-如果 branch 和 environment 沒有對應關係，部署就容易變成口頭約定與手動操作。比較穩定的方式，是讓 promotion path 非常清晰：
+如果 branch 和 environment 沒有對應關係，部署就容易變成口頭約定與手動操作。比較穩定的方式，是讓 promotion path 非常清晰——也就是前面那張圖：每前進一格就換一條分支或換一個環境，一一對應，沒有例外，也沒有「這次先手動推上去」。
 
-```mermaid
-flowchart LR
-  Code["功能分支 Feature"] --> Preview["PR Preview 預覽"]
-  Preview --> Dev["Dev 整合環境"]
-  Dev --> Staging["Staging 擬真環境"]
-  Staging --> Tag["Version Tag 版號標記"]
-  Tag --> Production["Production 生產環境"]
-```
-
-這樣團隊中每個人都能明確理解：新功能先進 preview，整合進 dev，release candidate 進 staging，最後才用 tag 或正式版本標籤進 production。
+這樣團隊中每個人都能明確理解：新功能先進 preview，整合進 dev，release candidate 進 staging，最後才用 tag 或正式版本標籤進 production。**這個對應關係要是靠口頭維持，它撐不過第三次趕工。**
 
 ### 2. 每個環境都要有獨立的 Secret 邊界
 

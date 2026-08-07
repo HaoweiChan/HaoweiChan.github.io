@@ -42,41 +42,41 @@ Here is the actual `StateGraph` topology used in the project, featuring parallel
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> extract_events[Scanner & Tagger Agent: extract_events]
+    Start([Start]) --> extract_events[Scanner & Tagger Agent]
     
     %% First Fan-out
-    extract_events --> cluster_sentences[Paragraph Topic Clustering: cluster_sentences]
-    extract_events --> build_events_markdown[Event Outline Transform: build_events_markdown]
+    extract_events --> cluster_sentences[Paragraph Topic Clustering]
+    extract_events --> build_events_markdown[Event Outline Transform]
     
     build_events_markdown --> End1([End])
     
     %% Second Fan-out (from clustering)
-    cluster_sentences --> consolidate_chapters[Chapter Consolidation & Alignment: consolidate_chapters]
-    cluster_sentences --> write_marp_slides[Slide Outline Writer: write_marp_slides]
-    cluster_sentences --> extract_tickers[Ticker Sentiment Agent: extract_tickers]
-    cluster_sentences --> derive_sector_exposures[Sector Exposure Calculation: derive_sector_exposures]
+    cluster_sentences --> consolidate_chapters[Chapter Consolidation & Alignment]
+    cluster_sentences --> write_marp_slides[Slide Outline Writer]
+    cluster_sentences --> extract_tickers[Ticker Sentiment Agent]
+    cluster_sentences --> derive_sector_exposures[Sector Exposure Calculation]
     
     derive_sector_exposures --> End2([End])
     
     %% Writing Branch
-    consolidate_chapters --> write_article[Report Writer Agent: write_article]
-    write_article --> transform_to_markdown[Markdown Transform: transform_to_markdown]
-    transform_to_markdown --> derive_tags_tickers[Tags & Tickers Alignment: derive_tags_tickers]
-    derive_tags_tickers --> extract_key_insights[Chief Editor Agent: extract_key_insights]
+    consolidate_chapters --> write_article[Report Writer Agent]
+    write_article --> transform_to_markdown[Markdown Transform]
+    transform_to_markdown --> derive_tags_tickers[Tags & Tickers Alignment]
+    derive_tags_tickers --> extract_key_insights[Chief Editor Agent]
     
     %% Slide Branch
-    write_marp_slides --> convert_marp[Slide Format Converter: convert_marp]
+    write_marp_slides --> convert_marp[Slide Format Converter]
     
     %% Ticker Branch
-    extract_tickers --> convert_marp_ticker[Ticker Slide Converter: convert_marp_ticker]
+    extract_tickers --> convert_marp_ticker[Ticker Slide Converter]
     convert_marp_ticker --> End3([End])
     
     %% Fan-in Social Generation
-    extract_key_insights --> build_social_cards[Social Card Aggregator: build_social_cards]
+    extract_key_insights --> build_social_cards[Social Card Aggregator]
     convert_marp --> build_social_cards
     extract_tickers --> build_social_cards
     
-    build_social_cards --> write_social_copy[Social Copy Writer: write_social_copy]
+    build_social_cards --> write_social_copy[Social Copy Writer]
     write_social_copy --> End4([End])
 ```
 

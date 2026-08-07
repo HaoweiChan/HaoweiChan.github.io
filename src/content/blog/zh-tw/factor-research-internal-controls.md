@@ -124,7 +124,7 @@ flowchart TD
 我的做法是把訊號逐日對一組控制變數做橫斷面迴歸，取殘差重建組合，看價差還剩多少：
 
 ```mermaid
-flowchart LR
+flowchart TD
     R[原始價差<br/>100%] --> C1[C1：剝除規模]
     C1 --> C2[C2：再剝除產業]
     C2 --> C3[C3：再剝除 beta]
