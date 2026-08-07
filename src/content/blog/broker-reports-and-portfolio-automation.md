@@ -57,6 +57,12 @@ flowchart TD
 
 The core principle: **Data ingestion, math, and storage run strictly via deterministic Python scripts; LLMs are reserved for downstream natural-language synthesis and query handling.**
 
+Here is what the pipeline emits at 23:00 every day — three brokers, five accounts, with the equity curve, drawdown and allocation all assembled out of the statement PDFs and API responses described above:
+
+![Multi-account equity dashboard: a stacked equity curve across five accounts on top, drawdown percentage bottom-left, and a current-day allocation donut on the right. Every currency amount is pixelated.](../../assets/blog/portfolio-equity-dashboard.png)
+
+The amounts are pixelated out, which leaves the part this post is actually about: the shape of the curve, the depth of the drawdown, the allocation split. That −53.6% drawdown in April 2025 is a real loss — the drawdown panel runs on time-weighted returns, so deposits and withdrawals are already stripped out of it. The green band that jumps in mid-June 2026 is an NT$2.77M deposit into a new account, not a return. **On a chart the two look nearly identical, and the only thing that tells them apart is recording cash flows separately** — which is why the next section spends so long on T+2 settlement.
+
 ---
 
 ## Methodology Breakdown
