@@ -61,7 +61,7 @@ Here is what the pipeline emits at 23:00 every day — three brokers, five accou
 
 ![Multi-account equity dashboard: a stacked equity curve across five accounts on top, drawdown percentage bottom-left, and a current-day allocation donut on the right. Every currency amount is pixelated.](../../assets/blog/portfolio-equity-dashboard.png)
 
-The amounts are pixelated out, which leaves the part this post is actually about: the shape of the curve, the depth of the drawdown, the allocation split. That −53.6% drawdown in April 2025 is a real loss — the drawdown panel runs on time-weighted returns, so deposits and withdrawals are already stripped out of it. The green band that jumps in mid-June 2026 is an NT$2.77M deposit into a new account, not a return. **On a chart the two look nearly identical, and the only thing that tells them apart is recording cash flows separately** — which is why the next section spends so long on T+2 settlement.
+The amounts are pixelated out, which leaves the part this post is actually about: the shape of the curve, the depth of the drawdown, the allocation split. That −53.6% drawdown in April 2025 is a real loss — the drawdown panel runs on time-weighted returns, so deposits and withdrawals are already stripped out of it. The green band that jumps in mid-June 2026 is a deposit into a new account, not a return. **On a chart the two look nearly identical, and the only thing that tells them apart is recording cash flows separately** — which is why the next section spends so long on T+2 settlement.
 
 ---
 
@@ -126,6 +126,43 @@ Statement delivery times vary (some arrive at 18:00, others at 21:30). To preven
 ### 3. Safeguarding Against PDF Layout Changes
 
 Brokers occasionally modify statement PDF layouts. To prevent parser errors from injecting corrupt numbers, the parser enforces **Reasonableness Boundary Checks**: if extracted equity shifts by more than a preset daily percentage threshold, persistence is blocked and an alert is raised for manual review.
+
+---
+
+## Worked Example: How Unsettled Cash Faked a −6.6% Crash
+
+The T+2 section above describes a mechanism. I only added that mechanism **after it had already fooled me once**. Here is the day it happened, because it demonstrates this system's most dangerous failure mode.
+
+On 9 July 2026 the cash-equities account rotated positions: two names sold, one halved, two bought, with net sale proceeds worth about 6.9% of account NAV. That evening the scheduled job posted **−6.61%** to Discord.
+
+The account had barely moved. The formula at the time was:
+
+```
+NAV = settled cash (acc_balance) + market value of holdings
+```
+
+That looks reasonable, and the bug is the word *settled*. Sold shares leave the market-value side the instant they fill, but the proceeds do not reach the settlement bank account until T+2. On the evening of 9 July that money was in neither term. It was in flight, and the formula had nowhere to put it.
+
+Querying the broker's `settlements()` endpoint showed it sitting exactly where you would expect: `T=2, settling 7/13`. Adding it back:
+
+| Formula | Settled cash | Market value | Unsettled (T+1/T+2) | Day change |
+|---|:---:|:---:|:---:|---|
+| Original (wrong) | ✓ | ✓ | ✗ | **−6.61%** |
+| Corrected | ✓ | ✓ | ✓ | **+0.25%** |
+
+The corrected formula adds one term whose sign follows the trade direction — positive for incoming sale proceeds, negative for cash owed on purchases — so it also removes the mirror-image fake *spike* on buy days.
+
+```
+NAV = settled cash + Σ unsettled settlements + market value
+```
+
+The reason this correction is sound is that it is self-consistent across the whole cycle: when the proceeds clear, the unsettled term drops to zero while cash rises by the same amount, and NAV stays smooth end to end.
+
+The part worth writing down is **why this was hard to catch**. A −6.61% day triggers no alarm — markets do fall 6%. The reasonableness check described above only stops numbers that are absurd on their face, the kind a broken parser produces; it cannot stop a number that looks entirely real. Nothing crashed, nothing logged, nothing turned red. The system simply told a quiet lie.
+
+**In data engineering, the errors that raise are the cheap ones.** The expensive ones are those shaped exactly like a correct answer.
+
+(Worth noting: accounts read through an API's liquidation value are immune to this entirely — that figure already accounts for unsettled activity. This trap belongs specifically to any account whose NAV you assemble yourself.)
 
 ---
 
