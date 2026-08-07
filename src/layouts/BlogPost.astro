@@ -7,6 +7,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import SeriesNav from '../components/SeriesNav.astro';
 import type { seriesNav } from '../series';
+import { TAG_LABELS } from '../tags';
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	locale?: 'en' | 'zh-tw';
@@ -23,6 +24,7 @@ const {
 	locale = 'en',
 	switchHref,
 	series,
+	tags,
 } = Astro.props;
 const dateLocale = locale === 'zh-tw' ? 'zh-TW' : 'en-US';
 const updatedLabel = locale === 'zh-tw' ? '最後更新於' : 'Last updated on';
@@ -69,6 +71,21 @@ const updatedLabel = locale === 'zh-tw' ? '最後更新於' : 'Last updated on';
 			.last-updated-on {
 				font-style: italic;
 			}
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 0.4rem;
+				margin-bottom: 1em;
+			}
+			.tag {
+				padding: 0.1rem 0.6rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 999px;
+				color: rgb(var(--gray));
+				font-size: 0.78rem;
+				font-weight: 600;
+			}
 		</style>
 	</head>
 
@@ -92,6 +109,16 @@ const updatedLabel = locale === 'zh-tw' ? '最後更新於' : 'Last updated on';
 							}
 						</div>
 						<h1>{title}</h1>
+						{
+							// /about renders through this layout too, and carries no tags.
+							tags?.length > 0 && (
+								<div class="tags">
+									{tags.map((tag) => (
+										<span class="tag">{TAG_LABELS[locale][tag]}</span>
+									))}
+								</div>
+							)
+						}
 						<hr />
 					</div>
 					{series && <SeriesNav nav={series} locale={locale} />}
