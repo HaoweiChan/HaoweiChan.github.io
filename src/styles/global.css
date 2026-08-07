@@ -85,6 +85,29 @@ input {
 }
 table {
 	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.92em;
+	line-height: 1.6;
+}
+th,
+td {
+	padding: 0.55em 0.9em;
+	border-bottom: 1px solid rgb(var(--gray-light));
+	text-align: left;
+	vertical-align: top;
+}
+thead th {
+	border-bottom: 2px solid rgb(var(--gray));
+	color: rgb(var(--black));
+	font-weight: 700;
+}
+/* Zebra rows: these tables are wide and multi-line, and the stripe is what
+   keeps your eye on one row when scanning across three columns. */
+tbody tr:nth-child(even) {
+	background: rgba(var(--gray-light), 0.4);
+}
+tbody tr:last-child td {
+	border-bottom: 0;
 }
 img {
 	max-width: 100%;
@@ -119,6 +142,18 @@ hr {
 	}
 	main {
 		padding: 1em;
+	}
+	/* Desktop cell padding costs ~90px of a 300px-wide table on a phone. */
+	th,
+	td {
+		padding: 0.45em 0.5em;
+		/* Without a floor, auto layout shreds a CJK column into one character
+		   per line. Scrolling a wide table beats reading it vertically. */
+		min-width: 6em;
+	}
+	.prose > table {
+		display: block;
+		overflow-x: auto;
 	}
 }
 

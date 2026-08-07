@@ -49,9 +49,9 @@ const updatedLabel = locale === 'zh-tw' ? '最後更新於' : 'Last updated on';
 				box-shadow: var(--box-shadow);
 			}
 			.prose {
-				/* 820px is a compromise measure: ~41 CJK characters per line,
-				   ~85 Latin. Wide blocks break out past it, see global.css. */
-				width: 820px;
+				/* ~45 CJK characters per line. Wide blocks break out past it,
+				   see global.css. */
+				width: 900px;
 				max-width: calc(100% - 2em);
 				margin: auto;
 				padding: 1em;
