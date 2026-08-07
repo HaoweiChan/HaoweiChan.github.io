@@ -5,11 +5,9 @@ lang: 'zh-tw'
 translationOf: 'cloud-bill-forensics'
 pubDate: 'Aug 3 2026'
 tags: ['engineering']
+series: 'cloud-exit'
 heroImage: '../../../assets/blog/covers/cloud-exit.zh.png'
 ---
-
-> 系列：「一張帳單引發的雲端退場」三部曲（一）
-> 下一篇：[從文件資料庫搬回 PostgreSQL 的六階段方法論](/zh-tw/blog/document-db-to-postgres-migration/)
 
 ## 前言 (Introduction)
 

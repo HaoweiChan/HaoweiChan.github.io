@@ -5,6 +5,7 @@ lang: 'zh-tw'
 translationOf: 'agentic-ingestion-pipeline-part2'
 pubDate: 'Jan 22 2026'
 tags: ['agents']
+series: 'agentic-ingestion'
 heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.zh.png'
 ---
 

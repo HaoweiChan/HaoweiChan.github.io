@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { SERIES_IDS } from './series';
 import { TAGS } from './tags';
 
 const blog = defineCollection({
@@ -16,6 +17,9 @@ const blog = defineCollection({
 			// Controlled vocabulary (src/tags.ts). Max 2: needing a third means
 			// the post is unfocused or the vocabulary is too fine-grained.
 			tags: z.array(z.enum(TAGS)).min(1).max(2),
+			// Controlled vocabulary (src/series.ts). Reading order comes from
+			// pubDate, so there is no part number to keep in sync here.
+			series: z.enum(SERIES_IDS).optional(),
 			// Transform string to Date object
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),

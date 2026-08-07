@@ -5,6 +5,7 @@ lang: 'zh-tw'
 translationOf: 'broker-reports-and-portfolio-automation'
 pubDate: 'Mar 15 2026'
 tags: ['agents', 'quant']
+series: 'resident-assistant'
 heroImage: '../../../assets/blog/covers/resident-personal-assistant.zh.png'
 ---
 

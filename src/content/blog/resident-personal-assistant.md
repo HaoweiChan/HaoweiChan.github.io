@@ -3,6 +3,7 @@ title: 'My Personal Assistant Is Not a Chatbot'
 description: 'Building a resident assistant on Hermes Agent: six traits that stop it being a chatbot, what is genuinely clever about the Hermes agent mechanism, and the day it became trustworthy.'
 pubDate: 'Mar 3 2026'
 tags: ['agents']
+series: 'resident-assistant'
 heroImage: '../../assets/blog/covers/resident-personal-assistant.png'
 ---
 

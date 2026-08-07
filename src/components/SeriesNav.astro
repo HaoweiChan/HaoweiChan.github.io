@@ -1,0 +1,124 @@
+---
+import type { seriesNav } from '../series';
+
+interface Props {
+	nav: NonNullable<ReturnType<typeof seriesNav>>;
+	locale?: 'en' | 'zh-tw';
+}
+
+const { nav, locale = 'en' } = Astro.props;
+const isZhTw = locale === 'zh-tw';
+
+const t = isZhTw
+	? { series: '系列', part: `第 ${nav.part} 篇，共 ${nav.total} 篇`, prev: '上一篇', next: '下一篇' }
+	: { series: 'Series', part: `Part ${nav.part} of ${nav.total}`, prev: 'Previous', next: 'Next' };
+---
+
+<aside class="series-nav" aria-label={t.series}>
+	<p class="series-head">
+		<span class="series-label">{t.series}</span>
+		<strong>{nav.title}</strong>
+		<span class="series-part">{t.part}</span>
+	</p>
+	{
+		(nav.prev || nav.next) && (
+			<div class="series-links">
+				{nav.prev && (
+					<a class="series-link" href={nav.prev.href}>
+						<span class="dir">← {t.prev}</span>
+						<span class="name">{nav.prev.title}</span>
+					</a>
+				)}
+				{nav.next && (
+					<a class="series-link next" href={nav.next.href}>
+						<span class="dir">{t.next} →</span>
+						<span class="name">{nav.next.title}</span>
+					</a>
+				)}
+			</div>
+		)
+	}
+</aside>
+
+<style>
+	.series-nav {
+		margin: 0 0 2.5em;
+		padding: 1rem 1.25rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 12px;
+		background: rgba(var(--gray-light), 0.35);
+		font-size: 0.9rem;
+		line-height: 1.5;
+	}
+
+	.series-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.5rem;
+		margin: 0;
+	}
+
+	.series-label {
+		color: var(--accent-dark);
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.series-head strong {
+		color: rgb(var(--black));
+	}
+
+	.series-part {
+		color: rgb(var(--gray));
+		font-size: 0.82rem;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.series-links {
+		display: grid;
+		gap: 0.5rem;
+		margin-top: 0.85rem;
+		padding-top: 0.85rem;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+
+	.series-link {
+		display: grid;
+		gap: 0.1rem;
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+	}
+
+	.series-link:hover .name {
+		color: var(--accent);
+		text-decoration: underline;
+	}
+
+	.series-link.next {
+		text-align: right;
+	}
+
+	.dir {
+		color: rgb(var(--gray));
+		font-size: 0.78rem;
+		font-weight: 600;
+	}
+
+	.name {
+		color: rgb(var(--black));
+		font-size: 0.88rem;
+	}
+
+	@media (min-width: 640px) {
+		.series-links {
+			grid-template-columns: 1fr 1fr;
+		}
+		/* A lone "next" belongs on the right, where next always sits. */
+		.series-link.next:only-child {
+			grid-column: 2;
+		}
+	}
+</style>

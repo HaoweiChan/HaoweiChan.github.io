@@ -5,13 +5,25 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import SeriesNav from '../components/SeriesNav.astro';
+import type { seriesNav } from '../series';
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	locale?: 'en' | 'zh-tw';
 	switchHref?: string;
+	series?: ReturnType<typeof seriesNav>;
 };
 
-const { title, description, pubDate, updatedDate, heroImage, locale = 'en', switchHref } = Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	locale = 'en',
+	switchHref,
+	series,
+} = Astro.props;
 const dateLocale = locale === 'zh-tw' ? 'zh-TW' : 'en-US';
 const updatedLabel = locale === 'zh-tw' ? '最後更新於' : 'Last updated on';
 ---
@@ -82,6 +94,7 @@ const updatedLabel = locale === 'zh-tw' ? '最後更新於' : 'Last updated on';
 						<h1>{title}</h1>
 						<hr />
 					</div>
+					{series && <SeriesNav nav={series} locale={locale} />}
 					<slot />
 				</div>
 			</article>

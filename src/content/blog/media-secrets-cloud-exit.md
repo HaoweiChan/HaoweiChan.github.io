@@ -4,11 +4,9 @@ description: 'Large immutable files and small highly sensitive config are the tw
 lang: 'en'
 pubDate: 'Aug 5 2026'
 tags: ['engineering']
+series: 'cloud-exit'
 heroImage: '../../assets/blog/covers/cloud-exit.png'
 ---
-
-> Series: "A Bill That Triggered a Cloud Exit", part 3 of 3
-> Previous: [A Six-Phase Data Layer Exit Playbook](/blog/document-db-to-postgres-migration/)
 
 ## Introduction
 

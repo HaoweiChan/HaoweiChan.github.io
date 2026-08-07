@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import { seriesNav } from '../../series';
 
 export async function getStaticPaths() {
 	const posts = (await getCollection('blog')).filter((post) => post.data.lang === 'en');
@@ -13,8 +14,9 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+const series = seriesNav(post, await getCollection('blog'));
 ---
 
-<BlogPost {...post.data} switchHref={`/zh-tw/blog/${post.id}/`}>
+<BlogPost {...post.data} series={series} switchHref={`/zh-tw/blog/${post.id}/`}>
 	<Content />
 </BlogPost>

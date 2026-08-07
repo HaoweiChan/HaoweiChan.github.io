@@ -5,6 +5,7 @@ lang: 'zh-tw'
 translationOf: 'resident-personal-assistant'
 pubDate: 'Mar 3 2026'
 tags: ['agents']
+series: 'resident-assistant'
 heroImage: '../../../assets/blog/covers/resident-personal-assistant.zh.png'
 ---
 

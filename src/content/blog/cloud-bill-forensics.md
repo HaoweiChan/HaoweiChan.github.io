@@ -4,11 +4,9 @@ description: 'The bill went from a few hundred NTD to over forty thousand, and n
 lang: 'en'
 pubDate: 'Aug 3 2026'
 tags: ['engineering']
+series: 'cloud-exit'
 heroImage: '../../assets/blog/covers/cloud-exit.png'
 ---
-
-> Series: "A Bill That Triggered a Cloud Exit", part 1 of 3
-> Next: [A Six-Phase Playbook for Migrating from a Document Database Back to PostgreSQL](/blog/document-db-to-postgres-migration/)
 
 ## Introduction
 

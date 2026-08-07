@@ -5,11 +5,9 @@ lang: 'zh-tw'
 translationOf: 'document-db-to-postgres-migration'
 pubDate: 'Aug 4 2026'
 tags: ['engineering']
+series: 'cloud-exit'
 heroImage: '../../../assets/blog/covers/cloud-exit.zh.png'
 ---
-
-> 系列：「一張帳單引發的雲端退場」三部曲（二）
-> 上一篇：[雲端帳單暴漲二十倍的偵查紀錄](/zh-tw/blog/cloud-bill-forensics/) · 下一篇：[媒體檔案與 Secrets 的最後一哩](/zh-tw/blog/media-secrets-cloud-exit/)
 
 ## 前言 (Introduction)
 

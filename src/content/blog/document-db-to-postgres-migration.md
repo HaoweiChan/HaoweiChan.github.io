@@ -4,11 +4,9 @@ description: 'How to cut a migration that touches every read and write path into
 lang: 'en'
 pubDate: 'Aug 4 2026'
 tags: ['engineering']
+series: 'cloud-exit'
 heroImage: '../../assets/blog/covers/cloud-exit.png'
 ---
-
-> Series: "A Bill That Triggered a Cloud Exit", part 2 of 3
-> Previous: [When the Cloud Bill Jumps 20x Overnight](/blog/cloud-bill-forensics/) · Next: [The Last Mile: Media Files and Secrets](/blog/media-secrets-cloud-exit/)
 
 ## Introduction
 

@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../../layouts/BlogPost.astro';
+import { seriesNav } from '../../../series';
 
 export async function getStaticPaths() {
 	const posts = (await getCollection('blog')).filter((post) => post.data.lang === 'zh-tw');
@@ -15,11 +16,16 @@ const post = Astro.props;
 const { Content } = await render(post);
 const englishSlug = post.data.translationOf ?? post.id.replace(/^zh-tw\//, '');
 // zh-only posts have no English page — point the switcher at the blog index instead of a 404.
-const hasEnglish = (await getCollection('blog')).some(
-	(entry) => entry.data.lang === 'en' && entry.id === englishSlug,
-);
+const all = await getCollection('blog');
+const hasEnglish = all.some((entry) => entry.data.lang === 'en' && entry.id === englishSlug);
+const series = seriesNav(post, all);
 ---
 
-<BlogPost {...post.data} locale="zh-tw" switchHref={hasEnglish ? `/blog/${englishSlug}/` : '/blog/'}>
+<BlogPost
+	{...post.data}
+	series={series}
+	locale="zh-tw"
+	switchHref={hasEnglish ? `/blog/${englishSlug}/` : '/blog/'}
+>
 	<Content />
 </BlogPost>
