@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { TAG_LABELS } from '../tags';
 
 const posts = (await getCollection('blog'))
 	.filter((post) => post.data.lang === 'en')
@@ -163,8 +164,11 @@ const featuredProjects = [
 									<h3 class="post-title">{post.data.title}</h3>
 									<p class="post-desc">{post.data.description}</p>
 								</div>
-								<span class="post-date">
+								<span class="post-meta">
 									<FormattedDate date={post.data.pubDate} />
+									{post.data.tags.map((tag) => (
+										<span class="post-tag">{TAG_LABELS.en[tag]}</span>
+									))}
 								</span>
 							</a>
 						))
@@ -445,11 +449,24 @@ const featuredProjects = [
 		line-height: 1.55;
 	}
 
-	.post-date {
+	.post-meta {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.3rem;
 		flex-shrink: 0;
 		color: rgb(var(--gray));
 		font-size: 0.82rem;
 		font-variant-numeric: tabular-nums;
+	}
+
+	.post-tag {
+		padding: 0.05rem 0.5rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 999px;
+		font-size: 0.72rem;
+		font-weight: 600;
+		white-space: nowrap;
 	}
 
 	@media (max-width: 720px) {
@@ -464,6 +481,12 @@ const featuredProjects = [
 		.post-row {
 			flex-direction: column;
 			gap: 0.4rem;
+		}
+
+		.post-meta {
+			flex-direction: row;
+			align-items: center;
+			gap: 0.6rem;
 		}
 	}
 </style>
