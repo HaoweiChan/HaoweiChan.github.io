@@ -3,6 +3,7 @@ title: 'The Last Mile of a Cloud Exit: Moving 140GB of Media and Every Secret On
 description: 'Large immutable files and small highly sensitive config are the two poles a database migration never covers: an in-place storage-layer swap, a three-tier secret resolution order, half-finished-work archaeology, and the discipline of export, off-site backup, reconcile, only then delete.'
 lang: 'en'
 pubDate: 'Aug 5 2026'
+tags: ['engineering']
 heroImage: '../../assets/blog/covers/cloud-exit.png'
 ---
 

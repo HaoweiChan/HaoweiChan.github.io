@@ -2,6 +2,7 @@
 title: 'Dev / Staging / Production: Environment Layering Strategies for Small Teams'
 description: 'Environment layering is not enterprise ceremony, but a risk-reduction pattern: how to boost release reliability using branch-to-environment mapping, preview deploys, secrets isolation, and production guardrails.'
 pubDate: 'Feb 10 2026'
+tags: ['engineering']
 heroImage: '../../assets/blog/covers/agentic-ingestion-pipeline.png'
 ---
 

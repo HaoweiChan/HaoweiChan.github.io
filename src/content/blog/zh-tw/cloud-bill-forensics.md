@@ -4,6 +4,7 @@ description: '帳單從幾百元變成四萬多，沒有人入侵——每一分
 lang: 'zh-tw'
 translationOf: 'cloud-bill-forensics'
 pubDate: 'Aug 3 2026'
+tags: ['engineering']
 heroImage: '../../../assets/blog/covers/cloud-exit.zh.png'
 ---
 

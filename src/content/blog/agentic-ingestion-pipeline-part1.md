@@ -2,6 +2,7 @@
 title: 'Designing a Reliable Agentic Ingestion Pipeline (Part 1): From Single-Prompt Bottlenecks to LangGraph Multi-Agent Workflows'
 description: 'How an unstructured financial podcast data pipeline evolved from a single prompt into a decoupled multi-agent topology using LangGraph.'
 pubDate: 'Jan 15 2026'
+tags: ['agents']
 heroImage: '../../assets/blog/covers/agentic-ingestion-pipeline.png'
 ---
 

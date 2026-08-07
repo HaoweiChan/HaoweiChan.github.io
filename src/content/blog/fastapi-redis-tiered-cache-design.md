@@ -2,6 +2,7 @@
 title: 'FastAPI + Redis: Tiered Cache Design for Read-Heavy APIs'
 description: 'Full-Stack Architecture Series: Not all APIs deserve the same TTL. How to combine Edge CDNs, Redis in-memory caching, and Cache-Aside patterns to prevent Cache Stampedes.'
 pubDate: 'Feb 20 2026'
+tags: ['engineering']
 heroImage: '../../assets/blog/covers/agentic-ingestion-pipeline.png'
 ---
 

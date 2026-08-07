@@ -4,11 +4,18 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import TagFilter from '../../components/TagFilter.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { TAG_LABELS } from '../../tags';
 
 const posts = (await getCollection('blog'))
 	.filter((post) => post.data.lang === 'en')
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const counts = posts.reduce((acc, post) => {
+	for (const tag of post.data.tags) acc[tag] = (acc[tag] ?? 0) + 1;
+	return acc;
+}, {});
 ---
 
 <!doctype html>
@@ -20,20 +27,25 @@ const posts = (await getCollection('blog'))
 		<Header switchHref="/zh-tw/blog/" />
 		<main class="blog-main">
 			<div class="blog-heading">
-				<h1>Writing</h1>
+				<h1>Blog</h1>
 				<p>Notes on engineering decisions, AI systems, web tooling, and project details.</p>
 			</div>
+
+			<TagFilter counts={counts} total={posts.length} />
 
 			<div class="post-list">
 				{
 					posts.map((post) => (
-						<a class="post-row" href={`/blog/${post.id}/`}>
+						<a class="post-row" data-tags={post.data.tags.join(' ')} href={`/blog/${post.id}/`}>
 							<div class="post-text">
 								<h2 class="post-title">{post.data.title}</h2>
 								<p class="post-desc">{post.data.description}</p>
 							</div>
-							<span class="post-date">
+							<span class="post-meta">
 								<FormattedDate date={post.data.pubDate} />
+								{post.data.tags.map((tag) => (
+									<span class="post-tag">{TAG_LABELS.en[tag]}</span>
+								))}
 							</span>
 						</a>
 					))
@@ -97,11 +109,26 @@ const posts = (await getCollection('blog'))
 		font-size: 0.88rem;
 		line-height: 1.55;
 	}
-	.post-date {
+	.post-meta {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.3rem;
 		flex-shrink: 0;
 		color: rgb(var(--gray));
 		font-size: 0.82rem;
 		font-variant-numeric: tabular-nums;
+	}
+	.post-tag {
+		padding: 0.05rem 0.5rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 999px;
+		font-size: 0.72rem;
+		font-weight: 600;
+		white-space: nowrap;
+	}
+	.post-row[hidden] {
+		display: none;
 	}
 	@media (max-width: 720px) {
 		.blog-heading h1 {
@@ -110,6 +137,11 @@ const posts = (await getCollection('blog'))
 		.post-row {
 			flex-direction: column;
 			gap: 0.4rem;
+		}
+		.post-meta {
+			flex-direction: row;
+			align-items: center;
+			gap: 0.6rem;
 		}
 	}
 </style>

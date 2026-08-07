@@ -3,6 +3,7 @@ title: 'Predeclare and Three Gates: Building Internal Controls for Factor Resear
 description: 'Researcher degrees of freedom are the real adversary in quantitative research. From predeclaration, orthogonality prescreens, and Gate A to the neutralization ladder and a forward shadow book: a control process I have run for over a year and violated a few times myself. It does not guarantee profit; it guarantees I can tell when a result is fake.'
 lang: 'en'
 pubDate: 'Aug 6 2026'
+tags: ['quant']
 heroImage: '../../assets/blog/covers/factor-research-controls.png'
 ---
 

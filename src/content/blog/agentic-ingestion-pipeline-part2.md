@@ -2,6 +2,7 @@
 title: 'Designing a Reliable Agentic Ingestion Pipeline (Part 2): Step-by-Step Checkpoints, Reasoning Token Budgets, and Pre-Persistence Gates'
 description: 'Production lessons: Step-by-step checkpoints and rerun_from recovery, preventing reasoning model token truncation, pre-persistence gates, and concurrency budgets.'
 pubDate: 'Jan 22 2026'
+tags: ['agents']
 heroImage: '../../assets/blog/covers/agentic-ingestion-pipeline.png'
 ---
 

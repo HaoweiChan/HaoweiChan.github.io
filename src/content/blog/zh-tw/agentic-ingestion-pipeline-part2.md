@@ -4,6 +4,7 @@ description: '生產環境實戰：Step-by-step Checkpoints 重播機制、推�
 lang: 'zh-tw'
 translationOf: 'agentic-ingestion-pipeline-part2'
 pubDate: 'Jan 22 2026'
+tags: ['agents']
 heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.zh.png'
 ---
 

@@ -4,6 +4,7 @@ description: '從單一 Prompt 瓶頸到 LangGraph 多 Agent 協作：非結構�
 lang: 'zh-tw'
 translationOf: 'agentic-ingestion-pipeline-part1'
 pubDate: 'Jan 15 2026'
+tags: ['agents']
 heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.zh.png'
 ---
 

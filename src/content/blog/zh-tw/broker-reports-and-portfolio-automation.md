@@ -4,6 +4,7 @@ description: '個人常駐助理系列：解密加密 PDF 對帳單解析、多�
 lang: 'zh-tw'
 translationOf: 'broker-reports-and-portfolio-automation'
 pubDate: 'Mar 15 2026'
+tags: ['agents', 'quant']
 heroImage: '../../../assets/blog/covers/resident-personal-assistant.zh.png'
 ---
 

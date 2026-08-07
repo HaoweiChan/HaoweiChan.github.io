@@ -4,6 +4,7 @@ description: '大體積不可變檔案與高敏感小體積設定，是資料庫
 lang: 'zh-tw'
 translationOf: 'media-secrets-cloud-exit'
 pubDate: 'Aug 5 2026'
+tags: ['engineering']
 heroImage: '../../../assets/blog/covers/cloud-exit.zh.png'
 ---
 

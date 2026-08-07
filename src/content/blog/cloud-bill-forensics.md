@@ -3,6 +3,7 @@ title: 'When the Cloud Bill Jumps 20x Overnight: A Full Forensic Trail of a Data
 description: 'The bill went from a few hundred NTD to over forty thousand, and nobody broke in — every cent was spent by my own code. A five-layer drill-down from invoice total to function name, and why payload x distance costs more than read count.'
 lang: 'en'
 pubDate: 'Aug 3 2026'
+tags: ['engineering']
 heroImage: '../../assets/blog/covers/cloud-exit.png'
 ---
 

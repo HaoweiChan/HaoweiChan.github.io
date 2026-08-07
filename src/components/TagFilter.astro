@@ -1,0 +1,83 @@
+---
+import { ALL_LABEL, TAG_LABELS, TAGS } from '../tags';
+
+interface Props {
+	locale?: 'en' | 'zh-tw';
+	/** How many posts carry each tag, in this locale. */
+	counts: Record<string, number>;
+	total: number;
+}
+
+const { locale = 'en', counts, total } = Astro.props;
+// Hide a tag that nothing uses yet rather than render a chip that filters to nothing.
+const shown = TAGS.filter((tag) => counts[tag] > 0);
+---
+
+<div class="tag-filter" role="group" aria-label={locale === 'zh-tw' ? '依標籤篩選' : 'Filter by tag'}>
+	<button type="button" class="chip" data-tag="all" aria-pressed="true">
+		{ALL_LABEL[locale]} <span class="count">{total}</span>
+	</button>
+	{
+		shown.map((tag) => (
+			<button type="button" class="chip" data-tag={tag} aria-pressed="false">
+				{TAG_LABELS[locale][tag]} <span class="count">{counts[tag]}</span>
+			</button>
+		))
+	}
+</div>
+
+<script is:inline>
+	// ponytail: single-select. Multi-select would need an AND/OR rule and the
+	// counts would stop matching what is on screen.
+	(() => {
+		const chips = document.querySelectorAll('.tag-filter .chip');
+		chips.forEach((chip) => {
+			chip.addEventListener('click', () => {
+				const tag = chip.dataset.tag;
+				chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+				// Queried per click: this script sits above .post-list in the DOM,
+				// so the rows do not exist yet when it first runs.
+				document.querySelectorAll('.post-list .post-row').forEach((row) => {
+					row.hidden = tag !== 'all' && !row.dataset.tags.split(' ').includes(tag);
+				});
+			});
+		});
+	})();
+</script>
+
+<style>
+	.tag-filter {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.chip {
+		cursor: pointer;
+		padding: 0.35rem 0.85rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 999px;
+		background: transparent;
+		color: rgb(var(--gray-dark));
+		font: inherit;
+		font-size: 0.85rem;
+		font-weight: 600;
+		transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+	}
+
+	.chip:hover {
+		border-color: rgb(var(--gray));
+	}
+
+	.chip[aria-pressed='true'] {
+		border-color: rgb(var(--black));
+		background: rgb(var(--black));
+		color: #fff;
+	}
+
+	.count {
+		opacity: 0.55;
+		font-variant-numeric: tabular-nums;
+	}
+</style>

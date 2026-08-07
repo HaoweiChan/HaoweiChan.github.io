@@ -4,6 +4,7 @@ description: '全端產品架構系列：並非所有 API 都適用相同的 TTL
 lang: 'zh-tw'
 translationOf: 'fastapi-redis-tiered-cache-design'
 pubDate: 'Feb 20 2026'
+tags: ['engineering']
 heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.zh.png'
 ---
 

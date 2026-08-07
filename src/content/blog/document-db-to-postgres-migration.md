@@ -3,6 +3,7 @@ title: 'From a Document Database Back to PostgreSQL: A Six-Phase Data Layer Exit
 description: 'How to cut a migration that touches every read and write path into six independently shippable, independently reversible phases: same-interface swaps, the dual-write safety net, write-stop as the only irreversible point, and the fourteen production bombs adversarial review caught.'
 lang: 'en'
 pubDate: 'Aug 4 2026'
+tags: ['engineering']
 heroImage: '../../assets/blog/covers/cloud-exit.png'
 ---
 

@@ -2,6 +2,7 @@
 title: 'Automating Portfolio Tracking and Broker Report Ingestion: From Encrypted PDFs to Daily Account Equity Pipelines'
 description: 'Resident Personal Assistant Series: Parsing encrypted PDF statements, integrating multi-broker APIs, handling T+2 settlement lags, and building automated research report crawlers.'
 pubDate: 'Mar 15 2026'
+tags: ['agents', 'quant']
 heroImage: '../../assets/blog/covers/resident-personal-assistant.png'
 ---
 

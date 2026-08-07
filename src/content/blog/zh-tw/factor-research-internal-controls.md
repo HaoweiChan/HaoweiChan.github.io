@@ -4,6 +4,7 @@ description: '研究者自由度是量化研究最大的敵人。從預先聲明
 lang: 'zh-tw'
 translationOf: 'factor-research-internal-controls'
 pubDate: 'Aug 6 2026'
+tags: ['quant']
 heroImage: '../../../assets/blog/covers/factor-research-controls.zh.png'
 ---
 

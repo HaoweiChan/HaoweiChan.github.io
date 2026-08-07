@@ -4,6 +4,7 @@ description: '環境分層不是大型公司的儀式，而是一個降低發布
 lang: 'zh-tw'
 translationOf: 'dev-staging-prod-environments'
 pubDate: 'Feb 10 2026'
+tags: ['engineering']
 heroImage: '../../../assets/blog/covers/agentic-ingestion-pipeline.zh.png'
 ---
 

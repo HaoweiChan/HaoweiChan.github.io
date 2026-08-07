@@ -4,6 +4,7 @@ description: '把一場「動所有讀寫路徑」的遷移，切成六個可以
 lang: 'zh-tw'
 translationOf: 'document-db-to-postgres-migration'
 pubDate: 'Aug 4 2026'
+tags: ['engineering']
 heroImage: '../../../assets/blog/covers/cloud-exit.zh.png'
 ---
 

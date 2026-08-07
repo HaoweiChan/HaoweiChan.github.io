@@ -4,6 +4,7 @@ description: '用 Hermes Agent 蓋一個常駐、會自己開口的個人助理�
 lang: 'zh-tw'
 translationOf: 'resident-personal-assistant'
 pubDate: 'Mar 3 2026'
+tags: ['agents']
 heroImage: '../../../assets/blog/covers/resident-personal-assistant.zh.png'
 ---
 
