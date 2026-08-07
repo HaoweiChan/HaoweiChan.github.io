@@ -184,3 +184,37 @@ hr {
 	line-height: 1.5;
 	color: rgb(var(--gray));
 }
+
+/* Wide blocks (diagrams, tables, code) break out of the text column on desktop.
+   The text measure stays readable while a 1128px-wide flowchart stops being
+   squeezed to 61% and going illegible. */
+.prose > .mermaid,
+.prose > pre {
+	overflow-x: auto;
+}
+
+/* Centred while it fits; scrolls once it does not (auto margins collapse). */
+.prose > .mermaid svg {
+	display: block;
+	margin: 0 auto;
+}
+
+@media (min-width: 1100px) {
+	.prose > .mermaid,
+	.prose > pre,
+	.prose > table {
+		width: min(1150px, calc(100vw - 6em));
+		max-width: none;
+		margin-left: 50%;
+		transform: translateX(-50%);
+	}
+
+	/* Desktop has room, so render diagrams at their natural size and let the
+	   block scroll rather than shrinking a 2500px flowchart to 6px type.
+	   Narrow screens keep mermaid's fit-to-width default, which reads better
+	   on a phone than a horizontal scrollbar on every diagram. */
+	.prose > .mermaid svg {
+		width: auto;
+		max-width: none;
+	}
+}
