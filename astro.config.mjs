@@ -27,8 +27,8 @@ export default defineConfig({
 					nodeBorder: '#246b5a',
 					mainBkg: '#ffffff',
 					// subgraph containers — quiet, so the nodes carry the colour
-					clusterBkg: '#f7f9fb',
-					clusterBorder: '#e5e9f0',
+					clusterBkg: '#f5f8fa',
+					clusterBorder: '#d9e0ea',
 					// edges and labels
 					lineColor: '#60739f',
 					edgeLabelBackground: '#ffffff',
