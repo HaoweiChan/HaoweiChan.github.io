@@ -32,6 +32,21 @@ const featuredProjects = [
 		]
 	},
 	{
+		id: 'kuroshio',
+		title: 'Kuroshio — 開源 Quantamental 投資組合引擎',
+		tagline: '多因子選股、LLM Agent 個股研究與 IPS 驅動的再平衡提案：它只排序、辯論與提案，永遠不下單。',
+		tags: ['Python 3.11+', 'Multi-Agent Research', 'IPS Policy Engine', 'Backtest', 'Apache-2.0'],
+		highlights: [
+			'Screen：美股與台股多因子動能篩選，以橫斷面百分位給分，把不同市場放在同一把尺上比較。',
+			'Research：每檔持股跑一次 LLM Agent 研究，facet 級快取讓每日執行的成本以美分計而非美元。',
+			'Propose：挑戰者對決最弱持股的換股提案，每張卡片都引用觸發它的 IPS 條款——用資源競爭取代二元否決。'
+		],
+		links: [
+			{ label: 'GitHub 專案', href: 'https://github.com/HaoweiChan/kuroshio', external: true },
+			{ label: '線上 Demo', href: 'https://haoweichan.github.io/kuroshio/', external: true }
+		]
+	},
+	{
 		id: 'hermes',
 		title: 'Hermes Agent — 常駐型個人 AI 助理系統',
 		tagline: '雙入口（Discord 聊天視窗 + 排程器）、純文字 Vault 記憶與自動化資產追蹤的個人駐守助理。',
@@ -43,7 +58,8 @@ const featuredProjects = [
 		],
 		links: [
 			{ label: '助理架構文章', href: '/zh-tw/blog/resident-personal-assistant/' },
-			{ label: '資產追蹤文章', href: '/zh-tw/blog/broker-reports-and-portfolio-automation/' }
+			{ label: '資產追蹤文章', href: '/zh-tw/blog/broker-reports-and-portfolio-automation/' },
+			{ label: 'Hermes Agent (上游)', href: 'https://github.com/NousResearch/hermes-agent', external: true }
 		]
 	},
 	{
@@ -51,29 +67,13 @@ const featuredProjects = [
 		title: 'Quant Engine & AlphaTrader — 跨市場量化交易引擎',
 		tagline: '支援台股期貨 (TXF) 與加密貨幣的回測、最佳化與 Dash 視覺化儀表板系統。',
 		tags: ['Python', 'Dash', 'vn.py', 'Shioaji API', 'Binance API', 'PostgreSQL', 'Collar Strategy'],
+		private: '私有 repo',
 		highlights: [
 			'多市場模組化：統一介面抽象化台股 Shioaji 與幣安 Binance API 歷史資料與實時行情。',
 			'策略包含 TXF 週選擇權掩護性買權 (Covered Call) 與下檔保護 (Protective Put) 的 Collar 輪動機制。',
 			'Dash 互動式儀表板：即時繪製 MTM 損益、隱含波動率 (IV) 帶狀圖與現金殖利率。'
 		],
-		links: [
-			{ label: 'GitHub 專案', href: 'https://github.com/HaoweiChan/quant-engine', external: true },
-			{ label: 'TX-Collar-Trader', href: 'https://github.com/HaoweiChan/TX-Collar-Trader', external: true }
-		]
-	},
-	{
-		id: 'trading-agents',
-		title: 'TradingAgents — 多 Agent 股票研究與共識辯論',
-		tagline: '整合技術面、籌碼面、基本面與情緒面多 Agent 評價，進行多空辯論並產出投組建議。',
-		tags: ['Python', 'Multi-Agent Debate', 'LangChain', 'JSON State Engine', 'Discord Integration'],
-		highlights: [
-			'四大分析師節點：分別進行技術線型、三大法人籌碼、財報獲利與社群情緒獨立評估。',
-			'多空共識辯論：發起 Bull/Bear 辯論並經由 Judge 裁判節點輸出最終加減碼決策。',
-			'Discord 整合：提供單一指令快速查詢結構化 JSON 歷史日誌並自動補算報告。'
-		],
-		links: [
-			{ label: 'GitHub 專案', href: 'https://github.com/HaoweiChan/TradingAgents', external: true }
-		]
+		links: []
 	}
 ];
 ---
@@ -120,6 +120,7 @@ const featuredProjects = [
 										{project.tags.map((tag) => (
 											<span class="tech-tag">{tag}</span>
 										))}
+										{project.private && <span class="tech-tag private-tag">{project.private}</span>}
 									</div>
 								</summary>
 								<div class="expand-content">
@@ -131,7 +132,7 @@ const featuredProjects = [
 											))}
 										</ul>
 									</div>
-									<div class="card-actions">
+									<div class="card-actions" hidden={project.links.length === 0}>
 										{project.links.map((link) => (
 											<a
 												class="action-btn"
@@ -347,6 +348,14 @@ const featuredProjects = [
 		font-size: 0.72rem;
 		font-weight: 600;
 		letter-spacing: 0.01em;
+	}
+
+	.private-tag {
+		border-style: dashed;
+	}
+
+	.card-actions[hidden] {
+		display: none;
 	}
 
 	.expand-content {

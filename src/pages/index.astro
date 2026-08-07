@@ -29,6 +29,21 @@ const featuredProjects = [
 		]
 	},
 	{
+		id: 'kuroshio',
+		title: 'Kuroshio — Open-Source Quantamental Portfolio Engine',
+		tagline: 'Multi-factor screening, LLM agent research, and IPS-driven rebalancing proposals. It ranks, argues, and proposes — it never places an order.',
+		tags: ['Python 3.11+', 'Multi-Agent Research', 'IPS Policy Engine', 'Backtest', 'Apache-2.0'],
+		highlights: [
+			'Screen: multi-factor momentum screeners for US and TW equities, scored by cross-sectional percentile so both markets sit on one scale.',
+			'Research: one LLM agent pass per holding, facet-cached so a daily run costs cents rather than dollars.',
+			'Propose: challenger-vs-weakest-incumbent swap cards, each citing the IPS clause that triggered it — resource competition instead of a binary veto.'
+		],
+		links: [
+			{ label: 'GitHub Repo', href: 'https://github.com/HaoweiChan/kuroshio', external: true },
+			{ label: 'Live Demo', href: 'https://haoweichan.github.io/kuroshio/', external: true }
+		]
+	},
+	{
 		id: 'hermes',
 		title: 'Hermes Agent — Resident Personal AI Assistant System',
 		tagline: 'Dual-entry resident assistant with Discord gateway, cron scheduler, plain-text vault memory, and automated portfolio tracking.',
@@ -40,7 +55,8 @@ const featuredProjects = [
 		],
 		links: [
 			{ label: 'Assistant Architecture Post', href: '/blog/resident-personal-assistant/' },
-			{ label: 'Portfolio Automation Post', href: '/blog/broker-reports-and-portfolio-automation/' }
+			{ label: 'Portfolio Automation Post', href: '/blog/broker-reports-and-portfolio-automation/' },
+			{ label: 'Hermes Agent (upstream)', href: 'https://github.com/NousResearch/hermes-agent', external: true }
 		]
 	},
 	{
@@ -48,29 +64,13 @@ const featuredProjects = [
 		title: 'Quant Engine & AlphaTrader — Cross-Market Quantitative Trading',
 		tagline: 'Modular quantitative trading engine and backtesting system supporting Taiwan futures (TXF) and Binance Crypto.',
 		tags: ['Python', 'Dash', 'vn.py', 'Shioaji API', 'Binance API', 'PostgreSQL', 'Collar Strategy'],
+		private: 'Private repo',
 		highlights: [
 			'Cross-Market Abstraction: Unified interface for Shioaji and Binance historical data & real-time streaming.',
 			'Collar Option Rotation: Options strategy engine for weekly covered calls and protective puts on TXF.',
 			'Dash Interactive Dashboard: Real-time MTM PnL charts, implied volatility (IV) bands, and cash yield indicators.'
 		],
-		links: [
-			{ label: 'GitHub Repo', href: 'https://github.com/HaoweiChan/quant-engine', external: true },
-			{ label: 'TX-Collar-Trader', href: 'https://github.com/HaoweiChan/TX-Collar-Trader', external: true }
-		]
-	},
-	{
-		id: 'trading-agents',
-		title: 'TradingAgents — Multi-Agent Equity Research & Consensus Debate',
-		tagline: 'Multi-agent consensus pipeline evaluating Technicals, Chips, Fundamentals, and Sentiment with bull/bear debates.',
-		tags: ['Python', 'Multi-Agent Debate', 'LangChain', 'JSON State Engine', 'Discord Integration'],
-		highlights: [
-			'Four Analyst Nodes: Independent evaluation of technical patterns, institutional share flows, financial metrics, and sentiment.',
-			'Bull/Bear Consensus Debate: Fires structured debates judged by a dedicated node for final allocation calls.',
-			'Discord Integration: Quick command lookup against local JSON logs with auto-pipeline triggers.'
-		],
-		links: [
-			{ label: 'GitHub Repo', href: 'https://github.com/HaoweiChan/TradingAgents', external: true }
-		]
+		links: []
 	}
 ];
 ---
@@ -118,6 +118,7 @@ const featuredProjects = [
 										{project.tags.map((tag) => (
 											<span class="tech-tag">{tag}</span>
 										))}
+										{project.private && <span class="tech-tag private-tag">{project.private}</span>}
 									</div>
 								</summary>
 								<div class="expand-content">
@@ -129,7 +130,7 @@ const featuredProjects = [
 											))}
 										</ul>
 									</div>
-									<div class="card-actions">
+									<div class="card-actions" hidden={project.links.length === 0}>
 										{project.links.map((link) => (
 											<a
 												class="action-btn"
@@ -342,6 +343,14 @@ const featuredProjects = [
 		font-size: 0.72rem;
 		font-weight: 600;
 		letter-spacing: 0.01em;
+	}
+
+	.private-tag {
+		border-style: dashed;
+	}
+
+	.card-actions[hidden] {
+		display: none;
 	}
 
 	.expand-content {
