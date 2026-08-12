@@ -32,9 +32,47 @@ const zhTwHref = isZhTw ? currentHref : switchHref;
 				<a class:list={{ active: !isZhTw }} href={englishHref}>EN</a>
 				<a class:list={{ active: isZhTw }} href={zhTwHref}>繁中</a>
 			</div>
+			<button
+				type="button"
+				class="theme-toggle"
+				id="theme-toggle"
+				aria-label={isZhTw ? '切換亮色／暗色主題' : 'Toggle light and dark theme'}
+				aria-pressed="false"
+			>
+				<svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true">
+					<circle cx="12" cy="12" r="4.2"></circle>
+					<g stroke-linecap="round">
+						<path d="M12 2.2v2.4M12 19.4v2.4M4.4 12H2M22 12h-2.4M6.05 6.05 4.35 4.35M19.65 19.65l-1.7-1.7M17.95 6.05l1.7-1.7M4.35 19.65l1.7-1.7"
+						></path>
+					</g>
+				</svg>
+				<svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2Z"></path>
+				</svg>
+			</button>
 		</div>
 	</nav>
 </header>
+
+<script is:inline>
+	// The head script already stamped data-theme; this only handles the click.
+	(() => {
+		const btn = document.getElementById('theme-toggle');
+		if (!btn) return;
+		const sync = () => btn.setAttribute('aria-pressed', String(document.documentElement.dataset.theme === 'dark'));
+		sync();
+		btn.addEventListener('click', () => {
+			const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+			document.documentElement.dataset.theme = next;
+			try {
+				localStorage.setItem('theme', next);
+			} catch {
+				// Choice just will not persist; the toggle still works for this page.
+			}
+			sync();
+		});
+	})();
+</script>
 <style>
 	header {
 		position: sticky;
@@ -42,7 +80,7 @@ const zhTwHref = isZhTw ? currentHref : switchHref;
 		z-index: 10;
 		margin: 0;
 		padding: 0 1em;
-		background: rgba(255, 255, 255, 0.86);
+		background: rgba(var(--bg), 0.86);
 		border-bottom: 1px solid rgba(var(--gray-light), 80%);
 		backdrop-filter: blur(18px);
 	}
@@ -87,7 +125,7 @@ const zhTwHref = isZhTw ? currentHref : switchHref;
 		padding: 0.15rem;
 		border: 1px solid rgb(var(--gray-light));
 		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.72);
+		background: rgba(var(--surface), 0.72);
 		font-size: 0.88rem;
 	}
 	.language-switch a {
@@ -99,7 +137,46 @@ const zhTwHref = isZhTw ? currentHref : switchHref;
 	}
 	.language-switch a.active {
 		background: rgb(var(--black));
-		color: #fff;
+		color: rgb(var(--bg));
+	}
+	.theme-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		padding: 0;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 999px;
+		background: rgba(var(--surface), 0.72);
+		color: rgb(var(--gray-dark));
+		cursor: pointer;
+		transition: border-color 160ms ease, color 160ms ease;
+	}
+	.theme-toggle:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+	.icon {
+		width: 16px;
+		height: 16px;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.8;
+	}
+	.moon {
+		fill: currentColor;
+		stroke: none;
+	}
+	/* Show the icon for the theme the click switches TO. */
+	.sun {
+		display: none;
+	}
+	:global(:root[data-theme='dark']) .sun {
+		display: block;
+	}
+	:global(:root[data-theme='dark']) .moon {
+		display: none;
 	}
 	@media (max-width: 720px) {
 		header {

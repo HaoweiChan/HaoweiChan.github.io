@@ -21,6 +21,28 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+
+<!-- Runs before first paint, so the page never flashes the wrong theme.
+     An explicit value is always stamped, which is also what astro-mermaid
+     reads to pick its diagram palette. -->
+<script is:inline>
+	(() => {
+		let stored = null;
+		try {
+			stored = localStorage.getItem('theme');
+		} catch {
+			// Safari private mode throws on localStorage; fall back to the OS setting.
+		}
+		const theme =
+			stored === 'light' || stored === 'dark'
+				? stored
+				: window.matchMedia('(prefers-color-scheme: dark)').matches
+					? 'dark'
+					: 'light';
+		document.documentElement.dataset.theme = theme;
+	})();
+</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" href="/favicon.ico" />
 <link rel="sitemap" href="/sitemap-index.xml" />

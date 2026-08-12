@@ -4,6 +4,9 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
+/* Light is the default. The head script in BaseHead.astro stamps
+   data-theme on <html> before first paint, so there is no flash; the
+   prefers-color-scheme block below is the no-JS fallback. */
 :root {
 	--accent: #246b5a;
 	--accent-dark: #17453a;
@@ -11,17 +14,55 @@
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
 	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 45%), #fff;
+	--bg: 255, 255, 255;
+	--surface: 255, 255, 255;
+	--gray-gradient: rgba(var(--gray-light), 45%), rgb(var(--bg));
 	--box-shadow:
 		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 		0 16px 32px rgba(var(--gray), 33%);
+	color-scheme: light;
+}
+
+/* --black/--gray-dark stay the "strongest/body text" roles and simply
+   invert; every component keeps using the same token names. */
+:root[data-theme='dark'] {
+	--accent: #4fb99f;
+	--accent-dark: #7fd4bd;
+	--black: 236, 240, 247;
+	--gray: 141, 155, 181;
+	--gray-light: 46, 54, 70;
+	--gray-dark: 205, 212, 224;
+	--bg: 16, 19, 26;
+	--surface: 24, 28, 37;
+	--box-shadow:
+		0 2px 6px rgba(0, 0, 0, 45%), 0 8px 24px rgba(0, 0, 0, 40%),
+		0 16px 32px rgba(0, 0, 0, 35%);
+	color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		--accent: #4fb99f;
+		--accent-dark: #7fd4bd;
+		--black: 236, 240, 247;
+		--gray: 141, 155, 181;
+		--gray-light: 46, 54, 70;
+		--gray-dark: 205, 212, 224;
+		--bg: 16, 19, 26;
+		--surface: 24, 28, 37;
+		--box-shadow:
+			0 2px 6px rgba(0, 0, 0, 45%), 0 8px 24px rgba(0, 0, 0, 40%),
+			0 16px 32px rgba(0, 0, 0, 35%);
+		color-scheme: dark;
+	}
 }
 body {
 	font-family: var(--font-atkinson);
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(180deg, rgba(var(--gray-light), 45%) 0, #fff 420px) no-repeat;
+	background: linear-gradient(180deg, rgba(var(--gray-light), 45%) 0, rgb(var(--bg)) 420px) no-repeat;
+	background-color: rgb(var(--bg));
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
@@ -187,7 +228,7 @@ hr {
 	border: 1px solid rgb(var(--gray-light));
 	border-radius: 12px;
 	overflow: hidden;
-	background: #fff;
+	background: rgb(var(--surface));
 	text-decoration: none;
 	transition: box-shadow 0.2s ease;
 }
@@ -200,7 +241,7 @@ hr {
 	aspect-ratio: 2 / 1;
 	object-fit: cover;
 	border-radius: 0;
-	background: #fff;
+	background: rgb(var(--surface));
 }
 .ref-card .ref-body {
 	display: block;
