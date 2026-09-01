@@ -4,6 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 import mermaid from 'astro-mermaid';
+import remarkCjkFriendly from 'remark-cjk-friendly';
 
 // https://astro.build/config
 export default defineConfig({
@@ -25,6 +26,15 @@ export default defineConfig({
 		mdx(),
 		sitemap(),
 	],
+	markdown: {
+		// CommonMark's flanking rules were written for scripts with spaces: a closing
+		// `**` preceded by punctuation must be followed by whitespace or punctuation.
+		// CJK full-width 。」， are punctuation and the next CJK character is a letter,
+		// so `**粗體。**接著` never closes and both asterisks render literally. This
+		// plugin implements the CJK emphasis extension, which fixes it for every post
+		// rather than asking each one to move its punctuation outside the markers.
+		remarkPlugins: [remarkCjkFriendly],
+	},
 	fonts: [
 		{
 			provider: fontProviders.local(),
