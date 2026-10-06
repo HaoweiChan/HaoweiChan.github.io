@@ -43,15 +43,24 @@ async function main() {
     while (true) {
       try {
         const cookies = await context.cookies();
-        const hasAuthCookie = cookies.some((c) => c.name === 'sid' || c.name === 'uid');
-        if (hasAuthCookie) {
-          // Give it 2 seconds to settle all cookies
-          await new Promise((r) => setTimeout(r, 2000));
+        const hasSid = cookies.some((c) => c.name === 'sid');
+        const hasAuthUid = cookies.some((c) => c.name === 'uid' && !c.value.startsWith('lo_'));
+
+        let isLoggedInStorage = false;
+        try {
+          isLoggedInStorage = await page.evaluate(() => {
+            return localStorage.getItem('viewer-status|is-logged-in') === 'true';
+          });
+        } catch {}
+
+        if (hasSid || hasAuthUid || isLoggedInStorage) {
+          console.log('\n🎉 偵測到 Medium 已成功登入！');
+          // Give it 3 seconds to settle all auth tokens and storage
+          await new Promise((r) => setTimeout(r, 3000));
           return true;
         }
       } catch {
-        // browser might be closed
-        return false;
+        // browser might be closed or navigating
       }
       await new Promise((r) => setTimeout(r, 1500));
     }
