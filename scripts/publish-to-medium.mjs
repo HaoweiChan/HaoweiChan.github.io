@@ -203,19 +203,22 @@ async function main() {
       throw new Error('Medium 登入過期，請重新執行 npm run medium:login 登入。');
     }
 
-    // Wait for the URL input
-    const inputSelector = 'input[type="url"], input[type="text"], input[name="url"], input';
+    // Wait for the URL input box (Medium uses a contenteditable div with class js-importUrl)
+    const inputSelector = 'div.js-importUrl, [role="textbox"].js-importUrl, input';
     await page.waitForSelector(inputSelector, { timeout: 15000 });
     const input = page.locator(inputSelector).first();
-    await input.fill(syndicationUrl);
+    await input.click();
+    await page.keyboard.press('Meta+A');
+    await page.keyboard.press('Backspace');
+    await page.keyboard.type(syndicationUrl);
 
     console.log('📝 已填入鏡像 URL，正在點擊 Import story...');
-    const importButton = page.locator('button:has-text("Import"), button[type="submit"]').first();
+    const importButton = page.locator('button[data-action="import-url"], button:has-text("Import")').first();
     await importButton.click();
 
     // Medium will process the import and navigate to preview or editor
     console.log('⏳ Medium 正在解析文章、下載圖檔並轉換格式...');
-    await page.waitForURL(url => url.pathname.includes('/p/') || url.pathname.includes('/edit') || url.pathname.includes('/preview'), { timeout: 45000 });
+    await page.waitForURL(url => !url.pathname.includes('/p/import') && (url.pathname.includes('/edit') || url.pathname.includes('/p/')), { timeout: 45000 });
 
     const mediumDraftUrl = page.url();
     console.log(`\n✅ 匯入成功！已生成 Medium 草稿:`);
