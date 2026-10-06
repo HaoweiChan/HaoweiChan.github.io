@@ -178,7 +178,19 @@ async function main() {
   console.log(`   目標 Slug: ${targetSlug}`);
   console.log(`   鏡像網址: ${syndicationUrl}`);
 
-  const browser = await chromium.launch({ headless: isHeadless });
+  let browser;
+  try {
+    browser = await chromium.launch({
+      headless: isHeadless,
+      channel: 'chrome',
+      args: ['--disable-blink-features=AutomationControlled'],
+    });
+  } catch {
+    browser = await chromium.launch({
+      headless: isHeadless,
+      args: ['--disable-blink-features=AutomationControlled'],
+    });
+  }
   const context = await browser.newContext({ storageState: SESSION_FILE });
   const page = await context.newPage();
 

@@ -21,9 +21,19 @@ async function main() {
   console.log('🚀 正在啟動瀏覽器進行 Medium 登入認證...');
   console.log('   (若之前有登入過，將讀取現有 Session)');
 
-  const browser = await chromium.launch({
-    headless: false,
-  });
+  let browser;
+  try {
+    browser = await chromium.launch({
+      headless: false,
+      channel: 'chrome',
+      args: ['--disable-blink-features=AutomationControlled'],
+    });
+  } catch {
+    browser = await chromium.launch({
+      headless: false,
+      args: ['--disable-blink-features=AutomationControlled'],
+    });
+  }
 
   const contextOptions = existsSync(SESSION_FILE) ? { storageState: SESSION_FILE } : {};
   const context = await browser.newContext(contextOptions);
@@ -43,17 +53,15 @@ async function main() {
     while (true) {
       try {
         const cookies = await context.cookies();
-        const hasSid = cookies.some((c) => c.name === 'sid');
         const hasAuthUid = cookies.some((c) => c.name === 'uid' && !c.value.startsWith('lo_'));
-
-        let isLoggedInStorage = false;
+        const notOnSignIn = !page.url().includes('/signin') && !page.url().includes('/login');
+        
+        let hasProfileButton = false;
         try {
-          isLoggedInStorage = await page.evaluate(() => {
-            return localStorage.getItem('viewer-status|is-logged-in') === 'true';
-          });
+          hasProfileButton = (await page.locator('button[data-testid="headerProfileButton"], button[aria-label*="profile"], img[alt*="profile"]').count()) > 0;
         } catch {}
 
-        if (hasSid || hasAuthUid || isLoggedInStorage) {
+        if (notOnSignIn && (hasAuthUid || hasProfileButton)) {
           console.log('\n🎉 偵測到 Medium 已成功登入！');
           // Give it 3 seconds to settle all auth tokens and storage
           await new Promise((r) => setTimeout(r, 3000));
