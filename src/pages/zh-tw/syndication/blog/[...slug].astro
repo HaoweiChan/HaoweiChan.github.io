@@ -1,0 +1,22 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import SyndicationPost from '../../../../layouts/SyndicationPost.astro';
+
+export async function getStaticPaths() {
+	const posts = (await getCollection('blog')).filter((post) => post.data.lang === 'zh-tw');
+	return posts.map((post) => ({
+		params: { slug: post.data.translationOf ?? post.id.replace(/^zh-tw\//, '') },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await render(post);
+const slug = post.data.translationOf ?? post.id.replace(/^zh-tw\//, '');
+const canonicalUrl = `https://haoweichan.github.io/zh-tw/blog/${slug}/`;
+---
+
+<SyndicationPost post={post} lang="zh-tw" slug={slug} canonicalUrl={canonicalUrl}>
+	<Content />
+</SyndicationPost>

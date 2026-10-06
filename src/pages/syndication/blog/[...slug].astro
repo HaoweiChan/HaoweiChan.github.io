@@ -1,0 +1,21 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import SyndicationPost from '../../../layouts/SyndicationPost.astro';
+
+export async function getStaticPaths() {
+	const posts = (await getCollection('blog')).filter((post) => post.data.lang === 'en');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await render(post);
+const canonicalUrl = `https://haoweichan.github.io/blog/${post.id}/`;
+---
+
+<SyndicationPost post={post} lang="en" slug={post.id} canonicalUrl={canonicalUrl}>
+	<Content />
+</SyndicationPost>

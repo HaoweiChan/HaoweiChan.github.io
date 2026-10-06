@@ -7,9 +7,15 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/render-diagrams.mjs",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "render:diagrams": "node scripts/render-diagrams.mjs",
+    "medium:login": "node scripts/medium-auth.mjs",
+    "medium:status": "node scripts/publish-to-medium.mjs --status",
+    "medium:next": "node scripts/publish-to-medium.mjs --next",
+    "medium:post": "node scripts/publish-to-medium.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.0",
@@ -20,5 +26,8 @@
     "mermaid": "^11.16.0",
     "remark-cjk-friendly": "^2.3.1",
     "sharp": "^0.34.3"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
   }
 }
